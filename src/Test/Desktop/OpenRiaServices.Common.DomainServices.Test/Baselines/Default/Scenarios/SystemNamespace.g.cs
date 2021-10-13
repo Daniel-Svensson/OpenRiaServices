@@ -108,19 +108,10 @@ namespace System
             /// <summary>
             /// Asynchronously invokes the 'GetSystemEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/SystemDomainService/GetSystemEntities", ReplyAction="http://tempuri.org/SystemDomainService/GetSystemEntitiesResponse")]
-            IAsyncResult BeginGetSystemEntities(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSystemEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSystemEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSystemEntities' operation.</returns>
-            QueryResult<SystemEntity> EndGetSystemEntities(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/SystemDomainService/GetSystemEntities", ReplyAction="http://tempuri.org/SystemDomainService/GetSystemEntitiesResponse")]
+            System.Threading.Tasks.Task<QueryResult<SystemEntity>> GetSystemEntities();
         }
         
         internal sealed class SystemDomainContextEntityContainer : EntityContainer
@@ -397,19 +388,10 @@ namespace System.Subsystem
             /// <summary>
             /// Asynchronously invokes the 'GetSubsystemEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/SubsystemDomainService/GetSubsystemEntities", ReplyAction="http://tempuri.org/SubsystemDomainService/GetSubsystemEntitiesResponse")]
-            IAsyncResult BeginGetSubsystemEntities(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSubsystemEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSubsystemEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSubsystemEntities' operation.</returns>
-            QueryResult<SubsystemEntity> EndGetSubsystemEntities(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/SubsystemDomainService/GetSubsystemEntities", ReplyAction="http://tempuri.org/SubsystemDomainService/GetSubsystemEntitiesResponse")]
+            System.Threading.Tasks.Task<QueryResult<SubsystemEntity>> GetSubsystemEntities();
         }
         
         internal sealed class SubsystemDomainContextEntityContainer : EntityContainer
@@ -685,20 +667,11 @@ namespace SystemExtensions
             /// <summary>
             /// Asynchronously invokes the 'GetSystemExtensionsEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntities", ReplyAction="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntitiesRespo" +
-                "nse")]
-            IAsyncResult BeginGetSystemExtensionsEntities(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSystemExtensionsEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSystemExtensionsEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSystemExtensionsEntities' operation.</returns>
-            QueryResult<SystemExtensionsEntity> EndGetSystemExtensionsEntities(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntities", ReplyAction="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntitiesRespo" +
+                "nse")]
+            System.Threading.Tasks.Task<QueryResult<SystemExtensionsEntity>> GetSystemExtensionsEntities();
         }
         
         internal sealed class SystemExtensionsDomainContextEntityContainer : EntityContainer

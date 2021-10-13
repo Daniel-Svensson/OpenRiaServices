@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.ServiceModel;
+using System.Threading.Tasks;
 using OpenRiaServices.Server;
 using System.ServiceModel.Web;
 using OpenRiaServices.Tools.SharedTypes;
@@ -387,7 +388,7 @@ namespace OpenRiaServices.Tools
 
             // <comments>...</comments>
             // public .ctor() : this(new Uri("Foo-Bar.svc", UriKind.Relative))
-             GenerateConstructor(proxyClass, ctorParams, baseParams, comments, false);
+            GenerateConstructor(proxyClass, ctorParams, baseParams, comments, false);
 
             // ----------------------------------------------------------------
             // DomainContext(System.Uri serviceUri) ctor decl
@@ -407,7 +408,7 @@ namespace OpenRiaServices.Tools
             // ctor base parameters
             baseParams = new List<CodeExpression>(1);
             CodeTypeReference domainContextRef = CodeGenUtilities.GetTypeReference(TypeConstants.DomainContextTypeFullName, proxyClass.UserData["Namespace"] as string, false);
-            baseParams.Add( new CodeMethodInvokeExpression(
+            baseParams.Add(new CodeMethodInvokeExpression(
                                 new CodeMethodReferenceExpression(new CodeTypeReferenceExpression(domainContextRef), "CreateDomainClient"),
                                 new CodeTypeOfExpression(contractTypeParameter),
                                 new CodeArgumentReferenceExpression("serviceUri"),
@@ -476,7 +477,7 @@ namespace OpenRiaServices.Tools
 
             // Generate submit method if we have CUD operations.
             if (this._domainServiceDescription.DomainOperationEntries
-                .Any(op => (op.Operation == DomainOperation.Delete || op.Operation == DomainOperation.Insert 
+                .Any(op => (op.Operation == DomainOperation.Delete || op.Operation == DomainOperation.Insert
                             || op.Operation == DomainOperation.Update || op.Operation == DomainOperation.Custom)))
             {
                 this.GenerateContractSubmitChangesMethod(contractInterface);
@@ -487,7 +488,7 @@ namespace OpenRiaServices.Tools
 
         private void GenerateContractServiceKnownTypes(CodeTypeDeclaration contractInterface, DomainOperationEntry operation, HashSet<Type> registeredTypes)
         {
-            List<Attribute> knownTypeAttributes  = new List<Attribute>();
+            List<Attribute> knownTypeAttributes = new List<Attribute>();
 
             foreach (DomainOperationParameter parameter in operation.Parameters)
             {
@@ -550,51 +551,32 @@ namespace OpenRiaServices.Tools
         {
             string domainServiceName = this._domainServiceDescription.DomainServiceType.Name;
 
-            CodeMemberMethod beginMethod = new CodeMemberMethod();
-            beginMethod.Name = "Begin" + operation.Name;
-            beginMethod.ReturnType = CodeGenUtilities.GetTypeReference(typeof(IAsyncResult), this.ClientProxyGenerator, contractInterface);
-            contractInterface.Members.Add(beginMethod);
+            CodeMemberMethod method = new CodeMemberMethod();
+            method.Name = operation.Name;
+            contractInterface.Members.Add(method);
 
             // Generate <summary> doc comment for the Begin method
             string comment = string.Format(CultureInfo.CurrentCulture, Resource.CodeGen_DomainContext_ServiceContract_Begin_Method_Summary_Comment, operation.Name);
-            beginMethod.Comments.AddRange(CodeGenUtilities.GenerateSummaryCodeComment(comment, this.ClientProxyGenerator.IsCSharp));
+            method.Comments.AddRange(CodeGenUtilities.GenerateSummaryCodeComment(comment, this.ClientProxyGenerator.IsCSharp));
 
             // Generate <param> doc comment for all the parameters
             foreach (DomainOperationParameter parameter in operation.Parameters)
             {
                 comment = string.Format(CultureInfo.CurrentCulture, Resource.CodeGen_DomainContext_ServiceContract_Begin_Method_Parameter_Comment, parameter.Name);
-                beginMethod.Comments.AddRange(CodeGenUtilities.GenerateParamCodeComment(parameter.Name, comment, this.ClientProxyGenerator.IsCSharp));
+                method.Comments.AddRange(CodeGenUtilities.GenerateParamCodeComment(parameter.Name, comment, this.ClientProxyGenerator.IsCSharp));
             }
 
             // <param> for callback and asyncState
-            beginMethod.Comments.AddRange(CodeGenUtilities.GenerateParamCodeComment("callback", Resource.CodeGen_DomainContext_ServiceContract_Begin_Method_Callback_Parameter_Comment, this.ClientProxyGenerator.IsCSharp));
-            beginMethod.Comments.AddRange(CodeGenUtilities.GenerateParamCodeComment("asyncState", Resource.CodeGen_DomainContext_ServiceContract_Begin_Method_AsyncState_Parameter_Comment, this.ClientProxyGenerator.IsCSharp));
 
-            // Generate <returns> doc comment
-            beginMethod.Comments.AddRange(CodeGenUtilities.GenerateReturnsCodeComment(Resource.CodeGen_DomainContext_ServiceContract_Begin_Method_Returns_Comment, this.ClientProxyGenerator.IsCSharp));
-
-            this.GenerateContractMethodAttributes(contractInterface, beginMethod, domainServiceName, operation.Name);
+            this.GenerateContractMethodAttributes(contractInterface, method, domainServiceName, operation.Name);
 
             foreach (DomainOperationParameter parameter in operation.Parameters)
             {
-                beginMethod.Parameters.Add(
+                method.Parameters.Add(
                     new CodeParameterDeclarationExpression(
                         CodeGenUtilities.GetTypeReference(CodeGenUtilities.TranslateType(parameter.ParameterType), this.ClientProxyGenerator, contractInterface),
                         parameter.Name));
             }
-
-            beginMethod.Parameters.Add(
-                new CodeParameterDeclarationExpression(
-                    CodeGenUtilities.GetTypeReference(typeof(AsyncCallback), this.ClientProxyGenerator, contractInterface),
-                    "callback"));
-
-            beginMethod.Parameters.Add(
-                new CodeParameterDeclarationExpression(
-                    CodeGenUtilities.GetTypeReference(typeof(object), this.ClientProxyGenerator, contractInterface),
-                    "asyncState"));
-
-            CodeMemberMethod endMethod = new CodeMemberMethod();
-            endMethod.Name = "End" + operation.Name;
 
             bool hasSideEffects = true;
             string returnTypeName = null;
@@ -604,12 +586,12 @@ namespace OpenRiaServices.Tools
                 returnTypeName = "QueryResult";
                 if (operation.ReturnType == typeof(void))
                 {
-                    endMethod.ReturnType = CodeGenUtilities.GetTypeReference(TypeConstants.QueryResultFullName, contractInterface.UserData["Namespace"] as string, false);
+                    method.ReturnType = CodeGenUtilities.GetTypeReference(TypeConstants.QueryResultFullName, contractInterface.UserData["Namespace"] as string, false);
                 }
                 else
                 {
-                    endMethod.ReturnType = CodeGenUtilities.GetTypeReference(TypeConstants.QueryResultFullName, contractInterface.UserData["Namespace"] as string, false);
-                    endMethod.ReturnType.TypeArguments.Add(CodeGenUtilities.GetTypeReference(CodeGenUtilities.TranslateType(operation.AssociatedType), this.ClientProxyGenerator, contractInterface));
+                    method.ReturnType = CodeGenUtilities.GetTypeReference(TypeConstants.QueryResultFullName, contractInterface.UserData["Namespace"] as string, false);
+                    method.ReturnType.TypeArguments.Add(CodeGenUtilities.GetTypeReference(CodeGenUtilities.TranslateType(operation.AssociatedType), this.ClientProxyGenerator, contractInterface));
                 }
             }
             else
@@ -619,34 +601,26 @@ namespace OpenRiaServices.Tools
                     hasSideEffects = ((InvokeAttribute)operation.OperationAttribute).HasSideEffects;
                 }
                 returnTypeName = CodeGenUtilities.TranslateType(operation.ReturnType).Name;
-                endMethod.ReturnType = CodeGenUtilities.GetTypeReference(CodeGenUtilities.TranslateType(operation.ReturnType), this.ClientProxyGenerator, contractInterface, false);
+                method.ReturnType = CodeGenUtilities.GetTypeReference(CodeGenUtilities.TranslateType(operation.ReturnType), this.ClientProxyGenerator, contractInterface, false);
             }
-
-            // Generate [HasSideEffects(...)]. 
-            beginMethod.CustomAttributes.Add(new CodeAttributeDeclaration(CodeGenUtilities.GetTypeReference(TypeConstants.HasSideEffectsFullName, contractInterface.UserData["Namespace"] as string, false),
-                                                                            new CodeAttributeArgument(new CodePrimitiveExpression(hasSideEffects))));
-
-            // Generate <summary> doc comment for the End method
-            comment = string.Format(CultureInfo.CurrentCulture, Resource.CodeGen_DomainContext_ServiceContract_End_Method_Summary_Comment, beginMethod.Name);
-            endMethod.Comments.AddRange(CodeGenUtilities.GenerateSummaryCodeComment(comment, this.ClientProxyGenerator.IsCSharp));
-
-            // Generate <param> doc comment for the IAsyncResult parameter
-            comment = string.Format(CultureInfo.CurrentCulture, Resource.CodeGen_DomainContext_ServiceContract_End_Method_Parameter_Comment, beginMethod.Name);
-            endMethod.Comments.AddRange(CodeGenUtilities.GenerateParamCodeComment("result", comment, this.ClientProxyGenerator.IsCSharp));
 
             // Generate <returns> doc comment
             if (operation.ReturnType != typeof(void))
             {
                 comment = string.Format(CultureInfo.CurrentCulture, Resource.CodeGen_DomainContext_ServiceContract_End_Method_Returns_Comment, returnTypeName, operation.Name);
-                endMethod.Comments.AddRange(CodeGenUtilities.GenerateReturnsCodeComment(comment, this.ClientProxyGenerator.IsCSharp));
+                method.Comments.AddRange(CodeGenUtilities.GenerateReturnsCodeComment(comment, this.ClientProxyGenerator.IsCSharp));
             }
+            // Convert to Task<..>
+            //            var taskType = CodeGenUtilities.GetTypeReference(typeof(Task), ClientProxyGenerator, contractInterface);
+            if (returnTypeName == "void" || returnTypeName == typeof(void).Name)
+                method.ReturnType = CodeGenUtilities.GetTypeReference(typeof(Task), ClientProxyGenerator, contractInterface);
+            else
+                method.ReturnType = new CodeTypeReference(typeof(Task).FullName, method.ReturnType);
 
-            contractInterface.Members.Add(endMethod);
 
-            endMethod.Parameters.Add(
-                new CodeParameterDeclarationExpression(
-                    CodeGenUtilities.GetTypeReference(typeof(IAsyncResult), this.ClientProxyGenerator, contractInterface),
-                    "result"));
+            // Generate [HasSideEffects(...)]. 
+            method.CustomAttributes.Add(new CodeAttributeDeclaration(CodeGenUtilities.GetTypeReference(TypeConstants.HasSideEffectsFullName, contractInterface.UserData["Namespace"] as string, false),
+                                                                            new CodeAttributeArgument(new CodePrimitiveExpression(hasSideEffects))));
         }
 
         private void GenerateContractSubmitChangesMethod(CodeTypeDeclaration contractInterface)
@@ -724,7 +698,6 @@ namespace OpenRiaServices.Tools
         private void GenerateContractMethodAttributes(CodeTypeDeclaration contractInterface, CodeMemberMethod beginQueryMethod, string domainServiceName, string operationName)
         {
             CodeAttributeDeclaration operationContractAtt = CodeGenUtilities.CreateAttributeDeclaration(typeof(OperationContractAttribute), this.ClientProxyGenerator, contractInterface);
-            operationContractAtt.Arguments.Add(new CodeAttributeArgument("AsyncPattern", new CodePrimitiveExpression(true)));
             operationContractAtt.Arguments.Add(new CodeAttributeArgument("Action", new CodePrimitiveExpression(string.Format(CultureInfo.InvariantCulture, DomainServiceProxyGenerator.DefaultActionSchema, domainServiceName, operationName))));
             operationContractAtt.Arguments.Add(new CodeAttributeArgument("ReplyAction", new CodePrimitiveExpression(string.Format(CultureInfo.InvariantCulture, DomainServiceProxyGenerator.DefaultReplyActionSchema, domainServiceName, operationName))));
             beginQueryMethod.CustomAttributes.Add(operationContractAtt);

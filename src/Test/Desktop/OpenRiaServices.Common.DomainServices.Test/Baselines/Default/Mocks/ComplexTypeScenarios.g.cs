@@ -818,54 +818,27 @@ namespace TestDomainServices
             /// </summary>
             /// <param name="child">The value for the 'child' parameter of this action.</param>
             /// <param name="children">The value for the 'children' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_DomainService/GetHighestChild", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/GetHighestChildResponse")]
-            IAsyncResult BeginGetHighestChild(ComplexInheritance_Child child, ComplexInheritance_Child[] children, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetHighestChild'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetHighestChild'.</param>
             /// <returns>The 'ComplexInheritance_Child' returned from the 'GetHighestChild' operation.</returns>
-            ComplexInheritance_Child EndGetHighestChild(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_DomainService/GetHighestChild", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/GetHighestChildResponse")]
+            System.Threading.Tasks.Task<ComplexInheritance_Child> GetHighestChild(ComplexInheritance_Child child, ComplexInheritance_Child[] children);
             
             /// <summary>
             /// Asynchronously invokes the 'GetInheritedMember' operation.
             /// </summary>
             /// <param name="child">The value for the 'child' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMember", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMemberResponse")]
-            IAsyncResult BeginGetInheritedMember(ComplexInheritance_Child child, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetInheritedMember'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetInheritedMember'.</param>
             /// <returns>The 'ComplexInheritance_Child' returned from the 'GetInheritedMember' operation.</returns>
-            ComplexInheritance_Child EndGetInheritedMember(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMember", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMemberResponse")]
+            System.Threading.Tasks.Task<ComplexInheritance_Child> GetInheritedMember(ComplexInheritance_Child child);
             
             /// <summary>
             /// Asynchronously invokes the 'GetStub' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_DomainService/GetStub", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/GetStubResponse")]
-            IAsyncResult BeginGetStub(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetStub'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetStub'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetStub' operation.</returns>
-            QueryResult<ComplexTypeInheritance_EntityGrandparent> EndGetStub(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_DomainService/GetStub", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/GetStubResponse")]
+            System.Threading.Tasks.Task<QueryResult<ComplexTypeInheritance_EntityGrandparent>> GetStub();
             
             /// <summary>
             /// Asynchronously invokes the 'SubmitChanges' operation.
@@ -874,7 +847,7 @@ namespace TestDomainServices
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_DomainService/SubmitChanges", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/SubmitChangesResponse")]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_DomainService/SubmitChanges", ReplyAction="http://tempuri.org/ComplexTypes_DomainService/SubmitChangesResponse")]
             IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
             
             /// <summary>
@@ -1075,55 +1048,28 @@ namespace TestDomainServices
             /// <summary>
             /// Asynchronously invokes the 'InvokeGetInvalidAddress' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddress", ReplyAction="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddressRespo" +
-                "nse")]
-            IAsyncResult BeginInvokeGetInvalidAddress(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginInvokeGetInvalidAddress'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginInvokeGetInvalidAddress'.</param>
             /// <returns>The 'Address' returned from the 'InvokeGetInvalidAddress' operation.</returns>
-            Address EndInvokeGetInvalidAddress(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddress", ReplyAction="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddressRespo" +
+                "nse")]
+            System.Threading.Tasks.Task<Address> InvokeGetInvalidAddress();
             
             /// <summary>
             /// Asynchronously invokes the 'RoundtripAddress' operation.
             /// </summary>
             /// <param name="address">The value for the 'address' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddress", ReplyAction="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddressResponse")]
-            IAsyncResult BeginRoundtripAddress(Address address, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRoundtripAddress'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRoundtripAddress'.</param>
             /// <returns>The 'Address' returned from the 'RoundtripAddress' operation.</returns>
-            Address EndRoundtripAddress(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddress", ReplyAction="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddressResponse")]
+            System.Threading.Tasks.Task<Address> RoundtripAddress(Address address);
             
             /// <summary>
             /// Asynchronously invokes the 'UpdateContact' operation.
             /// </summary>
             /// <param name="contact">The value for the 'contact' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContact", ReplyAction="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContactResponse")]
-            IAsyncResult BeginUpdateContact(ContactInfo contact, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginUpdateContact'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginUpdateContact'.</param>
-            void EndUpdateContact(IAsyncResult result);
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContact", ReplyAction="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContactResponse")]
+            Task UpdateContact(ContactInfo contact);
         }
         
         internal sealed class ComplexTypes_InvokeOperationsOnlyEntityContainer : EntityContainer
@@ -1314,55 +1260,28 @@ namespace TestDomainServices
             /// <summary>
             /// Asynchronously invokes the 'GetParents' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_TestService/GetParents", ReplyAction="http://tempuri.org/ComplexTypes_TestService/GetParentsResponse")]
-            IAsyncResult BeginGetParents(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetParents'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetParents'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetParents' operation.</returns>
-            QueryResult<ComplexType_Parent> EndGetParents(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_TestService/GetParents", ReplyAction="http://tempuri.org/ComplexTypes_TestService/GetParentsResponse")]
+            System.Threading.Tasks.Task<QueryResult<ComplexType_Parent>> GetParents();
             
             /// <summary>
             /// Asynchronously invokes the 'ReturnHomeAddress' operation.
             /// </summary>
             /// <param name="contact">The value for the 'contact' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddress", ReplyAction="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddressResponse")]
-            IAsyncResult BeginReturnHomeAddress(ContactInfo contact, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginReturnHomeAddress'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginReturnHomeAddress'.</param>
             /// <returns>The 'Address' returned from the 'ReturnHomeAddress' operation.</returns>
-            Address EndReturnHomeAddress(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddress", ReplyAction="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddressResponse")]
+            System.Threading.Tasks.Task<Address> ReturnHomeAddress(ContactInfo contact);
             
             /// <summary>
             /// Asynchronously invokes the 'RoundtripAddress' operation.
             /// </summary>
             /// <param name="address">The value for the 'address' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_TestService/RoundtripAddress", ReplyAction="http://tempuri.org/ComplexTypes_TestService/RoundtripAddressResponse")]
-            IAsyncResult BeginRoundtripAddress(Address address, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRoundtripAddress'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRoundtripAddress'.</param>
             /// <returns>The 'Address' returned from the 'RoundtripAddress' operation.</returns>
-            Address EndRoundtripAddress(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_TestService/RoundtripAddress", ReplyAction="http://tempuri.org/ComplexTypes_TestService/RoundtripAddressResponse")]
+            System.Threading.Tasks.Task<Address> RoundtripAddress(Address address);
             
             /// <summary>
             /// Asynchronously invokes the 'SubmitChanges' operation.
@@ -1371,7 +1290,7 @@ namespace TestDomainServices
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/ComplexTypes_TestService/SubmitChanges", ReplyAction="http://tempuri.org/ComplexTypes_TestService/SubmitChangesResponse")]
+            [OperationContract(Action="http://tempuri.org/ComplexTypes_TestService/SubmitChanges", ReplyAction="http://tempuri.org/ComplexTypes_TestService/SubmitChangesResponse")]
             IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
             
             /// <summary>

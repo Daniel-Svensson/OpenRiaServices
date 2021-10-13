@@ -96,19 +96,10 @@ namespace System
             /// <summary>
             /// Asynchronously invokes the 'GetSystemEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/SystemDomainService/GetSystemEntities", ReplyAction="http://tempuri.org/SystemDomainService/GetSystemEntitiesResponse")]
-            global::System.IAsyncResult BeginGetSystemEntities(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSystemEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSystemEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSystemEntities' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::System.SystemEntity> EndGetSystemEntities(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SystemDomainService/GetSystemEntities", ReplyAction="http://tempuri.org/SystemDomainService/GetSystemEntitiesResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::System.SystemEntity>> GetSystemEntities();
         }
         
         internal sealed class SystemDomainContextEntityContainer : global::OpenRiaServices.Client.EntityContainer
@@ -374,19 +365,10 @@ namespace System.Subsystem
             /// <summary>
             /// Asynchronously invokes the 'GetSubsystemEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/SubsystemDomainService/GetSubsystemEntities", ReplyAction="http://tempuri.org/SubsystemDomainService/GetSubsystemEntitiesResponse")]
-            global::System.IAsyncResult BeginGetSubsystemEntities(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSubsystemEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSubsystemEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSubsystemEntities' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::System.Subsystem.SubsystemEntity> EndGetSubsystemEntities(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SubsystemDomainService/GetSubsystemEntities", ReplyAction="http://tempuri.org/SubsystemDomainService/GetSubsystemEntitiesResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::System.Subsystem.SubsystemEntity>> GetSubsystemEntities();
         }
         
         internal sealed class SubsystemDomainContextEntityContainer : global::OpenRiaServices.Client.EntityContainer
@@ -651,20 +633,11 @@ namespace SystemExtensions
             /// <summary>
             /// Asynchronously invokes the 'GetSystemExtensionsEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntities", ReplyAction="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntitiesRespo" +
-                "nse")]
-            global::System.IAsyncResult BeginGetSystemExtensionsEntities(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSystemExtensionsEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSystemExtensionsEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSystemExtensionsEntities' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::SystemExtensions.SystemExtensionsEntity> EndGetSystemExtensionsEntities(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntities", ReplyAction="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntitiesRespo" +
+                "nse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::SystemExtensions.SystemExtensionsEntity>> GetSystemExtensionsEntities();
         }
         
         internal sealed class SystemExtensionsDomainContextEntityContainer : global::OpenRiaServices.Client.EntityContainer

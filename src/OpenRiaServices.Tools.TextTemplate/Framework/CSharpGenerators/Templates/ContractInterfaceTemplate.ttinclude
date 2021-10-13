@@ -46,8 +46,10 @@ public interface <#= this.ContractInterfaceName #>
 [OpenRiaServices.Client.HasSideEffects(<#= DomainContextGenerator.OperationHasSideEffects(operation).ToString().ToLower() #>)]
 <#+
 		this.GenerateContractMethodAttributes(operation.Name);
+        string returnTypeName = CSharpDomainContextGenerator.GetEndOperationReturnType(operation);
+        // Async i namn???
 #>
-System.IAsyncResult Begin<#= operation.Name #>(
+System.Threading.Tasks.Task<<#= returnTypeName #>>  <#= operation.Name #>(
 <#+
 		foreach (DomainOperationParameter parameter in operation.Parameters)
         {
@@ -56,21 +58,14 @@ System.IAsyncResult Begin<#= operation.Name #>(
 <#= CodeGenUtilities.GetTypeName(parameterType) #> <#= parameter.Name #>,
 <#+
         }
-#>
-System.AsyncCallback callback, object asyncState);
-<#+ 
-		string returnTypeName = CSharpDomainContextGenerator.GetEndOperationReturnType(operation);
-#>		
-<#= returnTypeName #> End<#= operation.Name #>(System.IAsyncResult result);
-<#+
+#>);
 	}
 	
 	private void GenerateContractSubmitChangesMethod()
 	{
 		this.GenerateContractMethodAttributes("SubmitChanges");
 #>
-IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
-IEnumerable<ChangeSetEntry> EndSubmitChanges(IAsyncResult result);			
+System.Threading.Tasks.Task<IEnumerable<ChangeSetEntry>> SubmitChanges(IEnumerable<ChangeSetEntry> changeSet);
 <#+
 	}
 	

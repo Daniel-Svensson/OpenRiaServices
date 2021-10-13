@@ -2615,105 +2615,51 @@ namespace TestDomainServices.LTS
             /// <summary>
             /// Asynchronously invokes the 'GetEmployees' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/Catalog/GetEmployees", ReplyAction="http://tempuri.org/Catalog/GetEmployeesResponse")]
-            IAsyncResult BeginGetEmployees(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetEmployees'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetEmployees'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetEmployees' operation.</returns>
-            QueryResult<Employee> EndGetEmployees(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/Catalog/GetEmployees", ReplyAction="http://tempuri.org/Catalog/GetEmployeesResponse")]
+            System.Threading.Tasks.Task<QueryResult<Employee>> GetEmployees();
             
             /// <summary>
             /// Asynchronously invokes the 'GetProducts' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/Catalog/GetProducts", ReplyAction="http://tempuri.org/Catalog/GetProductsResponse")]
-            IAsyncResult BeginGetProducts(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetProducts'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetProducts'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetProducts' operation.</returns>
-            QueryResult<Product> EndGetProducts(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/Catalog/GetProducts", ReplyAction="http://tempuri.org/Catalog/GetProductsResponse")]
+            System.Threading.Tasks.Task<QueryResult<Product>> GetProducts();
             
             /// <summary>
             /// Asynchronously invokes the 'GetProductsByCategory' operation.
             /// </summary>
             /// <param name="subCategoryID">The value for the 'subCategoryID' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/Catalog/GetProductsByCategory", ReplyAction="http://tempuri.org/Catalog/GetProductsByCategoryResponse")]
-            IAsyncResult BeginGetProductsByCategory(int subCategoryID, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetProductsByCategory'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetProductsByCategory'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetProductsByCategory' operation.</returns>
-            QueryResult<Product> EndGetProductsByCategory(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/Catalog/GetProductsByCategory", ReplyAction="http://tempuri.org/Catalog/GetProductsByCategoryResponse")]
+            System.Threading.Tasks.Task<QueryResult<Product>> GetProductsByCategory(int subCategoryID);
             
             /// <summary>
             /// Asynchronously invokes the 'GetProductsWithCaching' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/Catalog/GetProductsWithCaching", ReplyAction="http://tempuri.org/Catalog/GetProductsWithCachingResponse")]
-            IAsyncResult BeginGetProductsWithCaching(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetProductsWithCaching'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetProductsWithCaching'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetProductsWithCaching' operation.</returns>
-            QueryResult<Product> EndGetProductsWithCaching(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/Catalog/GetProductsWithCaching", ReplyAction="http://tempuri.org/Catalog/GetProductsWithCachingResponse")]
+            System.Threading.Tasks.Task<QueryResult<Product>> GetProductsWithCaching();
             
             /// <summary>
             /// Asynchronously invokes the 'GetProductsWithCustomTotalCount' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/Catalog/GetProductsWithCustomTotalCount", ReplyAction="http://tempuri.org/Catalog/GetProductsWithCustomTotalCountResponse")]
-            IAsyncResult BeginGetProductsWithCustomTotalCount(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetProductsWithCustomTotalCount'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetProductsWithCustomTotalCount'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetProductsWithCustomTotalCount' operation.</returns>
-            QueryResult<Product> EndGetProductsWithCustomTotalCount(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/Catalog/GetProductsWithCustomTotalCount", ReplyAction="http://tempuri.org/Catalog/GetProductsWithCustomTotalCountResponse")]
+            System.Threading.Tasks.Task<QueryResult<Product>> GetProductsWithCustomTotalCount();
             
             /// <summary>
             /// Asynchronously invokes the 'GetPurchaseOrders' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/Catalog/GetPurchaseOrders", ReplyAction="http://tempuri.org/Catalog/GetPurchaseOrdersResponse")]
-            IAsyncResult BeginGetPurchaseOrders(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetPurchaseOrders'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetPurchaseOrders'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetPurchaseOrders' operation.</returns>
-            QueryResult<PurchaseOrder> EndGetPurchaseOrders(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/Catalog/GetPurchaseOrders", ReplyAction="http://tempuri.org/Catalog/GetPurchaseOrdersResponse")]
+            System.Threading.Tasks.Task<QueryResult<PurchaseOrder>> GetPurchaseOrders();
             
             /// <summary>
             /// Asynchronously invokes the 'SubmitChanges' operation.
@@ -2722,7 +2668,7 @@ namespace TestDomainServices.LTS
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/Catalog/SubmitChanges", ReplyAction="http://tempuri.org/Catalog/SubmitChangesResponse")]
+            [OperationContract(Action="http://tempuri.org/Catalog/SubmitChanges", ReplyAction="http://tempuri.org/Catalog/SubmitChangesResponse")]
             IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
             
             /// <summary>

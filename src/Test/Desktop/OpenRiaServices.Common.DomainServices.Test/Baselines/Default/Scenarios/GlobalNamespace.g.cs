@@ -253,72 +253,36 @@ namespace GlobalNamespaceTest
             /// <summary>
             /// Asynchronously invokes the 'GetEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntitiesResponse")]
-            IAsyncResult BeginGetEntities(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetEntities' operation.</returns>
-            QueryResult<GlobalNamespaceTest_Entity> EndGetEntities(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntitiesResponse")]
+            System.Threading.Tasks.Task<QueryResult<GlobalNamespaceTest_Entity>> GetEntities();
             
             /// <summary>
             /// Asynchronously invokes the 'InvokeReturn' operation.
             /// </summary>
             /// <param name="enumParameter">The value for the 'enumParameter' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturn", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturnResponse")]
-            IAsyncResult BeginInvokeReturn(GlobalNamespaceTest_Enum enumParameter, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginInvokeReturn'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginInvokeReturn'.</param>
             /// <returns>The 'GlobalNamespaceTest_Enum' returned from the 'InvokeReturn' operation.</returns>
-            GlobalNamespaceTest_Enum EndInvokeReturn(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturn", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturnResponse")]
+            System.Threading.Tasks.Task<GlobalNamespaceTest_Enum> InvokeReturn(GlobalNamespaceTest_Enum enumParameter);
             
             /// <summary>
             /// Asynchronously invokes the 'InvokeVoid' operation.
             /// </summary>
             /// <param name="enumParameter">The value for the 'enumParameter' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoid", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoidResponse")]
-            IAsyncResult BeginInvokeVoid(GlobalNamespaceTest_Enum enumParameter, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginInvokeVoid'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginInvokeVoid'.</param>
-            void EndInvokeVoid(IAsyncResult result);
+            [OperationContract(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoid", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoidResponse")]
+            Task InvokeVoid(GlobalNamespaceTest_Enum enumParameter);
             
             /// <summary>
             /// Asynchronously invokes the 'ReadEntities' operation.
             /// </summary>
             /// <param name="enumParameter">The value for the 'enumParameter' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntitiesResponse")]
-            IAsyncResult BeginReadEntities(GlobalNamespaceTest_Enum enumParameter, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginReadEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginReadEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'ReadEntities' operation.</returns>
-            QueryResult<GlobalNamespaceTest_Entity> EndReadEntities(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntitiesResponse")]
+            System.Threading.Tasks.Task<QueryResult<GlobalNamespaceTest_Entity>> ReadEntities(GlobalNamespaceTest_Enum enumParameter);
             
             /// <summary>
             /// Asynchronously invokes the 'SubmitChanges' operation.
@@ -327,7 +291,7 @@ namespace GlobalNamespaceTest
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChanges", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChangesResponse")]
+            [OperationContract(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChanges", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChangesResponse")]
             IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
             
             /// <summary>

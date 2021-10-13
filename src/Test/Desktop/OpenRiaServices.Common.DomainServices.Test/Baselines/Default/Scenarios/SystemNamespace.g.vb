@@ -105,19 +105,10 @@ Namespace System
             ''' <summary>
             ''' Asynchronously invokes the 'GetSystemEntities' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/SystemDomainService/GetSystemEntities", ReplyAction:="http://tempuri.org/SystemDomainService/GetSystemEntitiesResponse")>  _
-            Function BeginGetSystemEntities(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetSystemEntities'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetSystemEntities'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetSystemEntities' operation.</returns>
-            Function EndGetSystemEntities(ByVal result As IAsyncResult) As QueryResult(Of SystemEntity)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/SystemDomainService/GetSystemEntities", ReplyAction:="http://tempuri.org/SystemDomainService/GetSystemEntitiesResponse")>  _
+            Function GetSystemEntities() As System.Threading.Tasks.Task(Of QueryResult(Of SystemEntity))
         End Interface
         
         Friend NotInheritable Class SystemDomainContextEntityContainer
@@ -370,19 +361,10 @@ Namespace System.Subsystem
             ''' <summary>
             ''' Asynchronously invokes the 'GetSubsystemEntities' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/SubsystemDomainService/GetSubsystemEntities", ReplyAction:="http://tempuri.org/SubsystemDomainService/GetSubsystemEntitiesResponse")>  _
-            Function BeginGetSubsystemEntities(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetSubsystemEntities'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetSubsystemEntities'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetSubsystemEntities' operation.</returns>
-            Function EndGetSubsystemEntities(ByVal result As IAsyncResult) As QueryResult(Of SubsystemEntity)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/SubsystemDomainService/GetSubsystemEntities", ReplyAction:="http://tempuri.org/SubsystemDomainService/GetSubsystemEntitiesResponse")>  _
+            Function GetSubsystemEntities() As System.Threading.Tasks.Task(Of QueryResult(Of SubsystemEntity))
         End Interface
         
         Friend NotInheritable Class SubsystemDomainContextEntityContainer
@@ -634,20 +616,11 @@ Namespace SystemExtensions
             ''' <summary>
             ''' Asynchronously invokes the 'GetSystemExtensionsEntities' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntities", ReplyAction:="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntitiesRespo"& _ 
-                "nse")>  _
-            Function BeginGetSystemExtensionsEntities(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetSystemExtensionsEntities'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetSystemExtensionsEntities'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetSystemExtensionsEntities' operation.</returns>
-            Function EndGetSystemExtensionsEntities(ByVal result As IAsyncResult) As QueryResult(Of SystemExtensionsEntity)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntities", ReplyAction:="http://tempuri.org/SystemExtensionsDomainService/GetSystemExtensionsEntitiesRespo"& _ 
+                "nse")>  _
+            Function GetSystemExtensionsEntities() As System.Threading.Tasks.Task(Of QueryResult(Of SystemExtensionsEntity))
         End Interface
         
         Friend NotInheritable Class SystemExtensionsDomainContextEntityContainer

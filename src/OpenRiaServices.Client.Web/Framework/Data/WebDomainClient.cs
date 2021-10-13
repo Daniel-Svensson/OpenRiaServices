@@ -219,7 +219,7 @@ namespace OpenRiaServices.Client
         /// <param name="cancellationToken"><see cref="CancellationToken"/> to be used for requesting cancellation</param>
         /// <returns>The results returned by the query.</returns>
         /// <exception cref="InvalidOperationException">The specified query does not exist.</exception>
-        protected override Task<QueryCompletedResult> QueryAsyncCore(EntityQuery query, CancellationToken cancellationToken)
+        protected override async Task<QueryCompletedResult> QueryAsyncCore(EntityQuery query, CancellationToken cancellationToken)
         {
             TContract channel = this.ChannelFactory.CreateChannel();
             // Pass the query as a message property.
@@ -234,47 +234,44 @@ namespace OpenRiaServices.Client
                     OperationContext.Current.OutgoingMessageProperties.Add(WebDomainClient<object>.IncludeTotalCountPropertyName, true);
                 }
 
-                return CallServiceOperation<QueryCompletedResult>(channel,
-                    query.QueryName,
-                    query.Parameters,
-                    (state, asyncResult) =>
-                    {
-                        IEnumerable<ValidationResult> validationErrors = null;
-                        QueryResult returnValue = null;
-                        try
-                        {
-                            returnValue = (QueryResult)EndServiceOperationCall(state, asyncResult);
-                        }
-                        catch (FaultException<DomainServiceFault> fe)
-                        {
-                            if (fe.Detail.OperationErrors != null)
-                            {
-                                validationErrors = fe.Detail.GetValidationErrors();
-                            }
-                            else
-                            {
-                                throw WebDomainClient<TContract>.GetExceptionFromServiceFault(fe.Detail);
-                            }
-                        }
 
-                        if (returnValue != null)
-                        {
-                            return new QueryCompletedResult(
-                                returnValue.GetRootResults().Cast<Entity>(),
-                                returnValue.GetIncludedResults().Cast<Entity>(),
-                                returnValue.TotalCount,
-                                Enumerable.Empty<ValidationResult>());
-                        }
-                        else
-                        {
-                            return new QueryCompletedResult(
-                                Enumerable.Empty<Entity>(),
-                                Enumerable.Empty<Entity>(),
-                                /* totalCount */ 0,
-                                validationErrors ?? Enumerable.Empty<ValidationResult>());
-                        }
+                IEnumerable<ValidationResult> validationErrors = null;
+                QueryResult returnValue = null;
+                try
+                {
+                    returnValue = await CallServiceOperationAsync<QueryResult>(channel,
+                        query.QueryName,
+                        query.Parameters,
+                        cancellationToken);
+                }
+                catch (FaultException<DomainServiceFault> fe)
+                {
+                    if (fe.Detail.OperationErrors != null)
+                    {
+                        validationErrors = fe.Detail.GetValidationErrors();
                     }
-                , cancellationToken);
+                    else
+                    {
+                        throw WebDomainClient<TContract>.GetExceptionFromServiceFault(fe.Detail);
+                    }
+                }
+
+                if (returnValue != null)
+                {
+                    return new QueryCompletedResult(
+                        returnValue.GetRootResults().Cast<Entity>(),
+                        returnValue.GetIncludedResults().Cast<Entity>(),
+                        returnValue.TotalCount,
+                        Enumerable.Empty<ValidationResult>());
+                }
+                else
+                {
+                    return new QueryCompletedResult(
+                        Enumerable.Empty<Entity>(),
+                        Enumerable.Empty<Entity>(),
+                        /* totalCount */ 0,
+                        validationErrors ?? Enumerable.Empty<ValidationResult>());
+                }
             }
         }
 
@@ -340,34 +337,32 @@ namespace OpenRiaServices.Client
         /// <param name="cancellationToken"><see cref="CancellationToken"/> to be used for requesting cancellation</param>
         /// <returns>The results returned by the invocation.</returns>
         /// <exception cref="InvalidOperationException">The specified query does not exist.</exception>
-        protected override Task<InvokeCompletedResult> InvokeAsyncCore(InvokeArgs invokeArgs, CancellationToken cancellationToken)
+        protected override async Task<InvokeCompletedResult> InvokeAsyncCore(InvokeArgs invokeArgs, CancellationToken cancellationToken)
         {
             TContract channel = ChannelFactory.CreateChannel();
-            return CallServiceOperation(channel,
-                invokeArgs.OperationName,
-                invokeArgs.Parameters,
-                (state, asyncResult) =>
+
+            IEnumerable<ValidationResult> validationErrors = null;
+            object returnValue = null;
+            try
+            {
+
+                returnValue = await CallServiceOperationAsync<object>(channel,
+                    invokeArgs.OperationName,
+                    invokeArgs.Parameters,
+                    cancellationToken);
+            }
+            catch (FaultException<DomainServiceFault> fe)
+            {
+                if (fe.Detail.OperationErrors != null)
                 {
-                    IEnumerable<ValidationResult> validationErrors = null;
-                    object returnValue = null;
-                    try
-                    {
-                        returnValue = EndServiceOperationCall(state, asyncResult);
-                    }
-                    catch (FaultException<DomainServiceFault> fe)
-                    {
-                        if (fe.Detail.OperationErrors != null)
-                        {
-                            validationErrors = fe.Detail.GetValidationErrors();
-                        }
-                        else
-                        {
-                            throw WebDomainClient<TContract>.GetExceptionFromServiceFault(fe.Detail);
-                        }
-                    }
-                    return new InvokeCompletedResult(returnValue, validationErrors ?? Enumerable.Empty<ValidationResult>());
-                },
-                cancellationToken);
+                    validationErrors = fe.Detail.GetValidationErrors();
+                }
+                else
+                {
+                    throw WebDomainClient<TContract>.GetExceptionFromServiceFault(fe.Detail);
+                }
+            }
+            return new InvokeCompletedResult(returnValue, validationErrors ?? Enumerable.Empty<ValidationResult>());
         }
 
         /// <summary>
@@ -402,6 +397,7 @@ namespace OpenRiaServices.Client
             {
                 cancellationTokenRegistration = cancellationToken.Register(state => { ((IChannel)state).Abort(); }, channel);
             }
+
             // Pass async operation related parameters.
             realParameters[realParameters.Length - 2] = new AsyncCallback(delegate (IAsyncResult asyncResponseResult)
             {
@@ -456,6 +452,58 @@ namespace OpenRiaServices.Client
         }
 
         /// <summary>
+        /// Calls an operation on an already constructed WCF service channel
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="channel">WCF channel</param>
+        /// <param name="operationName">name of method/operation to call</param>
+        /// <param name="parameters">parameters for the call</param>
+        /// <param name="callback">callback responsible for casting return value and epr method error handling</param>
+        /// <param name="cancellationToken"><see cref="CancellationToken"/> to be used for requesting cancellation</param>
+        /// <returns>A <see cref="Task{TResult}"/> which will contain the result of the operation, exception or be cancelled</returns>
+        protected virtual async Task<TResult> CallServiceOperationAsync<TResult>(TContract channel, string operationName,
+            IDictionary<string, object> parameters,
+            CancellationToken cancellationToken)
+        {
+            MethodInfo taskMethod = WebDomainClient<TContract>.TryResolveTaskMethod(operationName);
+
+            // Pass operation parameters.
+            ParameterInfo[] parameterInfos = taskMethod.GetParameters();
+            object[] realParameters = new object[parameterInfos.Length];
+            int parametersCount = parameters == null ? 0 : parameters.Count;
+            for (int i = 0; i < parametersCount; i++)
+            {
+                realParameters[i] = parameters[parameterInfos[i].Name];
+            }
+
+            CancellationTokenRegistration cancellationTokenRegistration = default;
+            if (cancellationToken.CanBeCanceled)
+            {
+                cancellationTokenRegistration = cancellationToken.Register(state => { ((IChannel)state).Abort(); }, channel);
+            }
+
+            // Call Begin** method
+            // Handle any immediate CommunicationException which can be thrown directly from begin method
+            // for some tests that perform invalid calls against localhost
+            try
+            {
+                var task = (Task)InvokeMethod(taskMethod, channel, realParameters);
+                await task;
+
+                return (TResult)task.GetType().GetProperty("Result").GetValue(task);
+            }
+            catch (CommunicationException) when (cancellationToken.IsCancellationRequested)
+            {
+                throw new OperationCanceledException(cancellationToken);
+            }
+            finally
+            {
+                cancellationTokenRegistration.Dispose();
+            }
+        }
+
+
+        /// <summary>
         /// Method to invoke to get result of invocation started by <see cref="CallServiceOperation"/>
         /// </summary>
         /// <param name="channel">should be first parameter supplied in callback supplied to <see cref="CallServiceOperation"/></param>
@@ -464,6 +512,16 @@ namespace OpenRiaServices.Client
         private static object EndServiceOperationCall(object channel, IAsyncResult asyncResult)
         {
             return InvokeMethod((MethodInfo)asyncResult.AsyncState, channel, new object[] { asyncResult });
+        }
+
+        private static MethodInfo TryResolveTaskMethod(string operationName)
+        {
+            MethodInfo m = typeof(TContract).GetMethod(operationName /*+"Async"*/);
+            //if (m == null)
+            //{
+            //    throw new MissingMethodException(string.Format(CultureInfo.CurrentCulture, Resource.WebDomainClient_OperationDoesNotExist, operationName));
+            //}
+            return m;
         }
 
         private static MethodInfo ResolveBeginMethod(string operationName)

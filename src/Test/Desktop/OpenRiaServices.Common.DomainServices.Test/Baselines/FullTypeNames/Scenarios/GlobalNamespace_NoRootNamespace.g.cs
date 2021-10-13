@@ -231,72 +231,36 @@ namespace GlobalNamespaceTest
             /// <summary>
             /// Asynchronously invokes the 'GetEntities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntitiesResponse")]
-            global::System.IAsyncResult BeginGetEntities(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetEntities' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::GlobalNamespaceTest.GlobalNamespaceTest_Entity> EndGetEntities(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/GetEntitiesResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::GlobalNamespaceTest.GlobalNamespaceTest_Entity>> GetEntities();
             
             /// <summary>
             /// Asynchronously invokes the 'InvokeReturn' operation.
             /// </summary>
             /// <param name="enumParameter">The value for the 'enumParameter' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(true)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturn", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturnResponse")]
-            global::System.IAsyncResult BeginInvokeReturn(global::GlobalNamespaceTest_Enum enumParameter, global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginInvokeReturn'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginInvokeReturn'.</param>
             /// <returns>The 'GlobalNamespaceTest_Enum' returned from the 'InvokeReturn' operation.</returns>
-            global::GlobalNamespaceTest_Enum EndInvokeReturn(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(true)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturn", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeReturnResponse")]
+            global::System.Threading.Tasks.Task<global::GlobalNamespaceTest_Enum> InvokeReturn(global::GlobalNamespaceTest_Enum enumParameter);
             
             /// <summary>
             /// Asynchronously invokes the 'InvokeVoid' operation.
             /// </summary>
             /// <param name="enumParameter">The value for the 'enumParameter' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [global::OpenRiaServices.Client.HasSideEffects(true)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoid", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoidResponse")]
-            global::System.IAsyncResult BeginInvokeVoid(global::GlobalNamespaceTest_Enum enumParameter, global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginInvokeVoid'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginInvokeVoid'.</param>
-            void EndInvokeVoid(global::System.IAsyncResult result);
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoid", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/InvokeVoidResponse")]
+            global::System.Threading.Tasks.Task InvokeVoid(global::GlobalNamespaceTest_Enum enumParameter);
             
             /// <summary>
             /// Asynchronously invokes the 'ReadEntities' operation.
             /// </summary>
             /// <param name="enumParameter">The value for the 'enumParameter' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntitiesResponse")]
-            global::System.IAsyncResult BeginReadEntities(global::GlobalNamespaceTest_Enum enumParameter, global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginReadEntities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginReadEntities'.</param>
             /// <returns>The 'QueryResult' returned from the 'ReadEntities' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::GlobalNamespaceTest.GlobalNamespaceTest_Entity> EndReadEntities(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntities", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/ReadEntitiesResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::GlobalNamespaceTest.GlobalNamespaceTest_Entity>> ReadEntities(global::GlobalNamespaceTest_Enum enumParameter);
             
             /// <summary>
             /// Asynchronously invokes the 'SubmitChanges' operation.
@@ -305,7 +269,7 @@ namespace GlobalNamespaceTest
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChanges", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChangesResponse")]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChanges", ReplyAction="http://tempuri.org/GlobalNamespaceTest_DomainService/SubmitChangesResponse")]
             global::System.IAsyncResult BeginSubmitChanges(global::System.Collections.Generic.IEnumerable<global::OpenRiaServices.Client.ChangeSetEntry> changeSet, global::System.AsyncCallback callback, object asyncState);
             
             /// <summary>

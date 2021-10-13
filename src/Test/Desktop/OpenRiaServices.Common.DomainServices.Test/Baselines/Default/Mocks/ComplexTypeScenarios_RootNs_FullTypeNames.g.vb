@@ -778,54 +778,27 @@ Namespace TestDomainServices
             ''' </summary>
             ''' <param name="child">The value for the 'child' parameter of this action.</param>
             ''' <param name="children">The value for the 'children' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_DomainService/GetHighestChild", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/GetHighestChildResponse")>  _
-            Function BeginGetHighestChild(ByVal child As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child, ByVal children() As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child, ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetHighestChild'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetHighestChild'.</param>
             ''' <returns>The 'ComplexInheritance_Child' returned from the 'GetHighestChild' operation.</returns>
-            Function EndGetHighestChild(ByVal result As Global.System.IAsyncResult) As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child
+            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_DomainService/GetHighestChild", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/GetHighestChildResponse")>  _
+            Function GetHighestChild(ByVal child As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child, ByVal children() As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child) As Global.System.Threading.Tasks.Task(Of Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child)
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetInheritedMember' operation.
             ''' </summary>
             ''' <param name="child">The value for the 'child' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMember", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMemberResponse")>  _
-            Function BeginGetInheritedMember(ByVal child As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child, ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetInheritedMember'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetInheritedMember'.</param>
             ''' <returns>The 'ComplexInheritance_Child' returned from the 'GetInheritedMember' operation.</returns>
-            Function EndGetInheritedMember(ByVal result As Global.System.IAsyncResult) As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child
+            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMember", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/GetInheritedMemberResponse")>  _
+            Function GetInheritedMember(ByVal child As Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child) As Global.System.Threading.Tasks.Task(Of Global.RootNamespaceName.TestDomainServices.ComplexInheritance_Child)
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetStub' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(false),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_DomainService/GetStub", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/GetStubResponse")>  _
-            Function BeginGetStub(ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetStub'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetStub'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetStub' operation.</returns>
-            Function EndGetStub(ByVal result As Global.System.IAsyncResult) As Global.OpenRiaServices.Client.QueryResult(Of Global.RootNamespaceName.TestDomainServices.ComplexTypeInheritance_EntityGrandparent)
+            <Global.OpenRiaServices.Client.HasSideEffects(false),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_DomainService/GetStub", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/GetStubResponse")>  _
+            Function GetStub() As Global.System.Threading.Tasks.Task(Of Global.OpenRiaServices.Client.QueryResult(Of Global.RootNamespaceName.TestDomainServices.ComplexTypeInheritance_EntityGrandparent))
             
             ''' <summary>
             ''' Asynchronously invokes the 'SubmitChanges' operation.
@@ -834,7 +807,7 @@ Namespace TestDomainServices
             ''' <param name="callback">Callback to invoke on completion.</param>
             ''' <param name="asyncState">Optional state object.</param>
             ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_DomainService/SubmitChanges", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/SubmitChangesResponse")>  _
+            <Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_DomainService/SubmitChanges", ReplyAction:="http://tempuri.org/ComplexTypes_DomainService/SubmitChangesResponse")>  _
             Function BeginSubmitChanges(ByVal changeSet As Global.System.Collections.Generic.IEnumerable(Of Global.OpenRiaServices.Client.ChangeSetEntry), ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
             
             ''' <summary>
@@ -1022,55 +995,28 @@ Namespace TestDomainServices
             ''' <summary>
             ''' Asynchronously invokes the 'InvokeGetInvalidAddress' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddress", ReplyAction:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddressRespo"& _ 
-                "nse")>  _
-            Function BeginInvokeGetInvalidAddress(ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginInvokeGetInvalidAddress'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginInvokeGetInvalidAddress'.</param>
             ''' <returns>The 'Address' returned from the 'InvokeGetInvalidAddress' operation.</returns>
-            Function EndInvokeGetInvalidAddress(ByVal result As Global.System.IAsyncResult) As Global.RootNamespaceName.TestDomainServices.Address
+            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddress", ReplyAction:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/InvokeGetInvalidAddressRespo"& _ 
+                "nse")>  _
+            Function InvokeGetInvalidAddress() As Global.System.Threading.Tasks.Task(Of Global.RootNamespaceName.TestDomainServices.Address)
             
             ''' <summary>
             ''' Asynchronously invokes the 'RoundtripAddress' operation.
             ''' </summary>
             ''' <param name="address">The value for the 'address' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddress", ReplyAction:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddressResponse")>  _
-            Function BeginRoundtripAddress(ByVal address As Global.RootNamespaceName.TestDomainServices.Address, ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginRoundtripAddress'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginRoundtripAddress'.</param>
             ''' <returns>The 'Address' returned from the 'RoundtripAddress' operation.</returns>
-            Function EndRoundtripAddress(ByVal result As Global.System.IAsyncResult) As Global.RootNamespaceName.TestDomainServices.Address
+            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddress", ReplyAction:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/RoundtripAddressResponse")>  _
+            Function RoundtripAddress(ByVal address As Global.RootNamespaceName.TestDomainServices.Address) As Global.System.Threading.Tasks.Task(Of Global.RootNamespaceName.TestDomainServices.Address)
             
             ''' <summary>
             ''' Asynchronously invokes the 'UpdateContact' operation.
             ''' </summary>
             ''' <param name="contact">The value for the 'contact' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
             <Global.OpenRiaServices.Client.HasSideEffects(true),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContact", ReplyAction:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContactResponse")>  _
-            Function BeginUpdateContact(ByVal contact As Global.RootNamespaceName.TestDomainServices.ContactInfo, ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginUpdateContact'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginUpdateContact'.</param>
-            Sub EndUpdateContact(ByVal result As Global.System.IAsyncResult)
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContact", ReplyAction:="http://tempuri.org/ComplexTypes_InvokeOperationsOnly/UpdateContactResponse")>  _
+            Function UpdateContact(ByVal contact As Global.RootNamespaceName.TestDomainServices.ContactInfo) As Global.System.Threading.Tasks.Task
         End Interface
         
         Friend NotInheritable Class ComplexTypes_InvokeOperationsOnlyEntityContainer
@@ -1247,55 +1193,28 @@ Namespace TestDomainServices
             ''' <summary>
             ''' Asynchronously invokes the 'GetParents' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(false),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_TestService/GetParents", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/GetParentsResponse")>  _
-            Function BeginGetParents(ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetParents'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetParents'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetParents' operation.</returns>
-            Function EndGetParents(ByVal result As Global.System.IAsyncResult) As Global.OpenRiaServices.Client.QueryResult(Of Global.RootNamespaceName.TestDomainServices.ComplexType_Parent)
+            <Global.OpenRiaServices.Client.HasSideEffects(false),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_TestService/GetParents", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/GetParentsResponse")>  _
+            Function GetParents() As Global.System.Threading.Tasks.Task(Of Global.OpenRiaServices.Client.QueryResult(Of Global.RootNamespaceName.TestDomainServices.ComplexType_Parent))
             
             ''' <summary>
             ''' Asynchronously invokes the 'ReturnHomeAddress' operation.
             ''' </summary>
             ''' <param name="contact">The value for the 'contact' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddress", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddressResponse")>  _
-            Function BeginReturnHomeAddress(ByVal contact As Global.RootNamespaceName.TestDomainServices.ContactInfo, ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginReturnHomeAddress'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginReturnHomeAddress'.</param>
             ''' <returns>The 'Address' returned from the 'ReturnHomeAddress' operation.</returns>
-            Function EndReturnHomeAddress(ByVal result As Global.System.IAsyncResult) As Global.RootNamespaceName.TestDomainServices.Address
+            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddress", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/ReturnHomeAddressResponse")>  _
+            Function ReturnHomeAddress(ByVal contact As Global.RootNamespaceName.TestDomainServices.ContactInfo) As Global.System.Threading.Tasks.Task(Of Global.RootNamespaceName.TestDomainServices.Address)
             
             ''' <summary>
             ''' Asynchronously invokes the 'RoundtripAddress' operation.
             ''' </summary>
             ''' <param name="address">The value for the 'address' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
-             Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_TestService/RoundtripAddress", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/RoundtripAddressResponse")>  _
-            Function BeginRoundtripAddress(ByVal address As Global.RootNamespaceName.TestDomainServices.Address, ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginRoundtripAddress'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginRoundtripAddress'.</param>
             ''' <returns>The 'Address' returned from the 'RoundtripAddress' operation.</returns>
-            Function EndRoundtripAddress(ByVal result As Global.System.IAsyncResult) As Global.RootNamespaceName.TestDomainServices.Address
+            <Global.OpenRiaServices.Client.HasSideEffects(true),  _
+             Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_TestService/RoundtripAddress", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/RoundtripAddressResponse")>  _
+            Function RoundtripAddress(ByVal address As Global.RootNamespaceName.TestDomainServices.Address) As Global.System.Threading.Tasks.Task(Of Global.RootNamespaceName.TestDomainServices.Address)
             
             ''' <summary>
             ''' Asynchronously invokes the 'SubmitChanges' operation.
@@ -1304,7 +1223,7 @@ Namespace TestDomainServices
             ''' <param name="callback">Callback to invoke on completion.</param>
             ''' <param name="asyncState">Optional state object.</param>
             ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <Global.System.ServiceModel.OperationContractAttribute(AsyncPattern:=true, Action:="http://tempuri.org/ComplexTypes_TestService/SubmitChanges", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/SubmitChangesResponse")>  _
+            <Global.System.ServiceModel.OperationContractAttribute(Action:="http://tempuri.org/ComplexTypes_TestService/SubmitChanges", ReplyAction:="http://tempuri.org/ComplexTypes_TestService/SubmitChangesResponse")>  _
             Function BeginSubmitChanges(ByVal changeSet As Global.System.Collections.Generic.IEnumerable(Of Global.OpenRiaServices.Client.ChangeSetEntry), ByVal callback As Global.System.AsyncCallback, ByVal asyncState As Object) As Global.System.IAsyncResult
             
             ''' <summary>

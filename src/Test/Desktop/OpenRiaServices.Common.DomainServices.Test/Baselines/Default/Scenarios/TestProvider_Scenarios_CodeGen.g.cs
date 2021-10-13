@@ -1734,311 +1734,149 @@ namespace TestDomainServices
             /// <summary>
             /// Asynchronously invokes the 'FetchDs2' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2Response")]
-            IAsyncResult BeginFetchDs2(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginFetchDs2'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginFetchDs2'.</param>
             /// <returns>The 'QueryResult' returned from the 'FetchDs2' operation.</returns>
-            QueryResult<D> EndFetchDs2(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2Response")]
+            System.Threading.Tasks.Task<QueryResult<D>> FetchDs2();
             
             /// <summary>
             /// Asynchronously invokes the 'FindDs6' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6Response")]
-            IAsyncResult BeginFindDs6(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginFindDs6'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginFindDs6'.</param>
             /// <returns>The 'QueryResult' returned from the 'FindDs6' operation.</returns>
-            QueryResult<D> EndFindDs6(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6Response")]
+            System.Threading.Tasks.Task<QueryResult<D>> FindDs6();
             
             /// <summary>
             /// Asynchronously invokes the 'Get_Images' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_ImagesResponse")]
-            IAsyncResult BeginGet_Images(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGet_Images'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGet_Images'.</param>
             /// <returns>The 'QueryResult' returned from the 'Get_Images' operation.</returns>
-            QueryResult<D> EndGet_Images(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_ImagesResponse")]
+            System.Threading.Tasks.Task<QueryResult<D>> Get_Images();
             
             /// <summary>
             /// Asynchronously invokes the 'Get_Images_OfKind' operation.
             /// </summary>
             /// <param name="kind">The value for the 'kind' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKind", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKindResponse")]
-            IAsyncResult BeginGet_Images_OfKind(Nullable<ImageKindEnum> kind, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGet_Images_OfKind'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGet_Images_OfKind'.</param>
             /// <returns>The 'QueryResult' returned from the 'Get_Images_OfKind' operation.</returns>
-            QueryResult<D> EndGet_Images_OfKind(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKind", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKindResponse")]
+            System.Threading.Tasks.Task<QueryResult<D>> Get_Images_OfKind(Nullable<ImageKindEnum> kind);
             
             /// <summary>
             /// Asynchronously invokes the 'GetAs' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsResponse")]
-            IAsyncResult BeginGetAs(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetAs'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetAs'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetAs' operation.</returns>
-            QueryResult<A> EndGetAs(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsResponse")]
+            System.Threading.Tasks.Task<QueryResult<A>> GetAs();
             
             /// <summary>
             /// Asynchronously invokes the 'GetAsWithSideEffects' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffects", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffectsResponse")]
-            IAsyncResult BeginGetAsWithSideEffects(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetAsWithSideEffects'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetAsWithSideEffects'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetAsWithSideEffects' operation.</returns>
-            QueryResult<A> EndGetAsWithSideEffects(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffects", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffectsResponse")]
+            System.Threading.Tasks.Task<QueryResult<A>> GetAsWithSideEffects();
             
             /// <summary>
             /// Asynchronously invokes the 'GetBs' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBsResponse")]
-            IAsyncResult BeginGetBs(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetBs'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetBs'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetBs' operation.</returns>
-            QueryResult<B> EndGetBs(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBsResponse")]
+            System.Threading.Tasks.Task<QueryResult<B>> GetBs();
             
             /// <summary>
             /// Asynchronously invokes the 'GetCs' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCsResponse")]
-            IAsyncResult BeginGetCs(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetCs'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetCs'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetCs' operation.</returns>
-            QueryResult<C> EndGetCs(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCsResponse")]
+            System.Threading.Tasks.Task<QueryResult<C>> GetCs();
             
             /// <summary>
             /// Asynchronously invokes the 'GetSpecialDataTypes' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypes", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypesResponse")]
-            IAsyncResult BeginGetSpecialDataTypes(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSpecialDataTypes'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSpecialDataTypes'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSpecialDataTypes' operation.</returns>
-            QueryResult<SpecialDataTypes> EndGetSpecialDataTypes(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypes", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypesResponse")]
+            System.Threading.Tasks.Task<QueryResult<SpecialDataTypes>> GetSpecialDataTypes();
             
             /// <summary>
             /// Asynchronously invokes the 'GetTestEntity_DataMemberBuddys' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddys", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddysR" +
-                "esponse")]
-            IAsyncResult BeginGetTestEntity_DataMemberBuddys(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetTestEntity_DataMemberBuddys'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetTestEntity_DataMemberBuddys'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetTestEntity_DataMemberBuddys' operation.</returns>
-            QueryResult<TestEntity_DataMemberBuddy> EndGetTestEntity_DataMemberBuddys(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddys", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddysR" +
+                "esponse")]
+            System.Threading.Tasks.Task<QueryResult<TestEntity_DataMemberBuddy>> GetTestEntity_DataMemberBuddys();
             
             /// <summary>
             /// Asynchronously invokes the 'GetTurkishİ2' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2Response")]
-            IAsyncResult BeginGetTurkishİ2(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetTurkishİ2'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetTurkishİ2'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetTurkishİ2' operation.</returns>
-            QueryResult<Turkishİ2> EndGetTurkishİ2(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2Response")]
+            System.Threading.Tasks.Task<QueryResult<Turkishİ2>> GetTurkishİ2();
             
             /// <summary>
             /// Asynchronously invokes the 'GettyImages' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImages", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImagesResponse")]
-            IAsyncResult BeginGettyImages(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGettyImages'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGettyImages'.</param>
             /// <returns>The 'QueryResult' returned from the 'GettyImages' operation.</returns>
-            QueryResult<D> EndGettyImages(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImages", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImagesResponse")]
+            System.Threading.Tasks.Task<QueryResult<D>> GettyImages();
             
             /// <summary>
             /// Asynchronously invokes the 'OnlineMethod' operation.
             /// </summary>
             /// <param name="x">The value for the 'x' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethod", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethodResponse")]
-            IAsyncResult BeginOnlineMethod(D x, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginOnlineMethod'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginOnlineMethod'.</param>
-            void EndOnlineMethod(IAsyncResult result);
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethod", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethodResponse")]
+            Task OnlineMethod(D x);
             
             /// <summary>
             /// Asynchronously invokes the 'QueryDs3' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3Response")]
-            IAsyncResult BeginQueryDs3(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginQueryDs3'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginQueryDs3'.</param>
             /// <returns>The 'QueryResult' returned from the 'QueryDs3' operation.</returns>
-            QueryResult<D> EndQueryDs3(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3Response")]
+            System.Threading.Tasks.Task<QueryResult<D>> QueryDs3();
             
             /// <summary>
             /// Asynchronously invokes the 'RandomNameButStillAQuery' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQuery", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQueryRespons" +
-                "e")]
-            IAsyncResult BeginRandomNameButStillAQuery(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRandomNameButStillAQuery'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRandomNameButStillAQuery'.</param>
             /// <returns>The 'QueryResult' returned from the 'RandomNameButStillAQuery' operation.</returns>
-            QueryResult<D> EndRandomNameButStillAQuery(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQuery", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQueryRespons" +
+                "e")]
+            System.Threading.Tasks.Task<QueryResult<D>> RandomNameButStillAQuery();
             
             /// <summary>
             /// Asynchronously invokes the 'RetrieveDs4' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4Response")]
-            IAsyncResult BeginRetrieveDs4(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRetrieveDs4'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRetrieveDs4'.</param>
             /// <returns>The 'QueryResult' returned from the 'RetrieveDs4' operation.</returns>
-            QueryResult<D> EndRetrieveDs4(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4Response")]
+            System.Threading.Tasks.Task<QueryResult<D>> RetrieveDs4();
             
             /// <summary>
             /// Asynchronously invokes the 'RetrieveDs5' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5Response")]
-            IAsyncResult BeginRetrieveDs5(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRetrieveDs5'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRetrieveDs5'.</param>
             /// <returns>The 'QueryResult' returned from the 'RetrieveDs5' operation.</returns>
-            QueryResult<D> EndRetrieveDs5(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5Response")]
+            System.Threading.Tasks.Task<QueryResult<D>> RetrieveDs5();
             
             /// <summary>
             /// Asynchronously invokes the 'SelectDs1' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1Response")]
-            IAsyncResult BeginSelectDs1(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginSelectDs1'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginSelectDs1'.</param>
             /// <returns>The 'QueryResult' returned from the 'SelectDs1' operation.</returns>
-            QueryResult<D> EndSelectDs1(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1Response")]
+            System.Threading.Tasks.Task<QueryResult<D>> SelectDs1();
         }
         
         internal sealed class TestProvider_Scenarios_CodeGenEntityContainer : EntityContainer

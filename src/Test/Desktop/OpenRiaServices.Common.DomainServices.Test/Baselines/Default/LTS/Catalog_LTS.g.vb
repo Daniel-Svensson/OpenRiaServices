@@ -2440,105 +2440,51 @@ Namespace TestDomainServices.LTS
             ''' <summary>
             ''' Asynchronously invokes the 'GetEmployees' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/Catalog/GetEmployees", ReplyAction:="http://tempuri.org/Catalog/GetEmployeesResponse")>  _
-            Function BeginGetEmployees(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetEmployees'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetEmployees'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetEmployees' operation.</returns>
-            Function EndGetEmployees(ByVal result As IAsyncResult) As QueryResult(Of Employee)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/Catalog/GetEmployees", ReplyAction:="http://tempuri.org/Catalog/GetEmployeesResponse")>  _
+            Function GetEmployees() As System.Threading.Tasks.Task(Of QueryResult(Of Employee))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetProducts' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/Catalog/GetProducts", ReplyAction:="http://tempuri.org/Catalog/GetProductsResponse")>  _
-            Function BeginGetProducts(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetProducts'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetProducts'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetProducts' operation.</returns>
-            Function EndGetProducts(ByVal result As IAsyncResult) As QueryResult(Of Product)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/Catalog/GetProducts", ReplyAction:="http://tempuri.org/Catalog/GetProductsResponse")>  _
+            Function GetProducts() As System.Threading.Tasks.Task(Of QueryResult(Of Product))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetProductsByCategory' operation.
             ''' </summary>
             ''' <param name="subCategoryID">The value for the 'subCategoryID' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/Catalog/GetProductsByCategory", ReplyAction:="http://tempuri.org/Catalog/GetProductsByCategoryResponse")>  _
-            Function BeginGetProductsByCategory(ByVal subCategoryID As Integer, ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetProductsByCategory'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetProductsByCategory'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetProductsByCategory' operation.</returns>
-            Function EndGetProductsByCategory(ByVal result As IAsyncResult) As QueryResult(Of Product)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/Catalog/GetProductsByCategory", ReplyAction:="http://tempuri.org/Catalog/GetProductsByCategoryResponse")>  _
+            Function GetProductsByCategory(ByVal subCategoryID As Integer) As System.Threading.Tasks.Task(Of QueryResult(Of Product))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetProductsWithCaching' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/Catalog/GetProductsWithCaching", ReplyAction:="http://tempuri.org/Catalog/GetProductsWithCachingResponse")>  _
-            Function BeginGetProductsWithCaching(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetProductsWithCaching'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetProductsWithCaching'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetProductsWithCaching' operation.</returns>
-            Function EndGetProductsWithCaching(ByVal result As IAsyncResult) As QueryResult(Of Product)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/Catalog/GetProductsWithCaching", ReplyAction:="http://tempuri.org/Catalog/GetProductsWithCachingResponse")>  _
+            Function GetProductsWithCaching() As System.Threading.Tasks.Task(Of QueryResult(Of Product))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetProductsWithCustomTotalCount' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/Catalog/GetProductsWithCustomTotalCount", ReplyAction:="http://tempuri.org/Catalog/GetProductsWithCustomTotalCountResponse")>  _
-            Function BeginGetProductsWithCustomTotalCount(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetProductsWithCustomTotalCount'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetProductsWithCustomTotalCount'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetProductsWithCustomTotalCount' operation.</returns>
-            Function EndGetProductsWithCustomTotalCount(ByVal result As IAsyncResult) As QueryResult(Of Product)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/Catalog/GetProductsWithCustomTotalCount", ReplyAction:="http://tempuri.org/Catalog/GetProductsWithCustomTotalCountResponse")>  _
+            Function GetProductsWithCustomTotalCount() As System.Threading.Tasks.Task(Of QueryResult(Of Product))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetPurchaseOrders' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/Catalog/GetPurchaseOrders", ReplyAction:="http://tempuri.org/Catalog/GetPurchaseOrdersResponse")>  _
-            Function BeginGetPurchaseOrders(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetPurchaseOrders'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetPurchaseOrders'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetPurchaseOrders' operation.</returns>
-            Function EndGetPurchaseOrders(ByVal result As IAsyncResult) As QueryResult(Of PurchaseOrder)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/Catalog/GetPurchaseOrders", ReplyAction:="http://tempuri.org/Catalog/GetPurchaseOrdersResponse")>  _
+            Function GetPurchaseOrders() As System.Threading.Tasks.Task(Of QueryResult(Of PurchaseOrder))
             
             ''' <summary>
             ''' Asynchronously invokes the 'SubmitChanges' operation.
@@ -2547,7 +2493,7 @@ Namespace TestDomainServices.LTS
             ''' <param name="callback">Callback to invoke on completion.</param>
             ''' <param name="asyncState">Optional state object.</param>
             ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/Catalog/SubmitChanges", ReplyAction:="http://tempuri.org/Catalog/SubmitChangesResponse")>  _
+            <OperationContract(Action:="http://tempuri.org/Catalog/SubmitChanges", ReplyAction:="http://tempuri.org/Catalog/SubmitChangesResponse")>  _
             Function BeginSubmitChanges(ByVal changeSet As IEnumerable(Of ChangeSetEntry), ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
             
             ''' <summary>

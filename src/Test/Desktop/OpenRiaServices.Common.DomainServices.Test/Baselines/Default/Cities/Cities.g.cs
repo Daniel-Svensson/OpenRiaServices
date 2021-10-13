@@ -976,313 +976,151 @@ namespace Cities
             /// Asynchronously invokes the 'Echo' operation.
             /// </summary>
             /// <param name="msg">The value for the 'msg' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/Echo", ReplyAction="http://tempuri.org/CityDomainService/EchoResponse")]
-            IAsyncResult BeginEcho(string msg, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginEcho'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginEcho'.</param>
             /// <returns>The 'String' returned from the 'Echo' operation.</returns>
-            string EndEcho(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/Echo", ReplyAction="http://tempuri.org/CityDomainService/EchoResponse")]
+            System.Threading.Tasks.Task<string> Echo(string msg);
             
             /// <summary>
             /// Asynchronously invokes the 'EchoWithDelay' operation.
             /// </summary>
             /// <param name="msg">The value for the 'msg' parameter of this action.</param>
             /// <param name="delay">The value for the 'delay' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/EchoWithDelay", ReplyAction="http://tempuri.org/CityDomainService/EchoWithDelayResponse")]
-            IAsyncResult BeginEchoWithDelay(string msg, TimeSpan delay, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginEchoWithDelay'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginEchoWithDelay'.</param>
             /// <returns>The 'String' returned from the 'EchoWithDelay' operation.</returns>
-            string EndEchoWithDelay(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/EchoWithDelay", ReplyAction="http://tempuri.org/CityDomainService/EchoWithDelayResponse")]
+            System.Threading.Tasks.Task<string> EchoWithDelay(string msg, TimeSpan delay);
             
             /// <summary>
             /// Asynchronously invokes the 'GetCities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetCities", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesResponse")]
-            IAsyncResult BeginGetCities(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetCities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetCities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetCities' operation.</returns>
-            QueryResult<City> EndGetCities(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetCities", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesResponse")]
+            System.Threading.Tasks.Task<QueryResult<City>> GetCities();
             
             /// <summary>
             /// Asynchronously invokes the 'GetCitiesInState' operation.
             /// </summary>
             /// <param name="state">The value for the 'state' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetCitiesInState", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesInStateResponse")]
-            IAsyncResult BeginGetCitiesInState(string state, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetCitiesInState'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetCitiesInState'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetCitiesInState' operation.</returns>
-            QueryResult<City> EndGetCitiesInState(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetCitiesInState", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesInStateResponse")]
+            System.Threading.Tasks.Task<QueryResult<City>> GetCitiesInState(string state);
             
             /// <summary>
             /// Asynchronously invokes the 'GetCitiesWithEditHistory' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetCitiesWithEditHistory", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesWithEditHistoryResponse")]
-            IAsyncResult BeginGetCitiesWithEditHistory(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetCitiesWithEditHistory'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetCitiesWithEditHistory'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetCitiesWithEditHistory' operation.</returns>
-            QueryResult<CityWithEditHistory> EndGetCitiesWithEditHistory(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetCitiesWithEditHistory", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesWithEditHistoryResponse")]
+            System.Threading.Tasks.Task<QueryResult<CityWithEditHistory>> GetCitiesWithEditHistory();
             
             /// <summary>
             /// Asynchronously invokes the 'GetCitiesWithInfo' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetCitiesWithInfo", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesWithInfoResponse")]
-            IAsyncResult BeginGetCitiesWithInfo(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetCitiesWithInfo'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetCitiesWithInfo'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetCitiesWithInfo' operation.</returns>
-            QueryResult<CityWithInfo> EndGetCitiesWithInfo(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetCitiesWithInfo", ReplyAction="http://tempuri.org/CityDomainService/GetCitiesWithInfoResponse")]
+            System.Threading.Tasks.Task<QueryResult<CityWithInfo>> GetCitiesWithInfo();
             
             /// <summary>
             /// Asynchronously invokes the 'GetCounties' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetCounties", ReplyAction="http://tempuri.org/CityDomainService/GetCountiesResponse")]
-            IAsyncResult BeginGetCounties(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetCounties'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetCounties'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetCounties' operation.</returns>
-            QueryResult<County> EndGetCounties(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetCounties", ReplyAction="http://tempuri.org/CityDomainService/GetCountiesResponse")]
+            System.Threading.Tasks.Task<QueryResult<County>> GetCounties();
             
             /// <summary>
             /// Asynchronously invokes the 'GetDeletedCities' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetDeletedCities", ReplyAction="http://tempuri.org/CityDomainService/GetDeletedCitiesResponse")]
-            IAsyncResult BeginGetDeletedCities(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetDeletedCities'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetDeletedCities'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetDeletedCities' operation.</returns>
-            QueryResult<CityWithEditHistory> EndGetDeletedCities(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetDeletedCities", ReplyAction="http://tempuri.org/CityDomainService/GetDeletedCitiesResponse")]
+            System.Threading.Tasks.Task<QueryResult<CityWithEditHistory>> GetDeletedCities();
             
             /// <summary>
             /// Asynchronously invokes the 'GetStateIfUser' operation.
             /// </summary>
             /// <param name="city">The value for the 'city' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetStateIfUser", ReplyAction="http://tempuri.org/CityDomainService/GetStateIfUserResponse")]
-            IAsyncResult BeginGetStateIfUser(City city, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetStateIfUser'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetStateIfUser'.</param>
             /// <returns>The 'String' returned from the 'GetStateIfUser' operation.</returns>
-            string EndGetStateIfUser(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetStateIfUser", ReplyAction="http://tempuri.org/CityDomainService/GetStateIfUserResponse")]
+            System.Threading.Tasks.Task<string> GetStateIfUser(City city);
             
             /// <summary>
             /// Asynchronously invokes the 'GetStates' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetStates", ReplyAction="http://tempuri.org/CityDomainService/GetStatesResponse")]
-            IAsyncResult BeginGetStates(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetStates'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetStates'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetStates' operation.</returns>
-            QueryResult<State> EndGetStates(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetStates", ReplyAction="http://tempuri.org/CityDomainService/GetStatesResponse")]
+            System.Threading.Tasks.Task<QueryResult<State>> GetStates();
             
             /// <summary>
             /// Asynchronously invokes the 'GetStatesInShippingZone' operation.
             /// </summary>
             /// <param name="shippingZone">The value for the 'shippingZone' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetStatesInShippingZone", ReplyAction="http://tempuri.org/CityDomainService/GetStatesInShippingZoneResponse")]
-            IAsyncResult BeginGetStatesInShippingZone(ShippingZone shippingZone, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetStatesInShippingZone'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetStatesInShippingZone'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetStatesInShippingZone' operation.</returns>
-            QueryResult<State> EndGetStatesInShippingZone(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetStatesInShippingZone", ReplyAction="http://tempuri.org/CityDomainService/GetStatesInShippingZoneResponse")]
+            System.Threading.Tasks.Task<QueryResult<State>> GetStatesInShippingZone(ShippingZone shippingZone);
             
             /// <summary>
             /// Asynchronously invokes the 'GetZips' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetZips", ReplyAction="http://tempuri.org/CityDomainService/GetZipsResponse")]
-            IAsyncResult BeginGetZips(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetZips'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetZips'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetZips' operation.</returns>
-            QueryResult<Zip> EndGetZips(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetZips", ReplyAction="http://tempuri.org/CityDomainService/GetZipsResponse")]
+            System.Threading.Tasks.Task<QueryResult<Zip>> GetZips();
             
             /// <summary>
             /// Asynchronously invokes the 'GetZipsIfAuthenticated' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetZipsIfAuthenticated", ReplyAction="http://tempuri.org/CityDomainService/GetZipsIfAuthenticatedResponse")]
-            IAsyncResult BeginGetZipsIfAuthenticated(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetZipsIfAuthenticated'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetZipsIfAuthenticated'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetZipsIfAuthenticated' operation.</returns>
-            QueryResult<Zip> EndGetZipsIfAuthenticated(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetZipsIfAuthenticated", ReplyAction="http://tempuri.org/CityDomainService/GetZipsIfAuthenticatedResponse")]
+            System.Threading.Tasks.Task<QueryResult<Zip>> GetZipsIfAuthenticated();
             
             /// <summary>
             /// Asynchronously invokes the 'GetZipsIfInRole' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetZipsIfInRole", ReplyAction="http://tempuri.org/CityDomainService/GetZipsIfInRoleResponse")]
-            IAsyncResult BeginGetZipsIfInRole(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetZipsIfInRole'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetZipsIfInRole'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetZipsIfInRole' operation.</returns>
-            QueryResult<Zip> EndGetZipsIfInRole(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetZipsIfInRole", ReplyAction="http://tempuri.org/CityDomainService/GetZipsIfInRoleResponse")]
+            System.Threading.Tasks.Task<QueryResult<Zip>> GetZipsIfInRole();
             
             /// <summary>
             /// Asynchronously invokes the 'GetZipsIfUser' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetZipsIfUser", ReplyAction="http://tempuri.org/CityDomainService/GetZipsIfUserResponse")]
-            IAsyncResult BeginGetZipsIfUser(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetZipsIfUser'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetZipsIfUser'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetZipsIfUser' operation.</returns>
-            QueryResult<Zip> EndGetZipsIfUser(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetZipsIfUser", ReplyAction="http://tempuri.org/CityDomainService/GetZipsIfUserResponse")]
+            System.Threading.Tasks.Task<QueryResult<Zip>> GetZipsIfUser();
             
             /// <summary>
             /// Asynchronously invokes the 'GetZipsWithDelay' operation.
             /// </summary>
             /// <param name="delay">The value for the 'delay' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(false)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/GetZipsWithDelay", ReplyAction="http://tempuri.org/CityDomainService/GetZipsWithDelayResponse")]
-            IAsyncResult BeginGetZipsWithDelay(TimeSpan delay, AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetZipsWithDelay'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetZipsWithDelay'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetZipsWithDelay' operation.</returns>
-            QueryResult<Zip> EndGetZipsWithDelay(IAsyncResult result);
+            [HasSideEffects(false)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/GetZipsWithDelay", ReplyAction="http://tempuri.org/CityDomainService/GetZipsWithDelayResponse")]
+            System.Threading.Tasks.Task<QueryResult<Zip>> GetZipsWithDelay(TimeSpan delay);
             
             /// <summary>
             /// Asynchronously invokes the 'ResetData' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/ResetData", ReplyAction="http://tempuri.org/CityDomainService/ResetDataResponse")]
-            IAsyncResult BeginResetData(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginResetData'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginResetData'.</param>
-            void EndResetData(IAsyncResult result);
+            [OperationContract(Action="http://tempuri.org/CityDomainService/ResetData", ReplyAction="http://tempuri.org/CityDomainService/ResetDataResponse")]
+            Task ResetData();
             
             /// <summary>
             /// Asynchronously invokes the 'UsesCustomHost' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [HasSideEffects(true)]
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/UsesCustomHost", ReplyAction="http://tempuri.org/CityDomainService/UsesCustomHostResponse")]
-            IAsyncResult BeginUsesCustomHost(AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginUsesCustomHost'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginUsesCustomHost'.</param>
             /// <returns>The 'Boolean' returned from the 'UsesCustomHost' operation.</returns>
-            bool EndUsesCustomHost(IAsyncResult result);
+            [HasSideEffects(true)]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/UsesCustomHost", ReplyAction="http://tempuri.org/CityDomainService/UsesCustomHostResponse")]
+            System.Threading.Tasks.Task<bool> UsesCustomHost();
             
             /// <summary>
             /// Asynchronously invokes the 'SubmitChanges' operation.
@@ -1291,7 +1129,7 @@ namespace Cities
             /// <param name="callback">Callback to invoke on completion.</param>
             /// <param name="asyncState">Optional state object.</param>
             /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [OperationContract(AsyncPattern=true, Action="http://tempuri.org/CityDomainService/SubmitChanges", ReplyAction="http://tempuri.org/CityDomainService/SubmitChangesResponse")]
+            [OperationContract(Action="http://tempuri.org/CityDomainService/SubmitChanges", ReplyAction="http://tempuri.org/CityDomainService/SubmitChangesResponse")]
             IAsyncResult BeginSubmitChanges(IEnumerable<ChangeSetEntry> changeSet, AsyncCallback callback, object asyncState);
             
             /// <summary>

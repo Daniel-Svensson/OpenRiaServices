@@ -893,313 +893,151 @@ Namespace Cities
             ''' Asynchronously invokes the 'Echo' operation.
             ''' </summary>
             ''' <param name="msg">The value for the 'msg' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(true),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/Echo", ReplyAction:="http://tempuri.org/CityDomainService/EchoResponse")>  _
-            Function BeginEcho(ByVal msg As String, ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginEcho'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginEcho'.</param>
             ''' <returns>The 'String' returned from the 'Echo' operation.</returns>
-            Function EndEcho(ByVal result As IAsyncResult) As String
+            <HasSideEffects(true),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/Echo", ReplyAction:="http://tempuri.org/CityDomainService/EchoResponse")>  _
+            Function Echo(ByVal msg As String) As System.Threading.Tasks.Task(Of String)
             
             ''' <summary>
             ''' Asynchronously invokes the 'EchoWithDelay' operation.
             ''' </summary>
             ''' <param name="msg">The value for the 'msg' parameter of this action.</param>
             ''' <param name="delay">The value for the 'delay' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(true),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/EchoWithDelay", ReplyAction:="http://tempuri.org/CityDomainService/EchoWithDelayResponse")>  _
-            Function BeginEchoWithDelay(ByVal msg As String, ByVal delay As TimeSpan, ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginEchoWithDelay'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginEchoWithDelay'.</param>
             ''' <returns>The 'String' returned from the 'EchoWithDelay' operation.</returns>
-            Function EndEchoWithDelay(ByVal result As IAsyncResult) As String
+            <HasSideEffects(true),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/EchoWithDelay", ReplyAction:="http://tempuri.org/CityDomainService/EchoWithDelayResponse")>  _
+            Function EchoWithDelay(ByVal msg As String, ByVal delay As TimeSpan) As System.Threading.Tasks.Task(Of String)
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetCities' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetCities", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesResponse")>  _
-            Function BeginGetCities(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetCities'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetCities'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetCities' operation.</returns>
-            Function EndGetCities(ByVal result As IAsyncResult) As QueryResult(Of City)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetCities", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesResponse")>  _
+            Function GetCities() As System.Threading.Tasks.Task(Of QueryResult(Of City))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetCitiesInState' operation.
             ''' </summary>
             ''' <param name="state">The value for the 'state' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetCitiesInState", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesInStateResponse")>  _
-            Function BeginGetCitiesInState(ByVal state As String, ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetCitiesInState'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetCitiesInState'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetCitiesInState' operation.</returns>
-            Function EndGetCitiesInState(ByVal result As IAsyncResult) As QueryResult(Of City)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetCitiesInState", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesInStateResponse")>  _
+            Function GetCitiesInState(ByVal state As String) As System.Threading.Tasks.Task(Of QueryResult(Of City))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetCitiesWithEditHistory' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetCitiesWithEditHistory", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesWithEditHistoryResponse")>  _
-            Function BeginGetCitiesWithEditHistory(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetCitiesWithEditHistory'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetCitiesWithEditHistory'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetCitiesWithEditHistory' operation.</returns>
-            Function EndGetCitiesWithEditHistory(ByVal result As IAsyncResult) As QueryResult(Of CityWithEditHistory)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetCitiesWithEditHistory", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesWithEditHistoryResponse")>  _
+            Function GetCitiesWithEditHistory() As System.Threading.Tasks.Task(Of QueryResult(Of CityWithEditHistory))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetCitiesWithInfo' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetCitiesWithInfo", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesWithInfoResponse")>  _
-            Function BeginGetCitiesWithInfo(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetCitiesWithInfo'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetCitiesWithInfo'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetCitiesWithInfo' operation.</returns>
-            Function EndGetCitiesWithInfo(ByVal result As IAsyncResult) As QueryResult(Of CityWithInfo)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetCitiesWithInfo", ReplyAction:="http://tempuri.org/CityDomainService/GetCitiesWithInfoResponse")>  _
+            Function GetCitiesWithInfo() As System.Threading.Tasks.Task(Of QueryResult(Of CityWithInfo))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetCounties' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetCounties", ReplyAction:="http://tempuri.org/CityDomainService/GetCountiesResponse")>  _
-            Function BeginGetCounties(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetCounties'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetCounties'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetCounties' operation.</returns>
-            Function EndGetCounties(ByVal result As IAsyncResult) As QueryResult(Of County)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetCounties", ReplyAction:="http://tempuri.org/CityDomainService/GetCountiesResponse")>  _
+            Function GetCounties() As System.Threading.Tasks.Task(Of QueryResult(Of County))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetDeletedCities' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetDeletedCities", ReplyAction:="http://tempuri.org/CityDomainService/GetDeletedCitiesResponse")>  _
-            Function BeginGetDeletedCities(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetDeletedCities'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetDeletedCities'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetDeletedCities' operation.</returns>
-            Function EndGetDeletedCities(ByVal result As IAsyncResult) As QueryResult(Of CityWithEditHistory)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetDeletedCities", ReplyAction:="http://tempuri.org/CityDomainService/GetDeletedCitiesResponse")>  _
+            Function GetDeletedCities() As System.Threading.Tasks.Task(Of QueryResult(Of CityWithEditHistory))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetStateIfUser' operation.
             ''' </summary>
             ''' <param name="city">The value for the 'city' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(true),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetStateIfUser", ReplyAction:="http://tempuri.org/CityDomainService/GetStateIfUserResponse")>  _
-            Function BeginGetStateIfUser(ByVal city As City, ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetStateIfUser'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetStateIfUser'.</param>
             ''' <returns>The 'String' returned from the 'GetStateIfUser' operation.</returns>
-            Function EndGetStateIfUser(ByVal result As IAsyncResult) As String
+            <HasSideEffects(true),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetStateIfUser", ReplyAction:="http://tempuri.org/CityDomainService/GetStateIfUserResponse")>  _
+            Function GetStateIfUser(ByVal city As City) As System.Threading.Tasks.Task(Of String)
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetStates' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetStates", ReplyAction:="http://tempuri.org/CityDomainService/GetStatesResponse")>  _
-            Function BeginGetStates(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetStates'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetStates'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetStates' operation.</returns>
-            Function EndGetStates(ByVal result As IAsyncResult) As QueryResult(Of State)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetStates", ReplyAction:="http://tempuri.org/CityDomainService/GetStatesResponse")>  _
+            Function GetStates() As System.Threading.Tasks.Task(Of QueryResult(Of State))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetStatesInShippingZone' operation.
             ''' </summary>
             ''' <param name="shippingZone">The value for the 'shippingZone' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetStatesInShippingZone", ReplyAction:="http://tempuri.org/CityDomainService/GetStatesInShippingZoneResponse")>  _
-            Function BeginGetStatesInShippingZone(ByVal shippingZone As ShippingZone, ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetStatesInShippingZone'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetStatesInShippingZone'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetStatesInShippingZone' operation.</returns>
-            Function EndGetStatesInShippingZone(ByVal result As IAsyncResult) As QueryResult(Of State)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetStatesInShippingZone", ReplyAction:="http://tempuri.org/CityDomainService/GetStatesInShippingZoneResponse")>  _
+            Function GetStatesInShippingZone(ByVal shippingZone As ShippingZone) As System.Threading.Tasks.Task(Of QueryResult(Of State))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetZips' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetZips", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsResponse")>  _
-            Function BeginGetZips(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetZips'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetZips'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetZips' operation.</returns>
-            Function EndGetZips(ByVal result As IAsyncResult) As QueryResult(Of Zip)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetZips", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsResponse")>  _
+            Function GetZips() As System.Threading.Tasks.Task(Of QueryResult(Of Zip))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetZipsIfAuthenticated' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetZipsIfAuthenticated", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsIfAuthenticatedResponse")>  _
-            Function BeginGetZipsIfAuthenticated(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetZipsIfAuthenticated'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetZipsIfAuthenticated'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetZipsIfAuthenticated' operation.</returns>
-            Function EndGetZipsIfAuthenticated(ByVal result As IAsyncResult) As QueryResult(Of Zip)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetZipsIfAuthenticated", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsIfAuthenticatedResponse")>  _
+            Function GetZipsIfAuthenticated() As System.Threading.Tasks.Task(Of QueryResult(Of Zip))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetZipsIfInRole' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetZipsIfInRole", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsIfInRoleResponse")>  _
-            Function BeginGetZipsIfInRole(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetZipsIfInRole'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetZipsIfInRole'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetZipsIfInRole' operation.</returns>
-            Function EndGetZipsIfInRole(ByVal result As IAsyncResult) As QueryResult(Of Zip)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetZipsIfInRole", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsIfInRoleResponse")>  _
+            Function GetZipsIfInRole() As System.Threading.Tasks.Task(Of QueryResult(Of Zip))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetZipsIfUser' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetZipsIfUser", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsIfUserResponse")>  _
-            Function BeginGetZipsIfUser(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetZipsIfUser'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetZipsIfUser'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetZipsIfUser' operation.</returns>
-            Function EndGetZipsIfUser(ByVal result As IAsyncResult) As QueryResult(Of Zip)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetZipsIfUser", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsIfUserResponse")>  _
+            Function GetZipsIfUser() As System.Threading.Tasks.Task(Of QueryResult(Of Zip))
             
             ''' <summary>
             ''' Asynchronously invokes the 'GetZipsWithDelay' operation.
             ''' </summary>
             ''' <param name="delay">The value for the 'delay' parameter of this action.</param>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(false),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/GetZipsWithDelay", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsWithDelayResponse")>  _
-            Function BeginGetZipsWithDelay(ByVal delay As TimeSpan, ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginGetZipsWithDelay'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginGetZipsWithDelay'.</param>
             ''' <returns>The 'QueryResult' returned from the 'GetZipsWithDelay' operation.</returns>
-            Function EndGetZipsWithDelay(ByVal result As IAsyncResult) As QueryResult(Of Zip)
+            <HasSideEffects(false),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/GetZipsWithDelay", ReplyAction:="http://tempuri.org/CityDomainService/GetZipsWithDelayResponse")>  _
+            Function GetZipsWithDelay(ByVal delay As TimeSpan) As System.Threading.Tasks.Task(Of QueryResult(Of Zip))
             
             ''' <summary>
             ''' Asynchronously invokes the 'ResetData' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
             <HasSideEffects(true),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/ResetData", ReplyAction:="http://tempuri.org/CityDomainService/ResetDataResponse")>  _
-            Function BeginResetData(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginResetData'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginResetData'.</param>
-            Sub EndResetData(ByVal result As IAsyncResult)
+             OperationContract(Action:="http://tempuri.org/CityDomainService/ResetData", ReplyAction:="http://tempuri.org/CityDomainService/ResetDataResponse")>  _
+            Function ResetData() As Task
             
             ''' <summary>
             ''' Asynchronously invokes the 'UsesCustomHost' operation.
             ''' </summary>
-            ''' <param name="callback">Callback to invoke on completion.</param>
-            ''' <param name="asyncState">Optional state object.</param>
-            ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <HasSideEffects(true),  _
-             OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/UsesCustomHost", ReplyAction:="http://tempuri.org/CityDomainService/UsesCustomHostResponse")>  _
-            Function BeginUsesCustomHost(ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
-            
-            ''' <summary>
-            ''' Completes the asynchronous operation begun by 'BeginUsesCustomHost'.
-            ''' </summary>
-            ''' <param name="result">The IAsyncResult returned from 'BeginUsesCustomHost'.</param>
             ''' <returns>The 'Boolean' returned from the 'UsesCustomHost' operation.</returns>
-            Function EndUsesCustomHost(ByVal result As IAsyncResult) As Boolean
+            <HasSideEffects(true),  _
+             OperationContract(Action:="http://tempuri.org/CityDomainService/UsesCustomHost", ReplyAction:="http://tempuri.org/CityDomainService/UsesCustomHostResponse")>  _
+            Function UsesCustomHost() As System.Threading.Tasks.Task(Of Boolean)
             
             ''' <summary>
             ''' Asynchronously invokes the 'SubmitChanges' operation.
@@ -1208,7 +1046,7 @@ Namespace Cities
             ''' <param name="callback">Callback to invoke on completion.</param>
             ''' <param name="asyncState">Optional state object.</param>
             ''' <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            <OperationContract(AsyncPattern:=true, Action:="http://tempuri.org/CityDomainService/SubmitChanges", ReplyAction:="http://tempuri.org/CityDomainService/SubmitChangesResponse")>  _
+            <OperationContract(Action:="http://tempuri.org/CityDomainService/SubmitChanges", ReplyAction:="http://tempuri.org/CityDomainService/SubmitChangesResponse")>  _
             Function BeginSubmitChanges(ByVal changeSet As IEnumerable(Of ChangeSetEntry), ByVal callback As AsyncCallback, ByVal asyncState As Object) As IAsyncResult
             
             ''' <summary>

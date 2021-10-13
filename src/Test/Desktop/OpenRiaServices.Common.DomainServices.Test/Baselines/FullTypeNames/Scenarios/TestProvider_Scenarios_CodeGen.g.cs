@@ -1721,311 +1721,149 @@ namespace TestDomainServices
             /// <summary>
             /// Asynchronously invokes the 'FetchDs2' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2Response")]
-            global::System.IAsyncResult BeginFetchDs2(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginFetchDs2'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginFetchDs2'.</param>
             /// <returns>The 'QueryResult' returned from the 'FetchDs2' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndFetchDs2(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FetchDs2Response")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> FetchDs2();
             
             /// <summary>
             /// Asynchronously invokes the 'FindDs6' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6Response")]
-            global::System.IAsyncResult BeginFindDs6(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginFindDs6'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginFindDs6'.</param>
             /// <returns>The 'QueryResult' returned from the 'FindDs6' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndFindDs6(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/FindDs6Response")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> FindDs6();
             
             /// <summary>
             /// Asynchronously invokes the 'Get_Images' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_ImagesResponse")]
-            global::System.IAsyncResult BeginGet_Images(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGet_Images'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGet_Images'.</param>
             /// <returns>The 'QueryResult' returned from the 'Get_Images' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndGet_Images(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_ImagesResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> Get_Images();
             
             /// <summary>
             /// Asynchronously invokes the 'Get_Images_OfKind' operation.
             /// </summary>
             /// <param name="kind">The value for the 'kind' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKind", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKindResponse")]
-            global::System.IAsyncResult BeginGet_Images_OfKind(global::System.Nullable<global::TestDomainServices.ImageKindEnum> kind, global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGet_Images_OfKind'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGet_Images_OfKind'.</param>
             /// <returns>The 'QueryResult' returned from the 'Get_Images_OfKind' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndGet_Images_OfKind(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKind", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/Get_Images_OfKindResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> Get_Images_OfKind(global::System.Nullable<global::TestDomainServices.ImageKindEnum> kind);
             
             /// <summary>
             /// Asynchronously invokes the 'GetAs' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsResponse")]
-            global::System.IAsyncResult BeginGetAs(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetAs'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetAs'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetAs' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.A> EndGetAs(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.A>> GetAs();
             
             /// <summary>
             /// Asynchronously invokes the 'GetAsWithSideEffects' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(true)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffects", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffectsResponse")]
-            global::System.IAsyncResult BeginGetAsWithSideEffects(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetAsWithSideEffects'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetAsWithSideEffects'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetAsWithSideEffects' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.A> EndGetAsWithSideEffects(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(true)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffects", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetAsWithSideEffectsResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.A>> GetAsWithSideEffects();
             
             /// <summary>
             /// Asynchronously invokes the 'GetBs' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBsResponse")]
-            global::System.IAsyncResult BeginGetBs(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetBs'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetBs'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetBs' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.B> EndGetBs(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetBsResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.B>> GetBs();
             
             /// <summary>
             /// Asynchronously invokes the 'GetCs' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCsResponse")]
-            global::System.IAsyncResult BeginGetCs(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetCs'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetCs'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetCs' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.C> EndGetCs(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCs", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetCsResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.C>> GetCs();
             
             /// <summary>
             /// Asynchronously invokes the 'GetSpecialDataTypes' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypes", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypesResponse")]
-            global::System.IAsyncResult BeginGetSpecialDataTypes(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetSpecialDataTypes'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetSpecialDataTypes'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetSpecialDataTypes' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.SpecialDataTypes> EndGetSpecialDataTypes(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypes", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetSpecialDataTypesResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.SpecialDataTypes>> GetSpecialDataTypes();
             
             /// <summary>
             /// Asynchronously invokes the 'GetTestEntity_DataMemberBuddys' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddys", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddysR" +
-                "esponse")]
-            global::System.IAsyncResult BeginGetTestEntity_DataMemberBuddys(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetTestEntity_DataMemberBuddys'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetTestEntity_DataMemberBuddys'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetTestEntity_DataMemberBuddys' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.TestEntity_DataMemberBuddy> EndGetTestEntity_DataMemberBuddys(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddys", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTestEntity_DataMemberBuddysR" +
+                "esponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.TestEntity_DataMemberBuddy>> GetTestEntity_DataMemberBuddys();
             
             /// <summary>
             /// Asynchronously invokes the 'GetTurkishİ2' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2Response")]
-            global::System.IAsyncResult BeginGetTurkishİ2(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGetTurkishİ2'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGetTurkishİ2'.</param>
             /// <returns>The 'QueryResult' returned from the 'GetTurkishİ2' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.Turkishİ2> EndGetTurkishİ2(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GetTurkishİ2Response")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.Turkishİ2>> GetTurkishİ2();
             
             /// <summary>
             /// Asynchronously invokes the 'GettyImages' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImages", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImagesResponse")]
-            global::System.IAsyncResult BeginGettyImages(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginGettyImages'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginGettyImages'.</param>
             /// <returns>The 'QueryResult' returned from the 'GettyImages' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndGettyImages(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImages", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/GettyImagesResponse")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> GettyImages();
             
             /// <summary>
             /// Asynchronously invokes the 'OnlineMethod' operation.
             /// </summary>
             /// <param name="x">The value for the 'x' parameter of this action.</param>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
             [global::OpenRiaServices.Client.HasSideEffects(true)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethod", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethodResponse")]
-            global::System.IAsyncResult BeginOnlineMethod(global::TestDomainServices.D x, global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginOnlineMethod'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginOnlineMethod'.</param>
-            void EndOnlineMethod(global::System.IAsyncResult result);
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethod", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/OnlineMethodResponse")]
+            global::System.Threading.Tasks.Task OnlineMethod(global::TestDomainServices.D x);
             
             /// <summary>
             /// Asynchronously invokes the 'QueryDs3' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3Response")]
-            global::System.IAsyncResult BeginQueryDs3(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginQueryDs3'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginQueryDs3'.</param>
             /// <returns>The 'QueryResult' returned from the 'QueryDs3' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndQueryDs3(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/QueryDs3Response")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> QueryDs3();
             
             /// <summary>
             /// Asynchronously invokes the 'RandomNameButStillAQuery' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQuery", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQueryRespons" +
-                "e")]
-            global::System.IAsyncResult BeginRandomNameButStillAQuery(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRandomNameButStillAQuery'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRandomNameButStillAQuery'.</param>
             /// <returns>The 'QueryResult' returned from the 'RandomNameButStillAQuery' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndRandomNameButStillAQuery(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQuery", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RandomNameButStillAQueryRespons" +
+                "e")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> RandomNameButStillAQuery();
             
             /// <summary>
             /// Asynchronously invokes the 'RetrieveDs4' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4Response")]
-            global::System.IAsyncResult BeginRetrieveDs4(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRetrieveDs4'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRetrieveDs4'.</param>
             /// <returns>The 'QueryResult' returned from the 'RetrieveDs4' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndRetrieveDs4(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs4Response")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> RetrieveDs4();
             
             /// <summary>
             /// Asynchronously invokes the 'RetrieveDs5' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5Response")]
-            global::System.IAsyncResult BeginRetrieveDs5(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginRetrieveDs5'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginRetrieveDs5'.</param>
             /// <returns>The 'QueryResult' returned from the 'RetrieveDs5' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndRetrieveDs5(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/RetrieveDs5Response")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> RetrieveDs5();
             
             /// <summary>
             /// Asynchronously invokes the 'SelectDs1' operation.
             /// </summary>
-            /// <param name="callback">Callback to invoke on completion.</param>
-            /// <param name="asyncState">Optional state object.</param>
-            /// <returns>An IAsyncResult that can be used to monitor the request.</returns>
-            [global::OpenRiaServices.Client.HasSideEffects(false)]
-            [global::System.ServiceModel.OperationContractAttribute(AsyncPattern=true, Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1Response")]
-            global::System.IAsyncResult BeginSelectDs1(global::System.AsyncCallback callback, object asyncState);
-            
-            /// <summary>
-            /// Completes the asynchronous operation begun by 'BeginSelectDs1'.
-            /// </summary>
-            /// <param name="result">The IAsyncResult returned from 'BeginSelectDs1'.</param>
             /// <returns>The 'QueryResult' returned from the 'SelectDs1' operation.</returns>
-            global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D> EndSelectDs1(global::System.IAsyncResult result);
+            [global::OpenRiaServices.Client.HasSideEffects(false)]
+            [global::System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1", ReplyAction="http://tempuri.org/TestProvider_Scenarios_CodeGen/SelectDs1Response")]
+            global::System.Threading.Tasks.Task<global::OpenRiaServices.Client.QueryResult<global::TestDomainServices.D>> SelectDs1();
         }
         
         internal sealed class TestProvider_Scenarios_CodeGenEntityContainer : global::OpenRiaServices.Client.EntityContainer
