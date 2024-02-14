@@ -862,6 +862,20 @@ namespace OpenRiaServices.Client
             return entity;
         }
 
+
+        /// <summary>
+        /// Queries the cache for the entity indicated by the specified key
+        /// values returning it if found, or returning null otherwise
+        /// </summary>
+        /// <param name="identity">The key values specified in the correct member order</param>
+        /// <returns>The entity if found, null otherwise</returns>
+        internal Entity GetEntityByIdentity(object identity)
+        {
+            this._identityCache.TryGetValue(identity, out var entity);
+            return entity;
+        }
+        
+
         /// <summary>
         /// Load the specified set of entities
         /// </summary>

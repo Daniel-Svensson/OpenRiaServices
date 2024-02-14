@@ -13,6 +13,17 @@ namespace OpenRiaServices.Client
         /// <summary>
         /// Creates an key using the specified key values
         /// </summary>
+        /// <typeparam name="T">Type of key</typeparam>
+        /// <param name="v1">Key value</param>
+        /// <returns>The entity key</returns>
+        public static object /*EntityKey */Create<T>(T v1)
+        {
+            return new EntityKey<T>(v1);
+        }
+
+        /// <summary>
+        /// Creates an key using the specified key values
+        /// </summary>
         /// <typeparam name="T1">First key value type</typeparam>
         /// <typeparam name="T2">Second key value type</typeparam>
         /// <param name="v1">First key value</param>
@@ -35,7 +46,10 @@ namespace OpenRiaServices.Client
         /// <returns>The entity key</returns>
         public static EntityKey Create<T1, T2, T3>(T1 v1, T2 v2, T3 v3)
         {
-            return new EntityKey<T1, EntityKey<T2, T3>>(v1, new EntityKey<T2, T3>(v2, v3));
+            VerifyKeyValueNotNull(v1);
+            VerifyKeyValueNotNull(v2);
+            VerifyKeyValueNotNull(v3);
+            return new EntityKey<(T1,T2,T3)>((v1,v2,v3));
         }
 
         /// <summary>

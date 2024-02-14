@@ -418,13 +418,6 @@ namespace OpenRiaServices.Client
             }
         }
 
-        Func<Entity, bool> IEntityRef.Filter
-        {
-            get
-            {
-                return (Entity e) => this._entityPredicate((TEntity)e);
-            }
-        }
         #endregion
     }
 
@@ -457,14 +450,6 @@ namespace OpenRiaServices.Client
         /// To avoid the deferred load, inspect the HasValue property first.
         /// </summary>
         Entity Entity
-        {
-            get;
-        }
-
-        /// <summary>
-        /// Gets the underlying filter method for the EntityRef.
-        /// </summary>
-        Func<Entity, bool> Filter
         {
             get;
         }

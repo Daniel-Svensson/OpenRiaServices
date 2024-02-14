@@ -8,7 +8,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace OpenRiaServices.DomainServices.Client
+namespace OpenRiaServices.Client
 {
     /// <summary>
     /// Represents an reference to an associated entity.
@@ -225,11 +225,11 @@ namespace OpenRiaServices.DomainServices.Client
         /// </summary>
         /// <param name="set">The collection of entities to search.</param>
         /// <returns>The entity or null.</returns>
-        private TEntity GetSingleMatch(EntitySet<TEntity> set)
+        private TEntity GetSingleMatch(EntitySet set)
         {
             var key = GetKey();
             if (key != null)
-                return (TEntity)set.GetEntityByIdentity(GetKey());
+                return (TEntity)set.GetEntityByIdentity(key);
             else
                 return null;
         }
@@ -439,16 +439,9 @@ namespace OpenRiaServices.DomainServices.Client
             }
         }
 
-        Func<Entity, bool> IEntityRef.Filter
-        {
-            get
-            {
-                return (Entity e) => KeyEquals(e);
-            }
-        }
-
         private bool KeyEquals(Entity e)
         {
+            // TODO: Consider taking in old kind of filter as well
             return object.Equals(e.GetIdentity(), GetKey());
         }
 
