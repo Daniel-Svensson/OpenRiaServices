@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFrameworks>net472;net6.0</TargetFrameworks>
+    <!-- We compile with Release settings to test PDB reader,
+         though we pretend it is the Debug build just to simplify
+         a debug build of the solution
+    -->
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugType>portable</DebugType>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\ClientClassLib\TestEntity.reverse.linked.cs" Link="TestEntity.reverse.linked.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\OpenRiaServices.Server\Framework\OpenRiaServices.Server.csproj" />
+    <ProjectReference Include="..\ServerClassLib2\ServerClassLib2.csproj" />
+  </ItemGroup>
+</Project>

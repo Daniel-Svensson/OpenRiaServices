@@ -1,0 +1,59 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net472;net6.0;net8.0</TargetFrameworks>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\AssemblyGenerator.cs" Link="AssemblyGenerator.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\CompilerHelper.cs" Link="CompilerHelper.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\MockBuildEngine.cs" Link="MockBuildEngine.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\MockCodeGenerationHost.cs" Link="MockCodeGenerationHost.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\MockDomainServices.cs" Link="MockDomainServices.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\MockSharedCodeService.cs" Link="MockSharedCodeService.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\MsBuildHelper.cs" Link="MsBuildHelper.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\Utilities\ConsoleLogger.cs" Link="ConsoleLogger.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Test\Utilities\TestInitializer.cs" Link="Utilities\TestInitializer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OpenRiaServices.EntityFramework\Framework\OpenRiaServices.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\OpenRiaServices.Tools\Framework\OpenRiaServices.Tools.csproj" />
+    <ProjectReference Include="..\..\OpenRiaServices.Server\Framework\OpenRiaServices.Server.csproj">
+      <Aliases>global,SystemWebDomainServices</Aliases>
+    </ProjectReference>
+    <!-- Ensure Tools Test project is built first so we can reference projectpath -->
+    <ProjectReference Include="..\..\OpenRiaServices.Tools\Test\OpenRiaServices.Tools.Test.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\OpenRiaServices.Common.DomainServices.Test.csproj" />
+    <ProjectReference Include="..\Framework\OpenRiaServices.Tools.TextTemplate.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\..\OpenRiaServices.Tools\Test\ProjectPath.txt">
+      <Link>ProjectPath.txt</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.Build.Locator" Version="1.6.10" />
+    <PackageReference Include="Microsoft.Build" Version="17.0.0" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.Build.Framework" Version="17.0.0" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.Build.Utilities.Core" Version="17.0.0" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="Microsoft.Build.Tasks.Core" Version="17.0.0" PrivateAssets="All" ExcludeAssets="Runtime" />
+    <PackageReference Include="System.Reflection.MetadataLoadContext" Version="8.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.VisualBasic" Version="4.8.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.2.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.2.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.XML" />
+  </ItemGroup>
+  
+</Project>

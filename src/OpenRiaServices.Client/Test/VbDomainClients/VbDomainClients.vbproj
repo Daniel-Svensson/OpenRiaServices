@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+    <DefineTrace>true</DefineTrace>
+    <RootNamespace />
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetFrameworks>net472;net6.0</TargetFrameworks>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionStrict>Off</OptionStrict>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'net472'">
+    <!-- Disable obsolete warning (primarily AssociationAttribute) -->
+    <NoWarn>$(NoWarn);BC40000</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net472'">
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Baselines\Default\Cities\Cities.g.vb" Link="DomainClients\Cities.g.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Baselines\Default\LTS\Catalog_LTS.g.vb" Link="DomainClients\Catalog_LTS.g.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Baselines\Default\LTS\Northwind_LTS.g.vb" Link="DomainClients\Northwind_LTS.g.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Baselines\Default\Mocks\ServerSideAsyncDomainService.g.vb" Link="DomainClients\ServerSideAsyncDomainService.g.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Baselines\Default\Scenarios\IncludeScenariosTestProvider.g.vb" Link="DomainClients\IncludeScenariosTestProvider.g.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Baselines\Default\Scenarios\TestProvider_Scenarios.g.vb" Link="DomainClients\TestProvider_Scenarios.g.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Cities\Cities.shared.vb" Link="DomainClients\Cities.shared.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Shared\Mock.shared.vb" Link="DomainClients\Mock.shared.vb" />
+    <Compile Include="..\..\..\Test\Desktop\OpenRiaServices.Common.DomainServices.Test\Shared\Test.shared.vb" Link="DomainClients\Test.shared.vb" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\OpenRiaServices.Client.Web\Framework\OpenRiaServices.Client.Web.csproj" />
+    <ProjectReference Include="..\..\Framework\OpenRiaServices.Client.csproj" />
+  </ItemGroup>
+</Project>

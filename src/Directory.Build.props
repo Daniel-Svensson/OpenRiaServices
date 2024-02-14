@@ -1,0 +1,75 @@
+<Project>
+
+  <!-- This PropertyGroup defines the location and version of Silverlight and SDK for .Net projects (Metadata projects) -->
+  <PropertyGroup>
+    <IsTestProject Condition="'$(IsTestProject)' == '' And ($(MSBuildProjectFile.Contains('.Test.')) Or $(MSBuildProjectDirectory.Contains('\Test\')))">true</IsTestProject>
+    <IsFrameworkProject Condition="'$(IsTestProject)' != 'true' and !$(MSBuildProjectFile.Contains('.VisualStudio.')) ">true</IsFrameworkProject>
+
+    <DeterministicSourcePaths Condition="'$(BUILD_BUILDID)' != '' and '$(IsFrameworkProject)' == 'true'">true</DeterministicSourcePaths>
+    <ContinuousIntegrationBuild Condition="'$(BUILD_BUILDID)' != '' and '$(IsFrameworkProject)' == 'true'">true</ContinuousIntegrationBuild>
+
+    <!-- Use csharp 12.0 for all projects -->
+    <LangVersion Condition="'$(MSBuildProjectExtension)' == '.csproj'">12.0</LangVersion>
+    <AnalysisMode Condition="'$(IsFrameworkProject)' == 'true'">Recommended</AnalysisMode>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
+
+    <SonarQubeTestProject Condition="'$(IsTestProject)' == 'true'">True</SonarQubeTestProject>
+
+    <OutputPath Condition="'$(IsFrameworkProject)' == 'true'">$(MSBuildThisFileDirectory)bin\$(Configuration)\</OutputPath>
+    <GenerateDocumentationFile  Condition="'$(IsFrameworkProject)' == 'true'">true</GenerateDocumentationFile>
+    <CopyLocalLockFileAssemblies Condition="'$(IsFrameworkProject)' == 'true'">false</CopyLocalLockFileAssemblies>
+
+    <VersionPrefix>5.3.1</VersionPrefix>
+    <!-- Set correct version suffix below if manually building 
+        <VersionSuffix>preview.5</VersionSuffix>
+        -->
+    <AssemblyVersion>5.0.0.0</AssemblyVersion>
+    <Company>.NET Foundation</Company>
+    <Product>OpenRiaServices</Product>
+    <Copyright>.NET Foundation</Copyright>
+    <Title>$(MSBuildProjectName)</Title>
+    <PackageProjectUrl>https://github.com/OpenRIAServices/OpenRiaServices/</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/OpenRIAServices/OpenRiaServices.git</RepositoryUrl>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>For release notes see https://github.com/OpenRIAServices/OpenRiaServices/releases</PackageReleaseNotes>
+    <Authors>OpenRIAServices</Authors>
+
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <PackageOutputPath>$(MSBuildThisFileDirectory)..\Nuget\bin</PackageOutputPath>
+    <PackageOutputPath Condition="'$(Configuration)'!='Release'">$(MSBuildThisFileDirectory)..\Nuget\bin\$(Configuration)</PackageOutputPath>
+    <PackageOutputPath Condition="'$(BUILD_ARTIFACTSTAGINGDIRECTORY)'!=''">$(BUILD_ARTIFACTSTAGINGDIRECTORY)</PackageOutputPath>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+
+    <!-- Setup signing-->
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile Condition="'$(AssemblyOriginatorKeyFile)' == '' And '$(IsTestProject)' != 'true'">$(MSBuildThisFileDirectory)\snk\OpenRiaServices.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile Condition="'$(AssemblyOriginatorKeyFile)' == '' And '$(IsTestProject)' == 'true'">$(MSBuildThisFileDirectory)\snk\Tests.snk</AssemblyOriginatorKeyFile>
+    <PublicSign Condition=" '$(OS)' != 'Windows_NT' ">true</PublicSign>
+
+    <DebugType>portable</DebugType>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(GitVersion_AssemblySemVer)' != ''">
+    <VersionPrefix>$(GitVersion_MajorMinorPatch)</VersionPrefix>
+    <VersionSuffix>$(GitVersion_PreReleaseTag)</VersionSuffix>
+    <!-- Set by source link
+        <InformationalVersion>$(GitVersion_InformationalVersion)</InformationalVersion>
+        -->
+    <AssemblyVersion>$(GitVersion_AssemblySemVer)</AssemblyVersion>
+    <FileVersion>$(GitVersion_MajorMinorPatch).$(GitVersion_PreReleaseNumber)</FileVersion>
+  </PropertyGroup>
+
+
+  <!-- Enable source link, we really only want this for framework assemblies and CI builds
+  -->
+  <ItemGroup Condition="'$(IsFrameworkProject)' == 'true'">
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All"/>
+
+  </ItemGroup>
+
+</Project>

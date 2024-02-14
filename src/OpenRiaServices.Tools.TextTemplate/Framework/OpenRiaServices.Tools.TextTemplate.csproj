@@ -1,0 +1,149 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);SERVERFX</DefineConstants>
+    <DefineConstants Condition="'$(TargetFramework)' == 'net472'">$(DefineConstants);HAS_LINQ2SQL</DefineConstants>
+    <TargetFrameworks>net472;net6.0</TargetFrameworks>
+    <NoWarn>1591</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' != 'net472'">
+    <!-- Disable obsolete warning (primarily AssociationAttribute) -->
+    <NoWarn>$(NoWarn);CS0618</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\AttributeBuilderException.cs" Link="CSharpGenerators\AttributeGenerationHelpers\AttributeBuilderException.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\AttributeDeclaration.cs" Link="CSharpGenerators\AttributeGenerationHelpers\AttributeDeclaration.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\CustomValidationCustomAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\CustomValidationCustomAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\DataMemberAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\DataMemberAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\DisplayCustomAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\DisplayCustomAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\DomainIdentifierAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\DomainIdentifierAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\EditableAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\EditableAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\ICustomAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\ICustomAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\RangeCustomAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\RangeCustomAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\StandardCustomAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\StandardCustomAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\UIHintCustomAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\UIHintCustomAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\MetadataPipeline\ValidationCustomAttributeBuilder.cs" Link="CSharpGenerators\AttributeGenerationHelpers\ValidationCustomAttributeBuilder.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\Naming.cs" Link="Utilities\Naming.cs" />
+    <Compile Include="..\..\OpenRiaServices.Tools\Framework\SharedTypes\VirtualType.cs" Link="Utilities\VirtualType.cs" />
+    <Compile Include="..\..\OpenRiaServices.Client\Framework\BinaryTypeUtility.cs" Link="Utilities\BinaryTypeUtility.cs" />
+    <Compile Include="..\..\OpenRiaServices.Client\Framework\TypeUtility.cs" Link="Utilities\TypeUtility.cs" />
+    <Compile Include="..\..\OpenRiaServices.Client\Framework\ExceptionHandlingUtility.cs" Link="Utilities\ExceptionHandlingUtility.cs" />
+    <Compile Include="..\..\OpenRiaServices.Server\Framework\SerializationUtility.cs" Link="Utilities\SerializationUtility.cs" />
+    <Compile Include="..\..\OpenRiaServices.Server\Framework\TypeDescriptorExtensions.cs" Link="Utilities\TypeDescriptorExtensions.cs" />
+    <Compile Update="CodeGeneratorTextTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CodeGeneratorTextTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Update="ComplexObjectGenerator.cs">
+      <DependentUpon>ComplexObjectGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="CSharpGenerators\CSharpComplexObjectGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharpComplexObjectGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CSharpGenerators\CSharpDomainContextGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharpDomainContextGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CSharpGenerators\CSharpEntityGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharpEntityGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CSharpGenerators\CSharpEnumGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharpEnumGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CSharpGenerators\CSharpClientCodeGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharpClientCodeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="CSharpGenerators\CSharpWebContextGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CSharpWebContextGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="DataContractProxyGenerator.cs">
+      <DependentUpon>DataContractProxyGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="DomainContextGenerator.cs">
+      <DependentUpon>DomainContextGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="EntityGenerator.cs">
+      <DependentUpon>EntityGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="EnumGenerator.cs">
+      <DependentUpon>EnumGenerator.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="ClientCodeGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientCodeGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Update="Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="TextTemplateResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextTemplateResource.resx</DependentUpon>
+    </Compile>
+    <Compile Update="WebContextGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebContextGenerator.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="**\*.ttinclude" />
+    <None Update="**\*.tt">
+      <!---TextTemplatingFilePreprocessor , TextTemplatingFileGenerator-->
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>%(Filename).cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>OpenRiaServices.Tools</CustomToolNamespace>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\OpenRiaServices.Tools\Framework\OpenRiaServices.Tools.csproj" />
+    <ProjectReference Include="..\..\OpenRiaServices.Server\Framework\OpenRiaServices.Server.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' != 'net472' ">
+    <!-- Required for known type attributes -->
+    <PackageReference Include="System.ServiceModel.Primitives" Version="6.0.0" />
+    <!-- Required for validation attributes -->
+    <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net472' ">
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+</Project>

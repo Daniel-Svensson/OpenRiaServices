@@ -1,76 +1,67 @@
-queue:
-
-  name: Hosted VS2017
-  demands:
-  - msbuild
-  - visualstudio
-  - vstest
-  - java
+pool:
+  vmImage: 'windows-2022'
 
 variables:
   BuildConfiguration: 'release'
   BuildPlatform: 'any cpu'
-  Solution: 'RiaServices.sln'
+  Solution: 'src\RiaServices.sln'
+# Msbuild might create logs in the following directory in case some of the "tool" tests fail
+  MSBUILDDEBUGPATH: $(Build.ArtifactStagingDirectory)
+# Define the following variable for the build pipeline in order to enable sonarcloud analysis
+# sonarcloud-endpoint: 'sonarcloud.io'
 
 steps:
 
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.9.2'
+# Uncomment below to install dotnet runtime and SDK if they stop beeing preinstalled
+## install dotnet 6
+#- task: UseDotNet@2
+#  inputs:
+#    packageType: 'runtime'
+#    version: '6.0.x'
+
+## install dotnet 7
+#- task: UseDotNet@2
+#  inputs:
+#    packageType: 'runtime'
+#    version: '7.0.x'
+
+## install dotnet 8 sdk
+#- task: UseDotNet@2
+#  inputs:
+#    packageType: 'sdk'
+#    version: '8.0.x'
+
+- task: NuGetToolInstaller@1
   inputs:
-    versionSpec: 4.9.2
+    versionSpec: 6.7.0
     
-- task: gittools.gitversion.gitversion-task.GitVersion@4
-  displayName: GitVersion
+- task: gitversion/setup@0
+  displayName: Install GitVersion
   inputs:
-    preferBundledVersion: true
+    versionSpec: '5.9.0'
 
-- powershell: |
-   [string]$RepositoryRoot = "$(Build.SourcesDirectory)"
-   
-   $url = "https://download.microsoft.com/download/3/A/3/3A35179D-5C87-4D0A-91EB-BF5FEDC601A4/sdk/silverlight_sdk.exe"
-   $fileName = "silverlight_5_sdk.exe"
-   $fullPath = (join-path $RepositoryRoot $fileName)
-   
-   if (Test-Path $fullPath)
-   {
-     echo "'$fileName' already downloading, reusing it"
-   }
-   else
-   {
-     echo "Downloading Silverlight sdk"
-     Measure-Command {  (New-Object System.Net.WebClient).DownloadFile($url, $fullPath) }
-     echo "Downloaded Silverlight sdk"
-   }
-   
-   dir $fullPath
-   echo "Installing Silverlight 5 SDK"
-   "executing $fullPath /q  /norestart"
-   
-   & $fullPath "/q"  "/norestart"
-   
-   echo "Success  = '$?'"
-
-  displayName: 'Download and install Silverlight 5 SDK'
+- task: gitversion/execute@0
+  displayName: Use GitVersion
 
 - task: NuGetCommand@2
   displayName: 'NuGet restore RiaServices.sln'
   inputs:
     restoreSolution: '$(Solution)'
-  
-- task: SonarSource.sonarcloud.14d9cde6-c1da-4d55-aa01-2965cd301255.SonarCloudPrepare@1
+    configuration: '$(BuildConfiguration)'
+    
+- task: SonarCloudPrepare@1
   displayName: 'Prepare analysis on SonarCloud'
+  condition: variables['sonarcloud-endpoint']
   inputs:
     SonarCloud: 'sonarcloud.io'
     organization: openriaservices
     projectKey: 'OpenRIAServices_OpenRiaServices'
     projectName: OpenRiaServices
-    projectVersion: '$(GitVersion.NuGetVersion)'
+    projectVersion: '$(Build.BuildNumber)'
     extraProperties: |
      # Additional properties that will be passed to the scanner, 
      # Put one key=value per line, example:
-     # sonar.exclusions=**/*.bin
-     # sonar.cs.vstest.reportsPaths=$(Agent.TempDirectory)\**\*.trx
-     # sonar.cs.vscoveragexml.reportsPaths=$(Agent.TempDirectory)\**\*.coverage
+     sonar.exclusions=src\VisualStudio/ItemTemplates/**,src\VisualStudio/Templates/**;
 
 - task: VSBuild@1
   displayName: 'Build solution RiaServices.sln'
@@ -80,110 +71,88 @@ steps:
     configuration: '$(BuildConfiguration)'
     maximumCpuCount: true
 
+# Load test databases and setup msbuild debug path so it becomes part of artifacts 
 - powershell: |
    sqllocaldb start MSSQLLocalDB
    if (-not $?) { write-error  "failed to start  MSSQLLocalDB" }
    
    .\Setup-TestDatabases.ps1
    
-   $port = 60002
-   $iisExpressExe = "c:\Program Files (x86)\IIS Express\iisexpress.exe"
-   $path = (Resolve-path "Test\WebsiteFullTrust")
-   Write-Host $path
-   Write-host "Starting site on port: $port"
-   $params = "/port:$port /path:$path"
-   $command = """$iisExpressExe"" $params"
-   cmd /c start cmd /k "$command"
- 
-  displayName: 'Setup database and Start test webserver'
+  displayName: 'Setup database'
 
 - task: VSTest@2
-  displayName: 'Run tests'
+  displayName: 'Run tests - net48'
   inputs:
     testAssemblyVer2: |
-     **\bin\**\OpenRiaServices.DomainServices.*Test.dll
+     **\bin\$(BuildConfiguration)\net4*\OpenRiaServices.*Test.dll
+     !src\VisualStudio\**\bin\$(BuildConfiguration)\net4*\OpenRiaServices.*Test.dll
+     !**\bin\$(BuildConfiguration)\*\OpenRiaServices.Common*Test.dll
+     src\VisualStudio\Tools\Test\bin\$(BuildConfiguration)\net4*\OpenRiaServices.VisualStudio.*.Test.dll
      !**\obj\**
-     !**\sl5\**
 
     runOnlyImpactedTests: false
     runInParallel: true
+    runSettingsFile: 'src\test.runsettings'
     codeCoverageEnabled: true
     platform: '$(BuildPlatform)'
     configuration: '$(BuildConfiguration)'
-    rerunFailedTests: true
-    rerunFailedThreshold: 40
-  timeoutInMinutes: 40
+  timeoutInMinutes: 25
 
-- task: SonarSource.sonarcloud.ce096e50-6155-4de8-8800-4221aaeed4a1.SonarCloudAnalyze@1
+- task: VSTest@2
+  displayName: 'Run tests - net6'
+  inputs:
+    testAssemblyVer2: |
+     **\bin\$(BuildConfiguration)\*\OpenRiaServices.*Test.dll
+     !**\bin\$(BuildConfiguration)\*\OpenRiaServices.Common*Test.dll
+     !**\bin\$(BuildConfiguration)\net4*\OpenRiaServices.*Test.dll
+     !**\obj\**
+
+    runOnlyImpactedTests: false
+    runInParallel: true
+    runSettingsFile: 'src\test.runsettings'
+    codeCoverageEnabled: true
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+  timeoutInMinutes: 25
+
+- task: SonarCloudAnalyze@1
   displayName: 'Run Code Analysis'
-  continueOnError: true  
-  condition: or(succeeded(), and(succeededOrFailed(), eq(variables['Build.SourceBranch'], 'refs/heads/master')))
-
-- task: PowerShell@1
-  displayName: 'PowerShell Script'
-  inputs:
-    scriptName: 'OpenRiaServices.NuGet/Pack-All.ps1'
-    arguments: '-Version "$(GitVersion.NuGetVersion)"'
-  enabled: false
-
-- task: NuGetPackager@0
-  displayName: 'NuGet Packager '
-  inputs:
-    searchPattern: 'OpenRiaServices.NuGet\**\*.nuspec;-:OpenRiaServices.NuGet\**\*.Signed.*nuspec;-:OpenRiaServices.NuGet\OpenRiaServices.EntityTools\**;-:OpenRiaServices.NuGet\OpenRiaServices.WebForms\**;-:OpenRiaServices.NuGet\OpenRiaServices.WindowsAzure\**'
-    versionByBuild: byEnvVar
-    versionEnvVar: GitVersion.NuGetVersion
-  enabled: false
   continueOnError: true
-  condition: succeededOrFailed()
+  condition: and(variables['sonarcloud-endpoint'], or(succeeded(), and(succeededOrFailed(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))))
 
 - task: NuGetCommand@2
   displayName: 'NuGet pack'
   inputs:
     command: pack
-    packagesToPack: 'OpenRiaServices.NuGet\**\*.nuspec;!OpenRiaServices.NuGet\**\*.Signed.*nuspec;!OpenRiaServices.NuGet\OpenRiaServices.EntityTools\**;!OpenRiaServices.NuGet\OpenRiaServices.WebForms\**;!OpenRiaServices.NuGet\OpenRiaServices.WindowsAzure\**'
+    packagesToPack: 'NuGet\**\*.nuspec'
     versioningScheme: byEnvVar
-    versionEnvVar: GitVersion.NuGetVersion
-    includeSymbols: true
-  enabled: false
+    versionEnvVar: Build.BuildNumber
+    packDestination: '$(Build.ArtifactStagingDirectory)' 
   continueOnError: true
-
-- powershell: |
-   if ($env:CONFIGURATION -ne "Signed") {
-       dir OpenRiaServices.NuGet\*.nupkg -Recurse | where {$_.Name -match "OpenRiaServices.Signed"} | del}
-   
-   if ($env:CONFIGURATION -eq "Signed") {
-       dir OpenRiaServices.NuGet\*.nupkg -Recurse  | where {-not ($_.Name -match "OpenRiaServices.Signed")} | del} 
-
-  displayName: 'PowerShell Script'
-  enabled: false
-
-- task: NuGetPublisher@0
-  displayName: 'NuGet Publisher '
-  inputs:
-    connectedServiceName: myget
-    nuGetVersion: 4.0.0.2283
-    continueOnEmptyNupkgMatch: true
-  enabled: false
-  continueOnError: true
-
-- task: NuGetCommand@2
-  displayName: 'NuGet custom'
-  inputs:
-    command: custom
-    arguments: 'push '
-  enabled: false
+#  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
 - task: CopyFiles@2
-  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  displayName: 'Copy VS Extension: $(build.artifactstagingdirectory)'
   inputs:
     SourceFolder: '$(build.sourcesdirectory)'
     Contents: |
-     OpenRiaServices.NuGet\**\*.nupkg
-     .sonarqube\out\**
-     !**\packages\**
+     src\VisualStudio\Installer\bin\$(BuildConfiguration)\*.vsix
+     src\VisualStudio\Installer\publishManifest.json
+     src\VisualStudio\Installer\assets\**
     TargetFolder: '$(build.artifactstagingdirectory)'
-  condition: succeededOrFailed()
+  condition: and(succeeded(), ne(variables['Build.Reason'], 'PullRequest'))
 
+  
+- task: CopyFiles@2
+  displayName: 'Copy dump files  to $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(Agent.TempDirectory)'
+    Contents: |
+     TestResults/*/*
+     **/*.diag
+     !TestResults/*/*.coverage*
+    TargetFolder: '$(build.artifactstagingdirectory)/vstest'
+  condition: succeededOrFailed()
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
@@ -191,10 +160,7 @@ steps:
     PathtoPublish: '$(build.artifactstagingdirectory)'
   condition: succeededOrFailed()
 
-
-- task: SonarSource.sonarcloud.38b27399-a642-40af-bb7d-9971f69712e8.SonarCloudPublish@1
+- task: SonarCloudPublish@1
   displayName: 'Publish Quality Gate Result'
   continueOnError: true  
-  condition: or(succeeded(), and(succeededOrFailed(), eq(variables['Build.SourceBranch'], 'refs/heads/master')))
-
-
+  condition: and(variables['sonarcloud-endpoint'], or(succeeded(), and(succeededOrFailed(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))))

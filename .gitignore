@@ -16,13 +16,8 @@ cov-int.zip
 [Dd]ebug/
 [Rr]elease/
 x64/
-build/
 [Bb]in/
 [Oo]bj/
-
-# Enable "build/" folder in the NuGet Packages folder since NuGet packages use it for MSBuild targets
-!packages/*/build/
-!OpenRiaServices.NuGet/*/build/
 
 # MSTest test Results
 [Tt]est[Rr]esult*/
@@ -32,6 +27,7 @@ build/
 *_p.c
 *.ilk
 *.meta
+*.exe
 *.obj
 *.pch
 *.pdb
@@ -52,8 +48,10 @@ build/
 *.log
 *.scc
 *.xap
+*.dll
 
-ProjectPath.txt
+
+*Path.txt
 activeconnections.txt
 
 # Visual C++ cache files
@@ -76,28 +74,14 @@ ipch/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 
+# CodeRush coding
+.cr/
+
 # TeamCity is a build add-in
 _TeamCity*
 
 # DotCover is a Code Coverage Tool
 *.dotCover
-
-# NCrunch
-*.ncrunch*
-.*crunch*.local.xml
-
-# Installshield output folder
-[Ee]xpress/
-
-# DocProject is a documentation generator add-in
-DocProject/buildhelp/
-DocProject/Help/*.HxT
-DocProject/Help/*.HxC
-DocProject/Help/*.hhc
-DocProject/Help/*.hhk
-DocProject/Help/*.hhp
-DocProject/Help/Html2
-DocProject/Help/html
 
 # Click-Once directory
 publish/
@@ -109,6 +93,7 @@ publish/
 # NuGet Packages Directory
 ## TODO: If you have NuGet Package Restore enabled, uncomment the next line
 packages/
+src/packages/
 
 # Windows Azure Build Output
 csx
@@ -158,3 +143,5 @@ $RECYCLE.BIN/
 
 # Mac crap
 .DS_Store
+*.nupkg
+*.binlog

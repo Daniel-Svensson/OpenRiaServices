@@ -1,0 +1,15 @@
+﻿<#@ template language="C#" inherits="OpenRiaServices.Tools.TextTemplate.ComplexObjectGenerator" linePragmas="false" #>
+
+<#@ import namespace="System" #>
+<#@ import namespace="System.ComponentModel" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="OpenRiaServices.Server" #>
+<#@ import namespace="OpenRiaServices.Tools.TextTemplate" #>
+<#@ import namespace="OpenRiaServices.Tools" #>
+<#@ import namespace="System.Runtime.Serialization" #>
+
+<#@ include file="Templates\Utility.ttinclude" #>
+<#@ include file="Templates\DataContractGeneratorTemplate.ttinclude" #>
+
+<# this.Generate(); #>
