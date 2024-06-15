@@ -1570,8 +1570,7 @@ namespace OpenRiaServices.Tools
                 if (values != null && values.Length > 0)
                 {
                     list.Add(parameter);
-                    foreach (var value in values)
-                        AddEscaped(list, value);
+                    AddEscaped(list, string.Join(",", values));
                 }
             }
             static void AddParameter(List<string> list, string parameter, string value)
@@ -1585,26 +1584,26 @@ namespace OpenRiaServices.Tools
 
             //Arguments for ClientCodeGenerationOptions
             AddParameter(arguments, "--language", options.Language);
-            AddParameter(arguments, "--clientFrameworkPath", options.ClientFrameworkPath);
-            AddParameter(arguments, "--serverProjectPath", options.ServerProjectPath);
-            AddParameter(arguments, "--clientProjectPath", options.ClientProjectPath);
-            AddParameter(arguments, "--clientRootNamespace", options.ClientRootNamespace);
-            AddParameter(arguments, "--serverRootNamespace", options.ServerRootNamespace);
-            AddParameter(arguments, "--isApplicationContextGenerationEnabled", options.IsApplicationContextGenerationEnabled.ToString());
-            AddParameter(arguments, "--clientProjectTargetPlatform", options.ClientProjectTargetPlatform.ToString());
-            AddParameter(arguments, "--useFullTypeNames", options.UseFullTypeNames.ToString());
+            AddParameter(arguments, "--client-framework-path", options.ClientFrameworkPath);
+            AddParameter(arguments, "--server-project-path", options.ServerProjectPath);
+            AddParameter(arguments, "--client-project-path", options.ClientProjectPath);
+            AddParameter(arguments, "--client-root-namespace", options.ClientRootNamespace);
+            AddParameter(arguments, "--server-root-namespace", options.ServerRootNamespace);
+            AddParameter(arguments, "--is-application-context-generation-enabled", options.IsApplicationContextGenerationEnabled.ToString());
+            AddParameter(arguments, "--client-project-target-platform", options.ClientProjectTargetPlatform.ToString());
+            AddParameter(arguments, "--use-full-type-names", options.UseFullTypeNames.ToString());
 
             //Arguments for SharedCodeServiceParameters
-            AddParameters(arguments, "--sharedSourceFiles", parameters.SharedSourceFiles);
-            AddParameters(arguments, "--symbolSearchPaths", parameters.SymbolSearchPaths);
-            AddParameters(arguments, "--serverAssemblies", parameters.ServerAssemblies);
-            AddParameters(arguments, "--clientAssemblies", parameters.ClientAssemblies);
-            AddParameters(arguments, "--clientAssemblyPathsNormalized", parameters.ClientAssemblyPathsNormalized);
+            AddParameters(arguments, "--shared-source-files", parameters.SharedSourceFiles);
+            AddParameters(arguments, "--symbol-search-paths", parameters.SymbolSearchPaths);
+            AddParameters(arguments, "--server-assemblies", parameters.ServerAssemblies);
+            AddParameters(arguments, "--client-assemblies", parameters.ClientAssemblies);
+            AddParameters(arguments, "--client-assembly-paths-normalized", parameters.ClientAssemblyPathsNormalized);
 
             //Other arguments
-            AddParameter(arguments, "--codeGeneratorName", CodeGeneratorName);
-            AddParameter(arguments, "--generatedFileName", generatedFileName);
-            AddParameter(arguments, "--loggingPipe", pipeName);
+            AddParameter(arguments, "--code-generator-name", CodeGeneratorName);
+            AddParameter(arguments, "--generated-file-name", generatedFileName);
+            AddParameter(arguments, "--logging-pipe", pipeName);
         }
 
         #region Nested Types

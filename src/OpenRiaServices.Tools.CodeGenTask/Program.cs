@@ -3,12 +3,12 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Spectre.Console.Cli;
+using System.ComponentModel;
 
 namespace OpenRiaServices.Tools.CodeGenTask;
 
 static class Program
 {
-
     static int Main(string[] args)
     {
         // TODO: Remove dependency on MSBuild and then remove any PackageReferences to MSBuild and MSBuildLocator
@@ -30,57 +30,61 @@ static class Program
 
         var app = new CommandApp<CodeGenerationCommand>();
         return app.Run(args);
-
-        
     }
 
-    class CodeGenerationCommand : Command<CodeGenerationCommand.CodeGenerationSettings>
+    sealed class CodeGenerationCommand : Command<CodeGenerationCommand.CodeGenerationSettings>
     {
-        public class CodeGenerationSettings : CommandSettings
+        sealed public class CodeGenerationSettings : CommandSettings
         {
             [CommandOption("--language <LANGUAGE>")]
             public string Language { get; set; }
 
-            [CommandOption("--clientFrameworkPath <CLIENT_FRAMEWORK_PATH>")]
+            [CommandOption("--client-framework-path <CLIENT_FRAMEWORK_PATH>")]
             public string ClientFrameworkPath { get; set; }
 
-            [CommandOption("--serverProjectPath <SERVER_PROJECT_PATH>")]
+            [CommandOption("--server-project-path <SERVER_PROJECT_PATH>")]
             public string ServerProjectPath { get; set; }
-            [CommandOption("--clientProjectPath <SERVER_PROJECT_PATH>")]
+            [CommandOption("--client-project-path <SERVER_PROJECT_PATH>")]
             public string ClientProjectPath { get; set; }
 
-            [CommandOption("--clientRootNamespace")]
+            [CommandOption("--client-root-namespace")]
             public string clientRootNamespace { get; set; }
-            [CommandOption("--serverRootNamespace")]
+            [CommandOption("--server-root-namespace")]
             public string serverRootNamespace { get; set; }
-            [CommandOption("--isApplicationContextGenerationEnabled")]
+            [CommandOption("--is-application-context-generation-enabled")]
             public bool isApplicationContextGenerationEnabled { get; set; }
-            [CommandOption("--clientProjectTargetPlatform")]
+            [CommandOption("--client-project-target-platform")]
             public TargetPlatform clientProjectTargetPlatform { get; set; }
-            [CommandOption("--useFullTypeNames")]
+            [CommandOption("--use-full-type-names")]
             public bool useFullTypeNames { get; set; }
 
-            [CommandOption("--codeGeneratorName")]
+            [CommandOption("--code-generator-name")]
             public string codeGeneratorName { get; set; }
-            [CommandOption("--generatedFileName")]
+            [CommandOption("--generated-file-name")]
             public string generatedFileName { get; set; }
 
-            [CommandOption("--sharedSourceFiles")]
+            [CommandOption("--shared-source-files")]
+            [TypeConverter(typeof(CommaSeparatedStringConverter))]
             public string[] sharedSourceFiles { get; set; }
 
-            [CommandOption("--symbolSearchPaths")]
+            [CommandOption("--symbol-search-paths")]
+            [TypeConverter(typeof(CommaSeparatedStringConverter))] 
             public string[] symbolSearchPaths { get; set; }
 
-            [CommandOption("--serverAssemblies")]
+            [CommandOption("--server-assemblies")]
+            [TypeConverter(typeof(CommaSeparatedStringConverter))] 
             public string[] serverAssemblies { get; set; }
 
-            [CommandOption("--clientAssemblies")]
+            [CommandOption("--client-assemblies")]
+            [TypeConverter(typeof(CommaSeparatedStringConverter))]
             public string[] clientAssemblies { get; set; }
 
-            [CommandOption("--clientAssemblyPathsNormalized")]
+            [CommandOption("--client-assembly-paths-normalized")]
+            [TypeConverter(typeof(CommaSeparatedStringConverter))]
+            [DefaultValue(new string[0])]
             public string[] clientAssemblyPathsNormalized { get; set; }
 
-            [CommandOption("--loggingPipe")]
+            [CommandOption("--logging-pipe")]
             public string LoggingPipe { get; set; }
 
             public ClientCodeGenerationOptions GetCodeGenerationOptions()
@@ -103,7 +107,6 @@ static class Program
             {
                 return new SharedCodeServiceParameters
                 {
-                    // TODO: should we use default names such as "--shared-source-files" 
                     SharedSourceFiles = sharedSourceFiles,
                     SymbolSearchPaths = symbolSearchPaths,
                     ServerAssemblies = serverAssemblies,

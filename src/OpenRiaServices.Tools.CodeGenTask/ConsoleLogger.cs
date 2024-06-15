@@ -4,7 +4,7 @@ using Spectre.Console;
 
 namespace OpenRiaServices.Tools.CodeGenTask;
 
-class ConsoleLogger : ILoggingService
+sealed class ConsoleLogger : ILoggingService
 {
     public bool HasLoggedErrors { get; private set; }
 
