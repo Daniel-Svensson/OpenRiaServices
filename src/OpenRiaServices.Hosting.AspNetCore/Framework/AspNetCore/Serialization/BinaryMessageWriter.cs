@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Buffers;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using System.Xml;
 
 namespace OpenRiaServices.Hosting.AspNetCore.Serialization
@@ -11,8 +14,9 @@ namespace OpenRiaServices.Hosting.AspNetCore.Serialization
     /// </summary>
     internal sealed class BinaryMessageWriter
     {
-        private ArrayPoolStream _stream;
-        private XmlDictionaryWriter _writer;
+        private readonly ArrayPoolStream _stream;
+        private readonly XmlDictionaryWriter _writer;
+        private readonly XmlBinaryWriterSession _session  /*= new XmlBinaryWriterSession()*/;
 
         private const int MaxStreamAllocationSize = 4 * 1024 * 1024;
         // IMPORTANT: If this is changed then EstimateMessageSize should be changed as well
@@ -31,7 +35,7 @@ namespace OpenRiaServices.Hosting.AspNetCore.Serialization
         private BinaryMessageWriter()
         {
             _stream = new ArrayPoolStream(ArrayPool<byte>.Shared, MaxStreamAllocationSize);
-            _writer = XmlDictionaryWriter.CreateBinaryWriter(_stream);
+            _writer = XmlDictionaryWriter.CreateBinaryWriter(_stream, null, _session);
         }
 
         public static BinaryMessageWriter Rent()
@@ -43,6 +47,7 @@ namespace OpenRiaServices.Hosting.AspNetCore.Serialization
             s_threadInstance = null;
 
             // Allocate first buffer
+            messageWriter._session?.Reset();
             messageWriter._stream.Reset(messageWriter.EstimateMessageSize());
 
             return messageWriter;
@@ -57,7 +62,7 @@ namespace OpenRiaServices.Hosting.AspNetCore.Serialization
             if (reset)
             {
                 ((IXmlBinaryWriterInitializer)binaryMessageWriter.XmlWriter)
-                    .SetOutput(binaryMessageWriter._stream, null, null, false);
+                    .SetOutput(binaryMessageWriter._stream, null, binaryMessageWriter._session, false);
             }
 
             s_threadInstance = binaryMessageWriter;
@@ -68,6 +73,7 @@ namespace OpenRiaServices.Hosting.AspNetCore.Serialization
         {
             //reset writer ?
             _stream.Clear();
+            _session.Reset();
         }
 
         private void RecordMessageSize(int count)
