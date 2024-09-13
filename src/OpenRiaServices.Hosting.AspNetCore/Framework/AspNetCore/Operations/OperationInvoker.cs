@@ -1,3 +1,4 @@
+//#define MSGPACK
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using OpenRiaServices.Hosting.AspNetCore.Serialization;
@@ -19,6 +20,23 @@ using System.Xml;
 
 namespace OpenRiaServices.Hosting.AspNetCore.Operations
 {
+    abstract class OperationFormatter
+    {
+        public string ContentType { get; }
+
+    }
+
+    class DataContractOperationFormatter : OperationFormatter
+    {
+
+    }
+
+
+    class BinaryXmlOperationFormatter : DataContractOperationFormatter
+    {
+
+    }
+
     abstract class OperationInvoker
     {
         private static readonly WebHttpQueryStringConverter s_queryStringConverter = new();
@@ -360,6 +378,25 @@ namespace OpenRiaServices.Hosting.AspNetCore.Operations
             var ct = context.RequestAborted;
             if (ct.IsCancellationRequested)
                 return Task.CompletedTask;
+
+#if MSGPACK
+            if (context.Request.Headers.Accept.Count == 0 || context.Request.Headers.Accept == "application/msgpack")
+#else
+            if (context.Request.Headers.Accept == "application/msgpack")
+#endif
+            {
+                var options = MessagePack.MessagePackSerializer.Typeless.DefaultOptions
+                    .WithSecurity(MessagePack.MessagePackSecurity.UntrustedData)
+                    //.WithCompression(MessagePack.MessagePackCompression.Lz4BlockArray)
+                    .WithOmitAssemblyVersion(true);
+
+                var response = context.Response;
+                response.Headers.ContentType = "application/msgpack";
+                response.StatusCode = 200;
+                response.Headers.CacheControl = "private, no-store";
+
+                return MessagePack.MessagePackSerializer.Typeless.SerializeAsync(context.Response.Body, result, options, context.RequestAborted);
+            }
 
             var messageWriter = BinaryMessageWriter.Rent();
             try
