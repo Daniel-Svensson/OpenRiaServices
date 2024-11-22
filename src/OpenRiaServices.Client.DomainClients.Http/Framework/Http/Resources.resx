@@ -117,11 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="DomainClient_UnexpectedHttpStatusCode" xml:space="preserve">
-    <value>Unexpected server statuscode {0} '{1}'</value>
-    <comment>0 =status code as int, 1 =status code as text/enum</comment>
-  </data>
-  <data name="DomainClient_UnexpectedResultContent" xml:space="preserve">
+  <data name="BinaryHttpDomainClient_UnexpectedResultContent" xml:space="preserve">
     <value>Unknown server response content, exptected '{0}' but was '{1}'</value>
     <comment>0 =expected xml node, 1 = actual xml node</comment>
   </data>
@@ -157,5 +153,12 @@
   </data>
   <data name="DomainClient_Operation0DoesNotExist" xml:space="preserve">
     <value>Operation '{0}' does not exist.</value>
+  </data>
+  <data name="BinaryHttpDomainClient_RequestFailedWithReason0_UnexptectedContentType1" xml:space="preserve">
+    <value>Request failed: "{0}", Received unexpected ContentType "{1}" instead of "application/msbin1"</value>
+  </data>
+  <data name="BinaryHttpDomainClient_RequestFailedWithReason0" xml:space="preserve">
+    <value>Request failed: "{0}"</value>
+    <comment>0 = reason</comment>
   </data>
 </root>

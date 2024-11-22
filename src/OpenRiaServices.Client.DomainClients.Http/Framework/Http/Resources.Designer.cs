@@ -19,7 +19,7 @@ namespace OpenRiaServices.Client {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class Resources {
@@ -61,6 +61,33 @@ namespace OpenRiaServices.Client {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Request failed: &quot;{0}&quot;.
+        /// </summary>
+        internal static string BinaryHttpDomainClient_RequestFailedWithReason0 {
+            get {
+                return ResourceManager.GetString("BinaryHttpDomainClient_RequestFailedWithReason0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request failed: &quot;{0}&quot;, Received unexpected ContentType &quot;{1}&quot; instead of &quot;application/msbin1&quot;.
+        /// </summary>
+        internal static string BinaryHttpDomainClient_RequestFailedWithReason0_UnexptectedContentType1 {
+            get {
+                return ResourceManager.GetString("BinaryHttpDomainClient_RequestFailedWithReason0_UnexptectedContentType1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown server response content, exptected &apos;{0}&apos; but was &apos;{1}&apos;.
+        /// </summary>
+        internal static string BinaryHttpDomainClient_UnexpectedResultContent {
+            get {
+                return ResourceManager.GetString("BinaryHttpDomainClient_UnexpectedResultContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No parameter with name &apos;{0}&apos;  for method &apos;{1}&apos;.
         /// </summary>
         internal static string BinaryXMLContents_NoParameterWithName0ForMethod1 {
@@ -75,24 +102,6 @@ namespace OpenRiaServices.Client {
         internal static string DomainClient_Operation0DoesNotExist {
             get {
                 return ResourceManager.GetString("DomainClient_Operation0DoesNotExist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unexpected server statuscode {0} &apos;{1}&apos;.
-        /// </summary>
-        internal static string DomainClient_UnexpectedHttpStatusCode {
-            get {
-                return ResourceManager.GetString("DomainClient_UnexpectedHttpStatusCode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Unknown server response content, exptected &apos;{0}&apos; but was &apos;{1}&apos;.
-        /// </summary>
-        internal static string DomainClient_UnexpectedResultContent {
-            get {
-                return ResourceManager.GetString("DomainClient_UnexpectedResultContent", resourceCulture);
             }
         }
         

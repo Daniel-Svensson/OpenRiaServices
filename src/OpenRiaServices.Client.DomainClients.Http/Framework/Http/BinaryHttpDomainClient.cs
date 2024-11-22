@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -26,7 +27,7 @@ namespace OpenRiaServices.Client.DomainClients.Http
         private static readonly DataContractSerializer s_faultSerializer = new DataContractSerializer(typeof(DomainServiceFault));
         private static readonly Task<HttpResponseMessage> s_skipGetUsePostInstead = Task.FromResult<HttpResponseMessage>(null);
         private static readonly Dictionary<Type, BinaryHttpDomainClientSerializationHelper> s_globalCacheHelpers = new Dictionary<Type, BinaryHttpDomainClientSerializationHelper>();
-        
+
         private readonly BinaryHttpDomainClientSerializationHelper _localCacheHelper;
 
         public override bool SupportsCancellation => true;
@@ -35,7 +36,7 @@ namespace OpenRiaServices.Client.DomainClients.Http
         {
 
             HttpClient = httpClient;
-            lock(s_globalCacheHelpers)
+            lock (s_globalCacheHelpers)
             {
                 if (!s_globalCacheHelpers.TryGetValue(serviceInterface, out _localCacheHelper))
                 {
@@ -247,7 +248,7 @@ namespace OpenRiaServices.Client.DomainClients.Http
                 request.Content = new ByteArrayContent(buffer.Array, buffer.Offset, buffer.Count);
                 request.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue(ContentTypeMsBinary);
             }
-            
+
             return HttpClient.SendAsync(request, DefaultHttpCompletionOption, cancellationToken);
         }
 
@@ -328,19 +329,29 @@ namespace OpenRiaServices.Client.DomainClients.Http
             // Always dispose using finally block below  respnse or we can leak connections
             using (response)
             {
-                // TODO: OpenRia 5.0 returns different status codes
-                // Need to read content and parse it even if status code is not 200
-                // It would make sens to one  check content type and only pase on msbin
-                if (!response.IsSuccessStatusCode && response.Content.Headers.ContentType?.MediaType != ContentTypeMsBinary)
+                string contentType = response.Content.Headers.ContentType?.MediaType;
+                if (contentType != ContentTypeMsBinary)
                 {
-                    var message = string.Format(Resources.DomainClient_UnexpectedHttpStatusCode, (int)response.StatusCode, response.StatusCode);
+                    string reason = response.ReasonPhrase ?? response.StatusCode.ToString();
+                    string requestFailed = string.Format(CultureInfo.InvariantCulture, Resources.BinaryHttpDomainClient_RequestFailedWithReason0, reason);
 
-                    if (response.StatusCode == HttpStatusCode.BadRequest)
-                        throw new DomainOperationException(message, OperationErrorStatus.NotSupported, (int)response.StatusCode, null);
-                    else if (response.StatusCode == HttpStatusCode.Unauthorized)
-                        throw new DomainOperationException(message, OperationErrorStatus.Unauthorized, (int)response.StatusCode, null);
-                    else
-                        throw new DomainOperationException(message, OperationErrorStatus.ServerError, (int)response.StatusCode, null);
+                    switch (response.StatusCode)
+                    {
+                        case HttpStatusCode.BadRequest:
+                            throw new DomainOperationException(requestFailed, OperationErrorStatus.NotSupported, (int)response.StatusCode, null);
+                        case HttpStatusCode.Unauthorized:
+                        case HttpStatusCode.Forbidden:
+                            throw new DomainOperationException(requestFailed, OperationErrorStatus.Unauthorized, (int)response.StatusCode, null);
+                        case HttpStatusCode.NotFound:
+                            throw new DomainOperationException(requestFailed, OperationErrorStatus.NotFound, (int)response.StatusCode, null);
+                        case HttpStatusCode.InternalServerError:
+                            throw new DomainOperationException(requestFailed, OperationErrorStatus.ServerError, (int)response.StatusCode, null);
+                        default:
+                        {
+                            string message = string.Format(CultureInfo.InvariantCulture, Resources.BinaryHttpDomainClient_RequestFailedWithReason0_UnexptectedContentType1, reason, contentType);
+                            throw new DomainOperationException(message, OperationErrorStatus.ServerError, (int)response.StatusCode, null);
+                        }
+                    }
                 }
 
                 using (var stream = await response.Content.ReadAsStreamAsync())
@@ -377,7 +388,7 @@ namespace OpenRiaServices.Client.DomainClients.Http
                 }
             }
         }
-        
+
         /// <summary>
         /// Verifies the reader is at node with LocalName equal to operationName + postfix.
         /// If the reader is at any other node, then a <see cref="DomainOperationException"/> is thrown
@@ -394,7 +405,7 @@ namespace OpenRiaServices.Client.DomainClients.Http
                 && reader.LocalName.EndsWith(postfix, StringComparison.Ordinal)))
             {
                 throw new DomainOperationException(
-                    string.Format(Resources.DomainClient_UnexpectedResultContent, operationName + postfix, reader.LocalName)
+                    string.Format(CultureInfo.InvariantCulture, Resources.BinaryHttpDomainClient_UnexpectedResultContent, operationName + postfix, reader.LocalName)
                     , OperationErrorStatus.ServerError, 0, null);
             }
         }
@@ -497,7 +508,7 @@ namespace OpenRiaServices.Client.DomainClients.Http
         /// </summary>
         /// <param name="methodName">The name of the method</param>
         /// <returns>MethodParameters object containing the method parameters</returns>
-        internal MethodParameters GetMethodParameters(string methodName) 
+        internal MethodParameters GetMethodParameters(string methodName)
             => _localCacheHelper.GetParametersForMethod(methodName);
 
         /// <summary>
@@ -506,7 +517,7 @@ namespace OpenRiaServices.Client.DomainClients.Http
         /// </summary>
         /// <param name="type">type which should be serializable.</param>
         /// <returns>A <see cref="DataContractSerializer"/> which can be used to serialize the type</returns>
-        internal DataContractSerializer GetSerializer(Type type) 
+        internal DataContractSerializer GetSerializer(Type type)
             => _localCacheHelper.GetSerializer(type, EntityTypes);
 
         #endregion
