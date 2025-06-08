@@ -1,10 +1,14 @@
 //#define MSGPACK
+#define MSGPACK2
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Nerdbank.MessagePack;
 using OpenRiaServices.Hosting.AspNetCore.Serialization;
 using OpenRiaServices.Hosting.Wcf;
 using OpenRiaServices.Hosting.Wcf.Behaviors;
 using OpenRiaServices.Server;
+using PolyType.Abstractions;
+using PolyType.ReflectionProvider;
 using System;
 using System.Buffers;
 using System.Collections.Generic;
@@ -373,7 +377,7 @@ namespace OpenRiaServices.Hosting.AspNetCore.Operations
             writer.WriteEndDocument();
         }
 
-        protected Task WriteResponse(HttpContext context, object result)
+        protected Task WriteResponse<T>(HttpContext context, T result)
         {
             var ct = context.RequestAborted;
             if (ct.IsCancellationRequested)
@@ -398,6 +402,44 @@ namespace OpenRiaServices.Hosting.AspNetCore.Operations
                 return MessagePack.MessagePackSerializer.Typeless.SerializeAsync(context.Response.Body, result, options, context.RequestAborted);
             }
 
+#if MSGPACK2
+            if (context.Request.Headers.Accept.Count == 0 || context.Request.Headers.Accept == "application/msgpack2")
+#else
+            if (context.Request.Headers.Accept == "application/msgpack2")
+#endif
+            {
+                var response = context.Response;
+                response.Headers.ContentType = "application/msgpack2";
+                response.StatusCode = 200;
+                response.Headers.CacheControl = "private, no-store";
+
+                ITypeShape<T> shape = ReflectionTypeShapeProvider.Default.GetShape<T>();
+#pragma warning disable NBMsgPack051 // Prefer modern .NET APIs
+                return GetMessagePackSerializer().SerializeAsync(context.Response.BodyWriter, result, shape, ct).AsTask();
+#pragma warning restore NBMsgPack051 // Prefer modern .NET APIs
+            }
+
+#if MSGPACK2
+            if (context.Request.Headers.Accept.Count == 0 || context.Request.Headers.Accept == "application/msgpack2+json")
+#else
+            if (context.Request.Headers.Accept == "application/msgpack2")
+#endif
+            {
+                var response = context.Response;
+                response.Headers.ContentType = "text/json";
+                response.StatusCode = 200;
+                response.Headers.CacheControl = "private, no-store";
+
+                ITypeShape<T> shape = ReflectionTypeShapeProvider.Default.GetShape<T>();
+#pragma warning disable NBMsgPack051 // Prefer modern .NET APIs
+                byte[] arr = GetMessagePackSerializer().Serialize(result, shape, ct);
+#pragma warning restore NBMsgPack051 // Prefer modern .NET APIs
+
+                string json = Nerdbank.MessagePack.MessagePackSerializer.ConvertToJson(arr);
+                return context.Response.WriteAsync(json);
+            }
+
+
             var messageWriter = BinaryMessageWriter.Rent();
             try
             {
@@ -420,6 +462,32 @@ namespace OpenRiaServices.Hosting.AspNetCore.Operations
                 messageWriter?.Clear();
                 throw;
             }
+        }
+
+        private static MessagePackSerializer GetMessagePackSerializer()
+        {
+            MessagePackSerializer serializer = new()
+            {
+                PreserveReferences = ReferencePreservationMode.RejectCycles,
+                //PropertyNamingPolicy =   
+                StartingContext = new SerializationContext()
+                {
+                    //CancellationToken = ct,
+                    //TypeShapeProvider
+                    MaxDepth = 256
+                }
+            };
+
+            // TODO: Generate TypeShapeMapping
+            // Allow DerivedShapeMapping
+            // Can we add Object and allow all entity types for it ?
+
+            //DerivedShapeMapping<Animal> mapping = new();
+            //mapping.Add<Horse>(1);
+            //mapping.Add<Cow>(2);
+            //return serializer with { DerivedTypeMappings = [.. serializer.DerivedTypeMappings, mapping] };
+
+            return serializer;
         }
 
         private void WriteResponse(XmlDictionaryWriter writer, object result)
