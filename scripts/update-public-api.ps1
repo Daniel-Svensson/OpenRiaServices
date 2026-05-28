@@ -24,7 +24,7 @@ function Invoke-DotNetFormat {
     param([System.IO.FileInfo[]]$Projects)
 
     foreach ($project in $Projects) {
-        $commandText = "dotnet format \"$($project.FullName)\" analyzers --diagnostics RS0016 --severity warn"
+        $commandText = 'dotnet format "{0}" analyzers --diagnostics RS0016 --severity warn' -f $project.FullName
         Write-Host "Running: $commandText"
         & dotnet format $project.FullName analyzers --diagnostics RS0016 --severity warn
         if ($LASTEXITCODE -ne 0) {
@@ -95,7 +95,7 @@ function Write-ApiFile {
             $output.Add("")
         }
 
-        $sortedEntries = Get-UniqueInOrder -Values $Entries | Sort-Object { $_.ToLowerInvariant() }
+        $sortedEntries = Get-UniqueInOrder -Values $Entries | Sort-Object
         $output.AddRange($sortedEntries)
     }
 
@@ -116,8 +116,19 @@ function Invoke-PromoteUnshipped {
         }
 
         $unshipped = Read-ApiFile -Path $unshippedPath
-        $toShip = @($unshipped.Entries | Where-Object { -not $_.StartsWith("*REMOVED*") })
-        $keptUnshipped = @($unshipped.Entries | Where-Object { $_.StartsWith("*REMOVED*") })
+        $toShipList = [System.Collections.Generic.List[string]]::new()
+        $keptUnshippedList = [System.Collections.Generic.List[string]]::new()
+        foreach ($entry in $unshipped.Entries) {
+            if ($entry.StartsWith("*REMOVED*")) {
+                $keptUnshippedList.Add($entry)
+            }
+            else {
+                $toShipList.Add($entry)
+            }
+        }
+
+        $toShip = @($toShipList)
+        $keptUnshipped = @($keptUnshippedList)
 
         if ($toShip.Count -eq 0) {
             return
