@@ -51,6 +51,21 @@ Some of the features are:
 
 Contribution Guidelines can be found at https://github.com/OpenRIAServices/OpenRiaServices/wiki/Contribution-Guidelines
 
+## Public API files
+
+Framework projects can use target-framework-specific API files by naming them:
+
+* `PublicAPI.Shipped.<TargetFramework>.txt`
+* `PublicAPI.Unshipped.<TargetFramework>.txt`
+
+If these files exist, they are used for that target framework; otherwise the default `PublicAPI.Shipped.txt`/`PublicAPI.Unshipped.txt` files are used.
+
+Use `/scripts/update-public-api.py` to keep API files updated:
+
+* `python scripts/update-public-api.py --sync-unshipped` to apply analyzer fixes (RS0016) into unshipped files
+* `python scripts/update-public-api.py --ship` to move non-removed unshipped entries into shipped files
+* `python scripts/update-public-api.py` to do both
+
 
 # Nuget packages
 
