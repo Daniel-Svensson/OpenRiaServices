@@ -60,11 +60,11 @@ Framework projects can use target-framework-specific API files by naming them:
 
 If these files exist, they are used for that target framework; otherwise the default `PublicAPI.Shipped.txt`/`PublicAPI.Unshipped.txt` files are used.
 
-Use `/scripts/update-public-api.py` to keep API files updated:
+Use `/scripts/update-public-api.ps1` to keep API files updated:
 
-* `python scripts/update-public-api.py --sync-unshipped` to apply analyzer fixes (RS0016) into unshipped files
-* `python scripts/update-public-api.py --ship` to move non-removed unshipped entries into shipped files
-* `python scripts/update-public-api.py` to do both
+* `pwsh scripts/update-public-api.ps1 -SyncUnshipped` to apply analyzer fixes (RS0016) into unshipped files
+* `pwsh scripts/update-public-api.ps1 -Ship` to move non-removed unshipped entries into shipped files
+* `pwsh scripts/update-public-api.ps1` to do both
 
 
 # Nuget packages
