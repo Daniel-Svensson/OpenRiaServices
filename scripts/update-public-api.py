@@ -44,14 +44,25 @@ def parse_api_file(path: Path) -> tuple[list[str], list[str]]:
     return directives, entries
 
 
+def unique_in_order(values: list[str]) -> list[str]:
+    seen = set()
+    result = []
+    for value in values:
+        if value in seen:
+            continue
+        seen.add(value)
+        result.append(value)
+    return result
+
+
 def write_api_file(path: Path, directives: list[str], entries: list[str]) -> None:
     output = []
     if directives:
-        output.extend(dict.fromkeys(directives))
+        output.extend(unique_in_order(directives))
     if entries:
         if output:
             output.append("")
-        output.extend(sorted(dict.fromkeys(entries), key=str.casefold))
+        output.extend(sorted(unique_in_order(entries), key=str.casefold))
     text = "\n".join(output)
     if text:
         text += "\n"
@@ -72,7 +83,8 @@ def promote_unshipped(repo_root: Path) -> None:
             continue
 
         shipped_directives, shipped_entries = parse_api_file(shipped)
-        write_api_file(shipped, shipped_directives + unshipped_directives, shipped_entries + to_ship)
+        combined_directives = unique_in_order(shipped_directives + unshipped_directives)
+        write_api_file(shipped, combined_directives, shipped_entries + to_ship)
         write_api_file(unshipped, unshipped_directives, kept_unshipped)
         print(f"Promoted {len(to_ship)} entries: {unshipped} -> {shipped}")
 
