@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -11,11 +11,11 @@ namespace OpenRiaServices.Client.Test
 {
     [TestClass]
     public class ServerSideAsyncTests : UnitTestBase
+    // TODO: Convert remaining Enqueue* tests to async/await. Complex EnqueueConditional/polling flows are intentionally left unchanged for now.
     {
         [TestMethod]
-        [Asynchronous]
-        [Description("Invoke server side method returning Task<string>")]
-        public void Invoke_TaskAsyncReference()
+                [Description("Invoke server side method returning Task<string>")]
+        public async Task Invoke_TaskAsyncReference()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             const string message = "client";
@@ -33,9 +33,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Invoke server side method returning Task<int>")]
-        public void Invoke_TaskAsyncValue()
+                [Description("Invoke server side method returning Task<int>")]
+        public async Task Invoke_TaskAsyncValue()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             const int number = 42;
@@ -52,9 +51,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Invoke server side method returning Task<int?>")]
-        public void Invoke_TaskAsyncNullable()
+                [Description("Invoke server side method returning Task<int?>")]
+        public async Task Invoke_TaskAsyncNullable()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             const int number = 42;
@@ -80,9 +78,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Invoke server side method returning void and ensure it waits")]
-        public void Invoke_TaskAsyncVoid()
+                [Description("Invoke server side method returning void and ensure it waits")]
+        public async Task Invoke_TaskAsyncVoid()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             TimeSpan delay = TimeSpan.FromMilliseconds(200);
@@ -113,9 +110,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Server side query returning Task<IEnumerable<T>>")]
-        public void Query_TaskAsync()
+                [Description("Server side query returning Task<IEnumerable<T>>")]
+        public async Task Query_TaskAsync()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             var normalQuery = ctx.GetRangeQuery();
@@ -138,9 +134,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Server side query returning Task<T>")]
-        public void Query_TaskAsync_Single()
+                [Description("Server side query returning Task<T>")]
+        public async Task Query_TaskAsync_Single()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             const int expectedId = 4;
@@ -159,9 +154,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Test that filtering is applied to server side query returning Task<IEnumerable<T>>")]
-        public void Query_TaskAsync_WithFilter()
+                [Description("Test that filtering is applied to server side query returning Task<IEnumerable<T>>")]
+        public async Task Query_TaskAsync_WithFilter()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             const int expectedId = 3;
@@ -196,9 +190,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Test that exceptions thrown directly from Task async methods are propagated")]
-        public void Query_TaskAsync_WithException_First()
+                [Description("Test that exceptions thrown directly from Task async methods are propagated")]
+        public async Task Query_TaskAsync_WithException_First()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             var exceptionFirstQuery = ctx.GetQueryableRangeWithExceptionFirstQuery();
@@ -219,9 +212,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Test that exceptions returned in Task from Task async methods are propagated")]
-        public void Query_TaskAsync_WithException_InTask()
+                [Description("Test that exceptions returned in Task from Task async methods are propagated")]
+        public async Task Query_TaskAsync_WithException_InTask()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             var exceptionFirstQuery = ctx.GetQueryableRangeWithExceptionTaskQuery();
@@ -242,9 +234,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Test that exceptions thrown directly from Task async methods are propagated")]
-        public void Query_TaskAsync_Single_WithException_First()
+                [Description("Test that exceptions thrown directly from Task async methods are propagated")]
+        public async Task Query_TaskAsync_Single_WithException_First()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             var exceptionFirstQuery = ctx.GetRangeByIdWithExceptionFirstQuery(2);
@@ -265,9 +256,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Test that exceptions returned in Task from Task async methods are propagated")]
-        public void Query_TaskAsync_Single_WithException_InTask()
+                [Description("Test that exceptions returned in Task from Task async methods are propagated")]
+        public async Task Query_TaskAsync_Single_WithException_InTask()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             var exceptionFirstQuery = ctx.GetRangeByIdWithExceptionTaskQuery(2);
@@ -288,9 +278,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Test that exceptions thrown directly from Task async methods are propagated")]
-        public void Invoke_TaskAsyncWithException_First()
+                [Description("Test that exceptions thrown directly from Task async methods are propagated")]
+        public async Task Invoke_TaskAsyncWithException_First()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             const int expectedErrorCode = 23;
@@ -310,9 +299,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [Description("Test that exceptions returned in Task from Task async methods are propagated")]
-        public void Invoke_TaskAsyncWithException_InTask()
+                [Description("Test that exceptions returned in Task from Task async methods are propagated")]
+        public async Task Invoke_TaskAsyncWithException_InTask()
         {
             var ctx = new ServerSideAsyncDomainContext(TestURIs.ServerSideAsync);
             const int expectedErrorCode = 24;

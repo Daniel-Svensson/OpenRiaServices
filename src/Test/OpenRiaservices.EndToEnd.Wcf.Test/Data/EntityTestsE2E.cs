@@ -1,10 +1,11 @@
-﻿extern alias SSmDsClient;
+extern alias SSmDsClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using Cities;
 using DataTests.AdventureWorks.LTS;
 using Microsoft.Silverlight.Testing;
@@ -20,10 +21,9 @@ namespace OpenRiaServices.Client.Test
     public class EntityTestsE2E : UnitTestBase
     {
         [TestMethod]
-        [Asynchronous]
         [TestDescription("Verifies that entity child and parent relationships are restored after RejectChanges is called.")]
         [WorkItem(720495)]
-        public void Entity_RejectChanges_ParentAssociationRestored()
+        public async Task Entity_RejectChanges_ParentAssociationRestored()
         {
             List<Employee> employeeList = new List<Employee>();
             ConfigurableEntityContainer container = new ConfigurableEntityContainer();
@@ -31,44 +31,40 @@ namespace OpenRiaServices.Client.Test
             var domainClient = DomainContext.DomainClientFactory.CreateDomainClient(typeof(TestDomainServices.LTS.Catalog.ICatalogContract), TestURIs.EFCore_Catalog, false);
             ConfigurableDomainContext catalog = new ConfigurableDomainContext(domainClient, container);
 
-            var load = catalog.Load(catalog.GetEntityQuery<Employee>("GetEmployees"), throwOnError:false);
-            this.EnqueueCompletion(() => load);
-            this.EnqueueCallback(() =>
+            var load = catalog.Load(catalog.GetEntityQuery<Employee>("GetEmployees"), throwOnError: false);
+            await load;
+            Assert.IsNull(load.Error);
+
+            Employee parent, child;
+            parent = container.GetEntitySet<Employee>().OrderByDescending(e => e.Reports.Count).First();
+
+            while (parent != null)
             {
-                Assert.IsNull(load.Error);
+                // Track parent, get a report from it
+                employeeList.Add(parent);
+                child = parent.Reports.OrderByDescending(e => e.Reports.Count).FirstOrDefault();
 
-                Employee parent, child;
-                parent = container.GetEntitySet<Employee>().OrderByDescending(e => e.Reports.Count).First();
-
-                while (parent != null)
+                // Track child
+                if (child == null)
                 {
-                    // Track parent, get a report from it
-                    employeeList.Add(parent);
-                    child = parent.Reports.OrderByDescending(e => e.Reports.Count).FirstOrDefault();
-
-                    // Track child
-                    if (child == null)
-                    {
-                        break;
-                    }
-
-                    // Remove child and continue
-                    parent.Reports.Remove(child);
-                    parent = child;
+                    break;
                 }
 
-                // By rejecting changes, our parent<=>child relationships should be restored.
-                catalog.RejectChanges();
+                // Remove child and continue
+                parent.Reports.Remove(child);
+                parent = child;
+            }
 
-                // Unwind, walking up management chain
-                foreach (Employee employee in employeeList.Reverse<Employee>())
-                {
-                    Assert.AreSame(parent, employee, "Expected parent relationship to be restored.");
-                    parent = employee.Manager;
-                    Assert.IsTrue(parent.Reports.Contains(employee), "Expected child relationship to be restored.");
-                }
-            });
-            this.EnqueueTestComplete();
+            // By rejecting changes, our parent<=>child relationships should be restored.
+            catalog.RejectChanges();
+
+            // Unwind, walking up management chain
+            foreach (Employee employee in employeeList.Reverse<Employee>())
+            {
+                Assert.AreSame(parent, employee, "Expected parent relationship to be restored.");
+                parent = employee.Manager;
+                Assert.IsTrue(parent.Reports.Contains(employee), "Expected child relationship to be restored.");
+            }
         }
 
         private class TestCityContainer : EntityContainer

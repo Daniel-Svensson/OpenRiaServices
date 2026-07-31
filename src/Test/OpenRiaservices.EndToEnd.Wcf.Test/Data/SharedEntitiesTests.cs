@@ -1,11 +1,18 @@
-﻿extern alias SSmDsClient;
+extern alias SSmDsClient;
 
+using System.Threading.Tasks;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.Silverlight.Testing;
+using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 using OpenRiaServices.Silverlight.Testing;
+using System.Threading.Tasks;
 using SharedEntities;
+using System.Threading.Tasks;
 using TestDescription = Microsoft.VisualStudio.TestTools.UnitTesting.DescriptionAttribute;
 
 namespace OpenRiaServices.Client.Test
@@ -14,6 +21,7 @@ namespace OpenRiaServices.Client.Test
 
     [TestClass]
     public class SharedEntitiesTests : UnitTestBase
+    // TODO: Convert remaining Enqueue* tests to async/await. Complex EnqueueConditional/polling flows are intentionally left unchanged for now.
     {
         private ExposeChildEntityDomainContext DomainChildContext { get; set; }
         private ExposeParentEntityDomainContext DomainParentContext { get; set; }
@@ -36,8 +44,7 @@ namespace OpenRiaServices.Client.Test
 
         [TestMethod]
         [TestDescription("Testing inheritance with serialization in the shared case.")]
-        [Asynchronous]
-        public void SharedEntities_AccessSharedInheritance()
+        public async Task SharedEntities_AccessSharedInheritance()
         {
             this.EnqueueLoadEntityX();
 
@@ -60,8 +67,7 @@ namespace OpenRiaServices.Client.Test
 
         [TestMethod]
         [TestDescription("Accessing association properties exposed by the DomainService returns an object")]
-        [Asynchronous]
-        public void SharedEntities_AccessRightPropertySucceeds()
+        public async Task SharedEntities_AccessRightPropertySucceeds()
         {
             this.EnqueueLoadEntityA();
 
@@ -79,8 +85,7 @@ namespace OpenRiaServices.Client.Test
 
         [TestMethod]
         [TestDescription("Accessing association properties not exposed by the DomainService returns null")]
-        [Asynchronous]
-        public void SharedEntities_AccessWrongPropertyReturnsNull()
+        public async Task SharedEntities_AccessWrongPropertyReturnsNull()
         {
             this.EnqueueLoadEntityA();
 
@@ -98,8 +103,7 @@ namespace OpenRiaServices.Client.Test
 
         [TestMethod]
         [TestDescription("Accessing named update method from the correct DomainContext succeeds")]
-        [Asynchronous]
-        public void SharedEntities_CallRightMethodSucceeds()
+        public async Task SharedEntities_CallRightMethodSucceeds()
         {
             this.EnqueueLoadEntityA();
 
@@ -134,8 +138,7 @@ namespace OpenRiaServices.Client.Test
 
         [TestMethod]
         [TestDescription("Accessing named update method from the wrong DomainContext fails on Submit")]
-        [Asynchronous]
-        public void SharedEntities_CallWrongMethodFails()
+        public async Task SharedEntities_CallWrongMethodFails()
         {
             this.EnqueueLoadEntityA();
 

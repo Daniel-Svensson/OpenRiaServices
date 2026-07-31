@@ -1,4 +1,5 @@
-﻿using Microsoft.Silverlight.Testing;
+using System.Threading.Tasks;
+using Microsoft.Silverlight.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenRiaServices.Silverlight.Testing;
 using RootNamespace.TestNamespace;
@@ -13,8 +14,7 @@ namespace OpenRiaServices.Client.Authentication.Test
     {
         [TestMethod]
         [Description("Tests that the user can be authenticated with the server.")]
-        [Asynchronous]
-        public void LoginThenLogout()
+        public async Task LoginThenLogout()
         {
             AuthenticationService1 context = new AuthenticationService1(TestURIs.AuthenticationService1);
             FormsAuthentication service = new FormsAuthentication();
@@ -22,27 +22,19 @@ namespace OpenRiaServices.Client.Authentication.Test
             service.DomainContext = context;
 
             LoginOperation loginOperation = service.Login("manager", "manager");
-            LogoutOperation logoutOperation = null;
+            await loginOperation;
 
-            this.EnqueueCompletion(() => loginOperation);
+            Assert.IsTrue(loginOperation.LoginSuccess);
+            Assert.IsTrue(loginOperation.User.Identity.IsAuthenticated, "Logged in user should be authenticated.");
 
-            this.EnqueueCallback(() =>
-            {
-                Assert.IsTrue(loginOperation.LoginSuccess);
-                Assert.IsTrue(loginOperation.User.Identity.IsAuthenticated, "Logged in user should be authenticated.");
-                logoutOperation = service.Logout(false);
-            });
+            LogoutOperation logoutOperation = service.Logout(false);
+            await logoutOperation;
 
-            this.EnqueueCompletion(() => logoutOperation);
+            Assert.IsFalse(logoutOperation.User.Identity.IsAuthenticated,
+                "Logged out user should not be authenticated.");
 
-            this.EnqueueCallback(() =>
-            {
-                Assert.IsFalse(logoutOperation.User.Identity.IsAuthenticated,
-                    "Logged out user should not be authenticated.");
-                logoutOperation = service.Logout(false);
-            });
-
-            this.EnqueueTestComplete();
+            LogoutOperation secondLogoutOperation = service.Logout(false);
+            await secondLogoutOperation;
         }
 
         [TestMethod]

@@ -1,5 +1,6 @@
-﻿extern alias SSmDsClient;
+extern alias SSmDsClient;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -28,6 +29,7 @@ namespace OpenRiaServices.Client.Test
     [DoNotParallelize]
     public abstract class UpdateTests : DomainContextTestBase<Northwind>
     {
+        // TODO: Convert remaining Enqueue* tests to async/await. Complex EnqueueConditional/polling flows are intentionally left unchanged for now.
         private static TestDatabase testDatabase = new TestDatabase("Northwind");
         private static int custIdSequence;
         private static int categoryIdSequence; // start with 1000 to avoid collisions with common northwind data
@@ -86,9 +88,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [WorkItem(898909)]
-        public void AddNewWithReferenceToDeleted()
+                [WorkItem(898909)]
+        public async Task AddNewWithReferenceToDeleted()
         {
             Northwind ctxt = CreateDomainContext();
 
@@ -174,9 +175,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [WorkItem(795525)]
-        public void UpdateAssociationForWhichAProjectionExists()
+                [WorkItem(795525)]
+        public async Task UpdateAssociationForWhichAProjectionExists()
         {
             Northwind ctxt = CreateDomainContext();
             EnqueueConditional(delegate
@@ -235,8 +235,7 @@ namespace OpenRiaServices.Client.Test
         /// Verify an end to end composition update
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void CompositionUpdate()
+        public async Task CompositionUpdate()
         {
             Northwind ctxt = CreateDomainContext();
             Region region = null;
@@ -358,8 +357,7 @@ namespace OpenRiaServices.Client.Test
         /// Verify an end to end composition delete
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void CompositionDelete()
+        public async Task CompositionDelete()
         {
             Northwind submitCtx = CreateDomainContext();
             Northwind ctxt = CreateDomainContext();
@@ -452,8 +450,7 @@ namespace OpenRiaServices.Client.Test
         /// Verify an end to end composition insert
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void CompositionInsert()
+        public async Task CompositionInsert()
         {
             Northwind ctxt = CreateDomainContext();
             List<Territory> inserted = new List<Territory>();
@@ -527,8 +524,7 @@ namespace OpenRiaServices.Client.Test
         /// when returned from our DAL DomainServices
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void ReadAndUpdateProjection()
+        public async Task ReadAndUpdateProjection()
         {
             Northwind ctxt = CreateDomainContext();
 
@@ -569,8 +565,7 @@ namespace OpenRiaServices.Client.Test
         /// in the same changeset
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void Bug514013_UpdateAssociation()
+        public async Task Bug514013_UpdateAssociation()
         {
             Northwind ctxt = CreateDomainContext();
             string custId = GetUniqueCustID();
@@ -639,8 +634,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public virtual void InvokeDMOnNonExistentEntity_Bug518304()
+        public virtual async Task InvokeDMOnNonExistentEntity_Bug518304()
         {
             Northwind ctxt = new Northwind(this.ServiceUri);
             LoadOperation lo = null;
@@ -697,8 +691,7 @@ namespace OpenRiaServices.Client.Test
         /// in association updates
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void AssociationUpdateConflict()
+        public async Task AssociationUpdateConflict()
         {
             Northwind ctxt1 = new Northwind(this.ServiceUri);
             Northwind ctxt2 = new Northwind(this.ServiceUri);
@@ -781,8 +774,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void ReadAndUpdateBinary()
+        public async Task ReadAndUpdateBinary()
         {
             Northwind ctxt = CreateDomainContext();
 
@@ -831,8 +823,7 @@ namespace OpenRiaServices.Client.Test
         /// the delete is processed properly
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void DeleteGraph()
+        public async Task DeleteGraph()
         {
             // IMPORTANT: This test is run multiple times,
             // once for each derived type.
@@ -898,8 +889,7 @@ namespace OpenRiaServices.Client.Test
         /// Perform multiple updates on various entities in a connected graph
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void UpdateGraph()
+        public async Task UpdateGraph()
         {
             Northwind ctxt = CreateDomainContext();
             Order order = null;
@@ -1001,8 +991,7 @@ namespace OpenRiaServices.Client.Test
         /// Delete it
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void InsertAndDeleteGraph()
+        public async Task InsertAndDeleteGraph()
         {
             Northwind ctxt = CreateDomainContext();
             Order order = null;
@@ -1108,9 +1097,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        [WorkItem(858922)]
-        public void UpdatePropertyWithNoConcurrencyCheck()
+                [WorkItem(858922)]
+        public async Task UpdatePropertyWithNoConcurrencyCheck()
         {
             Northwind ctxt = CreateDomainContext();
             object userState = new object();
@@ -1191,8 +1179,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void SimpleUpdate()
+        public async Task SimpleUpdate()
         {
             Northwind ctxt = CreateDomainContext();
             object userState = new object();
@@ -1304,8 +1291,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void SimpleUpdateAndInvokeDM()
+        public async Task SimpleUpdateAndInvokeDM()
         {
             Northwind ctxt = CreateDomainContext();
             object userState = new object();
@@ -1379,8 +1365,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void SimpleInsert()
+        public async Task SimpleInsert()
         {
             Northwind ctxt = CreateDomainContext();
             Product newProduct = null;
@@ -1435,8 +1420,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public virtual void InsertAndInvokeDM()
+        public virtual async Task InsertAndInvokeDM()
         {
             Northwind ctxt = CreateDomainContext();
             Product newProduct = null;
@@ -1494,8 +1478,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void SimpleDelete()
+        public async Task SimpleDelete()
         {
             Northwind ctxt = CreateDomainContext();
             Product newProduct = null;
@@ -1581,8 +1564,7 @@ namespace OpenRiaServices.Client.Test
 
         [WorkItem(766785)]
         [TestMethod]
-        [Asynchronous]
-        public void EditAndDeleteSingleEntity()
+        public async Task EditAndDeleteSingleEntity()
         {
             Northwind ctxt = CreateDomainContext();
             Product newProduct = null;
@@ -1670,8 +1652,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void DeleteFromEntitySetAndThenFromEntityCollection()
+        public async Task DeleteFromEntitySetAndThenFromEntityCollection()
         {
             Northwind ctxt = CreateDomainContext();
             Order_Detail detailToDelete = null;
@@ -1732,8 +1713,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void DeleteFromEntityCollectionAndThenFromEntitySet()
+        public async Task DeleteFromEntityCollectionAndThenFromEntitySet()
         {
             Northwind ctxt = CreateDomainContext();
             Order_Detail detailToDelete = null;
@@ -1795,8 +1775,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public virtual void SimpleUpdateConflict()
+        public virtual async Task SimpleUpdateConflict()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -1886,8 +1865,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void SimpleUpdateDeleteConflict()
+        public async Task SimpleUpdateDeleteConflict()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -1960,8 +1938,7 @@ namespace OpenRiaServices.Client.Test
         /// into the server side delete method.
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void DeleteUsesOriginalEntity()
+        public async Task DeleteUsesOriginalEntity()
         {
             Northwind nw = new Northwind(this.ServiceUri);
             LoadOperation lo = null;
@@ -2009,8 +1986,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void SimpleDeleteUpdateConflict()
+        public async Task SimpleDeleteUpdateConflict()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2070,8 +2046,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public virtual void SimpleUpdateConflictWithResolve()
+        public virtual async Task SimpleUpdateConflictWithResolve()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2151,8 +2126,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void ServerValidationErrorPreventsSubmit()
+        public async Task ServerValidationErrorPreventsSubmit()
         {
             Northwind dc = CreateDomainContext();
             int originalCount = 0;
@@ -2196,8 +2170,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void UpdateEntityAndDeleteAssociatedEntity()
+        public async Task UpdateEntityAndDeleteAssociatedEntity()
         {
             Northwind ctxt = CreateDomainContext();
 
@@ -2244,9 +2217,8 @@ namespace OpenRiaServices.Client.Test
 
         #region Single entity changeset, different resolve method return values
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns true but does not remove any conflicts")]
-        public virtual void ResolveTest_ReturnTrueNoResolve()
+        public virtual async Task ResolveTest_ReturnTrueNoResolve()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2310,10 +2282,9 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns false and does not remove any conflicts")]
         [Retry(3)]
-        public virtual void ResolveTest_ReturnFalse()
+        public virtual async Task ResolveTest_ReturnFalse()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2377,7 +2348,6 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns false but conflicts are resolved")]
         [Retry(3)] // Known flaky test, retry intil it is rewritten
         public virtual void ResolveTest_ReturnFalseWithResolve()
@@ -2446,9 +2416,8 @@ namespace OpenRiaServices.Client.Test
 
         #region Single entity changeset, conflict resolved using resolve utility
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns true and conflicts are resolved using MergeIntoCurrent policy")]
-        public virtual void ResolveTest_MergeIntoCurrent()
+        public virtual async Task ResolveTest_MergeIntoCurrent()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2513,9 +2482,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns true and conflicts are resolved using MergeIntoCurrent policy")]
-        public virtual void ResolveTest_MergeIntoCurrent_Association()
+        public virtual async Task ResolveTest_MergeIntoCurrent_Association()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2626,9 +2594,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns true and conflicts are resolved using KeepCurrent policy")]
-        public virtual void ResolveTest_KeepCurrent()
+        public virtual async Task ResolveTest_KeepCurrent()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2693,9 +2660,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns true and conflicts are resolved using KeepCurrent policy")]
-        public virtual void ResolveTest_KeepCurrent_Association()
+        public virtual async Task ResolveTest_KeepCurrent_Association()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2820,9 +2786,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns true and conflicts are resolved using RefreshCurrent policy")]
-        public virtual void ResolveTest_RefreshCurrent()
+        public virtual async Task ResolveTest_RefreshCurrent()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -2888,9 +2853,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Resolve method returns true and conflicts are resolved using RefreshCurrent policy")]
-        public virtual void ResolveTest_RefreshCurrent_Association()
+        public virtual async Task ResolveTest_RefreshCurrent_Association()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3010,8 +2974,7 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public virtual void ResolveTest_DeleteUpdateConflict_Bug597087()
+        public virtual async Task ResolveTest_DeleteUpdateConflict_Bug597087()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3092,10 +3055,9 @@ namespace OpenRiaServices.Client.Test
 
         #region multiple entities in conflict tests
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Three entities in conflict and all resolve methods return true using a combination of resolve policies")]
         [Retry(3)]
-        public virtual void ResolveTest_MultipleInstances_MixedResolveMethods()
+        public virtual async Task ResolveTest_MultipleInstances_MixedResolveMethods()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3231,10 +3193,9 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Two entities in conflict, one return true and the other returns false")]
         [Retry(3)]
-        public virtual void ResolveTest_MultipleInstances_ReturnTrueFalse()
+        public virtual async Task ResolveTest_MultipleInstances_ReturnTrueFalse()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3341,10 +3302,9 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Two entities in conflict, both return true")]
         [Retry(3)]
-        public virtual void ResolveTest_MultipleInstances_ReturnTrueTrue()
+        public virtual async Task ResolveTest_MultipleInstances_ReturnTrueTrue()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3462,10 +3422,9 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Two entities in conflict, one throws exception and the other resolves successfully")]
         [Retry(3)]
-        public virtual void ResolveTest_MultipleInstances_FirstThrowsSecondSucceeds()
+        public virtual async Task ResolveTest_MultipleInstances_FirstThrowsSecondSucceeds()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3537,10 +3496,9 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Two entities in conflict, resolution succeeds for and the other throws an exception")]
         [Retry(3)]
-        public virtual void ResolveTest_MultipleInstances_FirstSucceedsSecondThrows()
+        public virtual async Task ResolveTest_MultipleInstances_FirstSucceedsSecondThrows()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3642,9 +3600,8 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
         [Microsoft.VisualStudio.TestTools.UnitTesting.Description("Two entities in conflict, one throws non-continuable ex and the other returns true")]
-        public virtual void ResolveTest_MultipleInstances_ThrowNonContinuableExReturnTrue()
+        public virtual async Task ResolveTest_MultipleInstances_ThrowNonContinuableExReturnTrue()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -3825,8 +3782,7 @@ TestContext testContext
         /// level OnValidate partial method pattern.
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void Bug594068_PersistChangesErrorHandling()
+        public async Task Bug594068_PersistChangesErrorHandling()
         {
             Northwind ctxt = new Northwind(TestURIs.LTS_Northwind_CUD);
             SubmitOperation so = null;
@@ -3863,8 +3819,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void ChangeSet_CancelSubmit()
+        public async Task ChangeSet_CancelSubmit()
         {
             Product product = null;
             Northwind ctxt = new Northwind(TestURIs.LTS_Northwind_CUD);
@@ -3920,8 +3875,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public override void SimpleUpdateConflict()
+        public override async Task SimpleUpdateConflict()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -4014,8 +3968,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void ReplaceObjectViaInsertDelete()
+        public async Task ReplaceObjectViaInsertDelete()
         {
             Northwind ctxt = CreateDomainContext();
 
@@ -4084,8 +4037,7 @@ TestContext testContext
         /// Verify query and update for EF POCO model
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void SimplePOCOUpdate()
+        public async Task SimplePOCOUpdate()
         {
             Northwind ctxt = new Northwind(TestURIs.EF_Northwind_POCO_CUD);
             EntityChangeSet changeSet = null;
@@ -4172,8 +4124,7 @@ TestContext testContext
         /// Verify insert for EF POCO model
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void SimplePOCOInsert()
+        public async Task SimplePOCOInsert()
         {
             Northwind ctxt = new Northwind(TestURIs.EF_Northwind_POCO_CUD);
             Product newProduct = null;
@@ -4227,8 +4178,7 @@ TestContext testContext
         /// Verify delete for EF POCO model
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void SimplePOCODelete()
+        public async Task SimplePOCODelete()
         {
             Northwind ctxt = new Northwind(TestURIs.EF_Northwind_POCO_CUD);
             Product newProduct = null;
@@ -4304,8 +4254,7 @@ TestContext testContext
         #endregion
 
         [TestMethod]
-        [Asynchronous]
-        public void SimpleDeleteConflict()
+        public async Task SimpleDeleteConflict()
         {
             Northwind nw1 = new Northwind(this.ServiceUri);
             Northwind nw2 = new Northwind(this.ServiceUri);
@@ -4374,8 +4323,7 @@ TestContext testContext
         /// in our change-set, any update fails with a concurrency violation.
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void Bug527568_UpdateConflict()
+        public async Task Bug527568_UpdateConflict()
         {
             Northwind ctxt = CreateDomainContext();
             EnqueueConditional(delegate
@@ -4412,8 +4360,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void AssociationInsertWithFKFieldsOnly()
+        public async Task AssociationInsertWithFKFieldsOnly()
         {
             Northwind ctxt = CreateDomainContext();
             int? empId = null;
@@ -4549,9 +4496,8 @@ TestContext testContext
         /// copies the store timestamp value into the current entity.
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        [WorkItem(193755)]
-        public void EntityConflict_ResolveTimestamp()
+                [WorkItem(193755)]
+        public async Task EntityConflict_ResolveTimestamp()
         {
             TestDomainServices.TestProvider_Scenarios ctxt = new TestDomainServices.TestProvider_Scenarios(TestURIs.TestProvider_Scenarios);
 
@@ -4611,8 +4557,7 @@ TestContext testContext
         /// an original entity is not sent to the server on update
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void TestTimestampUpdate_OriginalNotRoundtripped()
+        public async Task TestTimestampUpdate_OriginalNotRoundtripped()
         {
             TestDomainServices.TestProvider_Scenarios ctxt = new TestDomainServices.TestProvider_Scenarios(new Uri(TestURIs.RootURI, "TestDomainServices-TestProvider_Scenarios.svc"));
             TestDomainServices.TimestampEntityA ts = null;
@@ -4652,8 +4597,7 @@ TestContext testContext
         /// WILL be sent to the server on update
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void TestTimestampUpdate_OriginalRoundtripped()
+        public async Task TestTimestampUpdate_OriginalRoundtripped()
         {
             TestDomainServices.TestProvider_Scenarios ctxt = new TestDomainServices.TestProvider_Scenarios(new Uri(TestURIs.RootURI, "TestDomainServices-TestProvider_Scenarios.svc"));
             TestDomainServices.TimestampEntityB ts = null;
@@ -4693,8 +4637,7 @@ TestContext testContext
         /// during deserialization.
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void TestExcludedMember()
+        public async Task TestExcludedMember()
         {
             TestDomainServices.TestProvider_Scenarios provider = new TestDomainServices.TestProvider_Scenarios(new Uri(TestURIs.RootURI, "TestDomainServices-TestProvider_Scenarios.svc"));
 
@@ -4729,8 +4672,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void TestReadOnlyMemberRoundtrip()
+        public async Task TestReadOnlyMemberRoundtrip()
         {
             TestDomainServices.TestProvider_Scenarios provider = new TestDomainServices.TestProvider_Scenarios(new Uri(TestURIs.RootURI, "TestDomainServices-TestProvider_Scenarios.svc"));
 
@@ -5000,7 +4942,6 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
         [FullTrustTest] // ISerializable types cannot be deserialized in medium trust.
         public void ReadAndUpdateXElement()
         {
@@ -5038,8 +4979,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void MaskedUpdate()
+        public async Task MaskedUpdate()
         {
             // Different strings expected at different points in the round trip
             string originalStateName = "WA";            // Expected from original POCO response
@@ -5086,8 +5026,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void MaskedUpdate_UpdateMethodFailure()
+        public async Task MaskedUpdate_UpdateMethodFailure()
         {
             // Different strings expected at different points in the round trip
             string originalStateName = "WA";            // Expected from original POCO response
@@ -5135,8 +5074,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void MaskedUpdate_CustomMethodFailure()
+        public async Task MaskedUpdate_CustomMethodFailure()
         {
             // Different strings expected at different points in the round trip
             string originalStateName = "WA";            // Expected from original POCO response
@@ -5183,8 +5121,7 @@ TestContext testContext
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void MaskedUpdate_UpdateAndCustomMethodFailure()
+        public async Task MaskedUpdate_UpdateAndCustomMethodFailure()
         {
             // Different strings expected at different points in the round trip
             string originalStateName = "WA";            // Expected from original POCO response

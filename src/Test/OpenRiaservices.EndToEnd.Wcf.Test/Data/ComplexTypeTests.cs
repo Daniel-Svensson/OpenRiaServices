@@ -56,24 +56,18 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_ServiceWithInvokeOperationsOnly()
+        public async Task ComplexType_ServiceWithInvokeOperationsOnly()
         {
             ComplexTypes_InvokeOperationsOnly ctxt = new ComplexTypes_InvokeOperationsOnly(new Uri(TestURIs.RootURI, "TestDomainServices-ComplexTypes_InvokeOperationsOnly.svc"));
 
             Address address = new Address { AddressLine1 = "47 South Wynn Rd.", City = "Oregon", State = "OH" };
             InvokeOperation<Address> io = ctxt.RoundtripAddress(address);
 
-            this.EnqueueCompletion(() => io);
-            EnqueueCallback(delegate
-            {
-                TestHelperMethods.AssertOperationSuccess(io);
+            await io;
+            TestHelperMethods.AssertOperationSuccess(io);
 
-                Address returnAddress = io.Value;
-                Assert.IsTrue(DeepCompare(address, returnAddress));
-            });
-
-            EnqueueTestComplete();
+            Address returnAddress = io.Value;
+            Assert.IsTrue(DeepCompare(address, returnAddress));
         }
 
         /// <summary>
@@ -490,8 +484,7 @@ namespace OpenRiaServices.Client.Test
         /// E2E query test returning an entity with CT members
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_QueryTest()
+        public async Task ComplexType_QueryTest()
         {
             ComplexTypes_TestContext ctxt = new ComplexTypes_TestContext(TestURIs.ComplexTypes_TestService);
 
@@ -499,26 +492,20 @@ namespace OpenRiaServices.Client.Test
 
             LoadOperation lo = ctxt.Load(query, false);
 
-            this.EnqueueCompletion(() => lo);
-            EnqueueCallback(delegate
-            {
-                Assert.IsFalse(lo.HasError);
-                Assert.HasCount(3, lo.Entities);
+            await lo;
+            Assert.IsFalse(lo.HasError);
+            Assert.HasCount(3, lo.Entities);
 
-                ComplexType_Parent p = ctxt.ComplexType_Parents.First();
-                Assert.IsNotNull(p.ContactInfo);
-                Assert.IsNotNull(p.ContactInfo.HomeAddress);
-            });
-
-            EnqueueTestComplete();
+            ComplexType_Parent p = ctxt.ComplexType_Parents.First();
+            Assert.IsNotNull(p.ContactInfo);
+            Assert.IsNotNull(p.ContactInfo.HomeAddress);
         }
 
         /// <summary>
         /// E2E invoke test for a method taking and returning CTs
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_InvokeTest()
+        public async Task ComplexType_InvokeTest()
         {
             ComplexTypes_TestContext ctxt = new ComplexTypes_TestContext(TestURIs.ComplexTypes_TestService);
 
@@ -526,15 +513,10 @@ namespace OpenRiaServices.Client.Test
 
             InvokeOperation<Address> io = ctxt.ReturnHomeAddress(contact);
 
-            this.EnqueueCompletion(() => io);
-            EnqueueCallback(delegate
-            {
-                Assert.IsFalse(io.HasError);
-                Address returnAddress = io.Value;
-                Assert.IsTrue(DeepCompare(contact.HomeAddress, returnAddress));
-            });
-
-            EnqueueTestComplete();
+            await io;
+            Assert.IsFalse(io.HasError);
+            Address returnAddress = io.Value;
+            Assert.IsTrue(DeepCompare(contact.HomeAddress, returnAddress));
         }
 
         /// <summary>
@@ -556,80 +538,58 @@ namespace OpenRiaServices.Client.Test
         /// E2E test verifying that an entity with CT members can be updated
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_UpdateTest()
+        public async Task ComplexType_UpdateTest()
         {
             ComplexTypes_TestContext ctxt = new ComplexTypes_TestContext(TestURIs.ComplexTypes_TestService);
 
             var query = ctxt.GetParentsQuery().Where(p => p.ContactInfo.Name == "Mathew");
 
-            ComplexType_Parent parent = null;
-            SubmitOperation so = null;
             LoadOperation lo = ctxt.Load(query, false);
+            await lo;
+            Assert.IsFalse(lo.HasError);
 
-            this.EnqueueCompletion(() => lo);
-            EnqueueCallback(delegate
-            {
-                Assert.IsFalse(lo.HasError);
+            ComplexType_Parent parent = ctxt.ComplexType_Parents.First();
+            parent.ContactInfo.PrimaryPhone.AreaCode = "425";
+            Assert.AreEqual(EntityState.Modified, parent.EntityState);
 
-                parent = ctxt.ComplexType_Parents.First();
-                parent.ContactInfo.PrimaryPhone.AreaCode = "425";
-                Assert.AreEqual(EntityState.Modified, parent.EntityState);
-
-                so = ctxt.SubmitChanges();
-            });
-            this.EnqueueCompletion(() => so);
-            EnqueueCallback(delegate
-            {
-                Assert.IsFalse(so.HasError);
-            });
-
-            EnqueueTestComplete();
+            SubmitOperation so = ctxt.SubmitChanges();
+            await so;
+            Assert.IsFalse(so.HasError);
         }
 
         /// <summary>
         /// E2E test verifying that an auto-sync works for CT members updated on the server
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_TestMemberAutosync()
+        public async Task ComplexType_TestMemberAutosync()
         {
             ComplexTypes_TestContext ctxt = new ComplexTypes_TestContext(TestURIs.ComplexTypes_TestService);
 
             Phone newPhone = new Phone { AreaCode = "111", Number = "999-9999" };
-            SubmitOperation so = null;
             LoadOperation lo = ctxt.Load(ctxt.GetParentsQuery(), false);
 
-            this.EnqueueCompletion(() => lo);
-            EnqueueCallback(delegate
-            {
-                Assert.IsFalse(lo.HasError);
+            await lo;
+            Assert.IsFalse(lo.HasError);
 
-                ComplexType_Parent parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Mathew");
-                parent.TestAutoSync(null);
-                Assert.AreEqual(EntityState.Modified, parent.EntityState);
+            ComplexType_Parent parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Mathew");
+            parent.TestAutoSync(null);
+            Assert.AreEqual(EntityState.Modified, parent.EntityState);
 
-                parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Amy");
-                parent.TestAutoSync(newPhone);
-                Assert.AreEqual(EntityState.Modified, parent.EntityState);
+            parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Amy");
+            parent.TestAutoSync(newPhone);
+            Assert.AreEqual(EntityState.Modified, parent.EntityState);
 
-                so = ctxt.SubmitChanges();
-            });
-            this.EnqueueCompletion(() => so);
-            EnqueueCallback(delegate
-            {
-                Assert.IsFalse(so.HasError);
+            SubmitOperation so = ctxt.SubmitChanges();
+            await so;
+            Assert.IsFalse(so.HasError);
 
-                ComplexType_Parent parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Mathew");
-                Assert.AreEqual("Updated", parent.ContactInfo.HomeAddress.AddressLine2);
-                Assert.IsNull(parent.ContactInfo.PrimaryPhone);
+            parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Mathew");
+            Assert.AreEqual("Updated", parent.ContactInfo.HomeAddress.AddressLine2);
+            Assert.IsNull(parent.ContactInfo.PrimaryPhone);
 
-                parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Amy");
-                Assert.AreEqual("Updated", parent.ContactInfo.HomeAddress.AddressLine2);
-                Assert.IsTrue(DeepCompare(parent.ContactInfo.PrimaryPhone, newPhone));
-            });
-
-            EnqueueTestComplete();
+            parent = ctxt.ComplexType_Parents.Single(p => p.ContactInfo.Name == "Amy");
+            Assert.AreEqual("Updated", parent.ContactInfo.HomeAddress.AddressLine2);
+            Assert.IsTrue(DeepCompare(parent.ContactInfo.PrimaryPhone, newPhone));
         }
 
         /// <summary>
@@ -1671,68 +1631,50 @@ namespace OpenRiaServices.Client.Test
         /// E2E test verifying that client and server submit time validation function equivalently.
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_SubmitValidation_CrossTier()
-        { 
+        public async Task ComplexType_SubmitValidation_CrossTier()
+        {
             ComplexTypes_TestContext ctxt = new ComplexTypes_TestContext(TestURIs.ComplexTypes_TestService);
             Dictionary<ComplexType_Parent, ValidationResult[]> validationResults = null;
-            bool submitComplete = false;
             SubmitOperation so = null;
             LoadOperation lo = ctxt.Load(ctxt.GetParentsQuery(), false);
 
             // This is the validation method that will be reused below for both calls
             Action<Dictionary<ComplexType_Parent, ValidationResult[]>> checkResults = (r) =>
-                {
-                    Assert.HasCount(1, r);
-                    var item = r.Single(p => p.Key.ID == 1);
-                    ComplexType_Parent entity = item.Key;
-                    ValidationResult result = item.Value.Single();
-                    Assert.AreEqual("The field AreaCode must be a string with a maximum length of 3.", result.ErrorMessage);
-                    Assert.AreEqual("ContactInfo.PrimaryPhone.AreaCode", result.MemberNames.Single());
-                };
-
-            this.EnqueueCompletion(() => lo);
-            EnqueueCallback(delegate
             {
-                Assert.IsFalse(lo.HasError);
+                Assert.HasCount(1, r);
+                var item = r.Single(p => p.Key.ID == 1);
+                ComplexType_Parent entity = item.Key;
+                ValidationResult result = item.Value.Single();
+                Assert.AreEqual("The field AreaCode must be a string with a maximum length of 3.", result.ErrorMessage);
+                Assert.AreEqual("ContactInfo.PrimaryPhone.AreaCode", result.MemberNames.Single());
+            };
 
-                ComplexType_Parent[] entities = ctxt.ComplexType_Parents.ToArray();
+            await lo;
+            Assert.IsFalse(lo.HasError);
 
-                // create some validation errors
-                ComplexType_Parent entity = entities.Single(p => p.ID == 1);
-                entity.ContactInfo.HomeAddress.AddressLine1 += "x";
-                TestHelperMethods.EnableValidation(entity, false);
-                entity.ContactInfo.PrimaryPhone.AreaCode = "Invalid";
-                TestHelperMethods.EnableValidation(entity, true);
+            ComplexType_Parent[] entities = ctxt.ComplexType_Parents.ToArray();
 
-                so = ctxt.SubmitChanges(TestHelperMethods.DefaultOperationAction, null);
-            });
-            this.EnqueueCompletion(() => so);
-            EnqueueCallback(delegate
-            {
-                Assert.IsTrue(so.HasError);
-                validationResults = so.EntitiesInError.ToDictionary(p => (ComplexType_Parent)p, p => p.ValidationErrors.ToArray());
-                checkResults(validationResults);
+            // create some validation errors
+            ComplexType_Parent entity = entities.Single(p => p.ID == 1);
+            entity.ContactInfo.HomeAddress.AddressLine1 += "x";
+            TestHelperMethods.EnableValidation(entity, false);
+            entity.ContactInfo.PrimaryPhone.AreaCode = "Invalid";
+            TestHelperMethods.EnableValidation(entity, true);
 
-                // now submit again bypassing client validation
-                TestHelperMethods.SubmitDirect(ctxt, (submitResults) =>
-                {
-                    validationResults = submitResults.Results.Where(p => p.ValidationErrors != null)
-                        .ToDictionary(p => (ComplexType_Parent)p.Entity, p => p.ValidationErrors
-                            .Select(q => new ValidationResult(q.Message, q.SourceMemberNames)).ToArray());
-                    submitComplete = true;
-                });
-            });
-            EnqueueConditional(delegate
-            {
-                return submitComplete;
-            });
-            EnqueueCallback(delegate
-            {
-                checkResults(validationResults);
-            });
-            
-            EnqueueTestComplete();
+            so = ctxt.SubmitChanges(TestHelperMethods.DefaultOperationAction, null);
+            await so;
+
+            Assert.IsTrue(so.HasError);
+            validationResults = so.EntitiesInError.ToDictionary(p => (ComplexType_Parent)p, p => p.ValidationErrors.ToArray());
+            checkResults(validationResults);
+
+            // now submit again bypassing client validation
+            SubmitCompletedResult submitResults = await TestHelperMethods.SubmitDirectAsync(ctxt);
+            validationResults = submitResults.Results.Where(p => p.ValidationErrors != null)
+                .ToDictionary(p => (ComplexType_Parent)p.Entity, p => p.ValidationErrors
+                    .Select(q => new ValidationResult(q.Message, q.SourceMemberNames)).ToArray());
+
+            checkResults(validationResults);
         }
 
         /// <summary>
@@ -1766,11 +1708,8 @@ namespace OpenRiaServices.Client.Test
 
         // Roundtrip values that have inheritance hierarchies on the server but not on the client.
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_InheritanceSerialization()
+        public async Task ComplexType_InheritanceSerialization()
         {
-            LoadOperation<ComplexTypeInheritance_EntityGrandparent> load = null;
-            InvokeOperation<ComplexInheritance_Child> invoke = null;
             // Whatever inheritance the server has, the client should not see it in generated code.
             EnsureNoInheritance(typeof(ComplexInheritance_Child));
 
@@ -1780,101 +1719,74 @@ namespace OpenRiaServices.Client.Test
 
             // Whatever inheritance the server has, the serialization should not be affected.
             ComplexTypes_DomainContext context = new ComplexTypes_DomainContext(TestURIs.ComplexTypes_DomainService);
-            load = context.Load(context.GetStubQuery());
+            LoadOperation<ComplexTypeInheritance_EntityGrandparent> load = context.Load(context.GetStubQuery());
 
-            this.EnqueueCompletion(() => load);
+            await load;
+            EnsureOperationNoError(load);
+            ComplexTypeInheritance_EntityGrandparent grandparent = load.Entities.First();
+            ComplexTypeInheritance_EntityGrandchild grandchild = grandparent as ComplexTypeInheritance_EntityGrandchild;
+            Assert.IsNotNull(grandchild, string.Format("Service should return known type {0}", typeof(ComplexTypeInheritance_EntityGrandchild)));
 
-            this.EnqueueCallback(delegate
+            // ensure complex type hanging off entity serialized correctly at the right level in the hierarchy
+            Assert.AreEqual(1, grandchild.Child.A1);
+            Assert.AreEqual(2, grandchild.Child.A2);
+            Assert.AreEqual(10, grandchild.Child.Z1);
+            Assert.AreEqual(20, grandchild.Child.Z2);
+
+            // test round trip of complex types
+            InvokeOperation<ComplexInheritance_Child> invoke = context.GetInheritedMember(new ComplexInheritance_Child()
             {
-                EnsureOperationNoError(load);
-                ComplexTypeInheritance_EntityGrandparent grandparent = load.Entities.First();
-                ComplexTypeInheritance_EntityGrandchild grandchild = grandparent as ComplexTypeInheritance_EntityGrandchild;
-                Assert.IsNotNull(grandchild, string.Format("Service should return known type {0}", typeof(ComplexTypeInheritance_EntityGrandchild)));
-                
-                // ensure complex type hanging off entity serialized correctly at the right level in the hierarchy
-                Assert.AreEqual(1, grandchild.Child.A1);
-                Assert.AreEqual(2, grandchild.Child.A2);
-                Assert.AreEqual(10, grandchild.Child.Z1);
-                Assert.AreEqual(20, grandchild.Child.Z2);
-
-                // test round trip of complex types
-                invoke = context.GetInheritedMember(new ComplexInheritance_Child()
-                {
-                    A1 = 100,
-                    A2 = 101,
-                    Z1 = 200,
-                    Z2 = 201,
-                });
+                A1 = 100,
+                A2 = 101,
+                Z1 = 200,
+                Z2 = 201,
             });
 
-            this.EnqueueCompletion(() => invoke);
-
-            this.EnqueueCallback(delegate
-            {
-                EnsureOperationNoError(invoke);
-                ComplexInheritance_Child returnedChild = invoke.Value;
-                Assert.AreEqual(101, returnedChild.A1);
-                Assert.AreEqual(102, returnedChild.A2);
-                Assert.AreEqual(201, returnedChild.Z1);
-                Assert.AreEqual(202, returnedChild.Z2);
-            });
-
-            this.EnqueueTestComplete();
+            await invoke;
+            EnsureOperationNoError(invoke);
+            ComplexInheritance_Child returnedChild = invoke.Value;
+            Assert.AreEqual(101, returnedChild.A1);
+            Assert.AreEqual(102, returnedChild.A2);
+            Assert.AreEqual(201, returnedChild.Z1);
+            Assert.AreEqual(202, returnedChild.Z2);
         }
 
         /// <summary>
         /// Test serialization in invoke and named update methods.
         /// </summary>
         [TestMethod]
-        [Asynchronous]
-        public void ComplexType_RoundtripComplexTypeParams()
+        public async Task ComplexType_RoundtripComplexTypeParams()
         {
             ComplexTypes_DomainContext context = new ComplexTypes_DomainContext(TestURIs.ComplexTypes_DomainService);
             LoadOperation<ComplexTypeInheritance_EntityGrandparent> load = context.Load(context.GetStubQuery());
-            SubmitOperation submit = null;
-            InvokeOperation<ComplexInheritance_Child> invoke = null;
 
-            this.EnqueueCompletion(() => load);
+            await load;
+            EnsureOperationNoError(load);
+            ComplexTypeInheritance_EntityGrandchild stub = load.Entities.First() as ComplexTypeInheritance_EntityGrandchild;
+            Assert.IsNotNull(stub);
 
-            this.EnqueueCallback(delegate
-            {
-                EnsureOperationNoError(load);
-                ComplexTypeInheritance_EntityGrandchild stub = load.Entities.First() as ComplexTypeInheritance_EntityGrandchild;
-                Assert.IsNotNull(stub);
+            ComplexInheritance_Child childToSubmit = GetComplexChildren(1000)[0];
+            ComplexInheritance_Child[] childrenToSubmit = GetComplexChildren(2000);
+            // Named update method with complex types.
+            stub.ChooseHighestStubOrChild(childToSubmit, childrenToSubmit);
 
-                ComplexInheritance_Child child = GetComplexChildren(1000)[0];
-                ComplexInheritance_Child[] children = GetComplexChildren(2000);
-                // Named update method with complex types.
-                stub.ChooseHighestStubOrChild(child, children);
-                submit = context.SubmitChanges();
-            });
+            SubmitOperation submit = context.SubmitChanges();
+            await submit;
+            EnsureOperationNoError(submit);
 
-            this.EnqueueCompletion(() => submit);
+            // Invoke methods should succeed.
+            ComplexInheritance_Child child = GetComplexChildren(-1)[0];
+            ComplexInheritance_Child[] children = GetComplexChildren(-2);
+            InvokeOperation<ComplexInheritance_Child> invoke = context.GetHighestChild(child, children);
 
-            this.EnqueueCallback(delegate
-            {
-                EnsureOperationNoError(submit);
+            await invoke;
+            EnsureOperationNoError(invoke);
 
-                // Invoke methods should succeed.
-                ComplexInheritance_Child child = GetComplexChildren(-1)[0];
-                ComplexInheritance_Child[] children = GetComplexChildren(-2);
-                invoke = context.GetHighestChild(child, children);
-            });
-
-            this.EnqueueCompletion(() => invoke);
-
-            this.EnqueueCallback(delegate
-            {
-                EnsureOperationNoError(invoke);
-
-                ComplexInheritance_Child returnedChild = invoke.Value;
-                Assert.AreEqual(2000, returnedChild.A1);
-                Assert.AreEqual(2000, returnedChild.A2);
-                Assert.AreEqual(2000, returnedChild.Z1);
-                Assert.AreEqual(2000, returnedChild.Z2);
-            });
-
-            this.EnqueueTestComplete();
+            ComplexInheritance_Child returnedChild = invoke.Value;
+            Assert.AreEqual(2000, returnedChild.A1);
+            Assert.AreEqual(2000, returnedChild.A2);
+            Assert.AreEqual(2000, returnedChild.Z1);
+            Assert.AreEqual(2000, returnedChild.Z2);
         }
 
         private static ComplexInheritance_Child[] GetComplexChildren(int value)

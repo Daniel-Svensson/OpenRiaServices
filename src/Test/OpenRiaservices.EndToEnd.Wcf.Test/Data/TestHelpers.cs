@@ -4,6 +4,7 @@ using System.Linq;
 using DataTests.AdventureWorks.LTS;
 using System.Threading;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using TestDomainServices;
 
 namespace OpenRiaServices.Client.Test
@@ -47,6 +48,19 @@ namespace OpenRiaServices.Client.Test
                         },
                         null);
                 });
+        }
+
+        /// <summary>
+        /// Perform a submit on the specified context using the DomainClient directly.
+        /// </summary>
+        /// <param name="ctxt">The context to submit on.</param>
+        /// <returns>The submit results.</returns>
+        public static async Task<SubmitCompletedResult> SubmitDirectAsync(DomainContext ctxt)
+        {
+            EntityChangeSet cs = ctxt.EntityContainer.GetChanges();
+            Debug.Assert(!cs.IsEmpty, "No changes to submit!");
+
+            return await ctxt.DomainClient.SubmitAsync(cs, CancellationToken.None);
         }
 
         /// <summary>

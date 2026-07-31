@@ -1,5 +1,6 @@
-﻿extern alias SSmDsClient;
+extern alias SSmDsClient;
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -737,21 +738,16 @@ namespace OpenRiaServices.Client.Test
         }
 
         [TestMethod]
-        [Asynchronous]
-        public void EmptyChangeSet_SubmitChanges()
+        public async Task EmptyChangeSet_SubmitChanges()
         {
             Northwind ctxt = new Northwind(TestURIs.LTS_Northwind_CUD);
-            
-            SubmitOperation so = ctxt.SubmitChanges(TestHelperMethods.DefaultOperationAction, null);
-            this.EnqueueCompletion(() => so);
-            EnqueueCallback(delegate
-            {
-                Assert.IsFalse(so.HasError);
-                Assert.IsNull(so.Error);
-                Assert.IsTrue(so.ChangeSet.IsEmpty);
-            });
 
-            EnqueueTestComplete();
+            SubmitOperation so = ctxt.SubmitChanges(TestHelperMethods.DefaultOperationAction, null);
+            await so;
+
+            Assert.IsFalse(so.HasError);
+            Assert.IsNull(so.Error);
+            Assert.IsTrue(so.ChangeSet.IsEmpty);
         }
     }
 }
