@@ -135,12 +135,14 @@ get
 	
 	private void GeneratePropertySetter(PropertyDescriptor propertyDescriptor)
 	{
+		Type propertyType = CodeGenUtilities.TranslateType(propertyDescriptor.PropertyType);
 		string fieldName = CodeGenUtilities.MakeCompliantFieldName(propertyDescriptor.Name);
+		bool trackPropertyInitialization = this.TrackPropertyInitialization(propertyType);
 #>
 set 
 <#+ this.GenerateOpeningBrace(); 
 #>
-if(this.<#= fieldName #> != value)
+if(this.<#= fieldName #> != value<#+ if(trackPropertyInitialization) { #> || !this.<#= fieldName #>Initialized<#+ } #>)
 <#+ this.GenerateOpeningBrace(); 
 #>
 this.On<#= propertyDescriptor.Name #>Changing(value);	
@@ -155,6 +157,9 @@ this.RaiseDataMemberChanging("<#= propertyDescriptor.Name #>");
 #>
 this.ValidateProperty("<#= propertyDescriptor.Name #>", value);
 this.<#= fieldName #> = value;
+<#+ if(trackPropertyInitialization) { #>
+this.<#= fieldName #>Initialized = true;
+<#+ } #>
 <#+
 		if (!propertyIsReadOnly)
         {
@@ -182,7 +187,15 @@ this.On<#= propertyDescriptor.Name #>Changed();
 		string fieldName = CodeGenUtilities.MakeCompliantFieldName(propertyDescriptor.Name);
 #>
 private <#= propertyTypeName #> <#= fieldName #>;
+<#+ if(this.TrackPropertyInitialization(propertyType)) { #>
+private bool <#= fieldName #>Initialized;
+<#+ } #>
 <#+
+	}
+
+	private bool TrackPropertyInitialization(Type propertyType)
+	{
+		return !propertyType.IsValueType || Nullable.GetUnderlyingType(propertyType) != null;
 	}
 	
 	private void GeneratePropertyDeclaration(PropertyDescriptor propertyDescriptor)
