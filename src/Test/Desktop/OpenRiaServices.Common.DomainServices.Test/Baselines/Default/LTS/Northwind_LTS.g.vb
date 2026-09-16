@@ -38,9 +38,15 @@ Namespace DataTests.Northwind.LTS
         
         Private _categoryName As String
         
+        Private _categoryNameInitialized As Boolean
+        
         Private _description As String
         
+        Private _descriptionInitialized As Boolean
+        
         Private _picture() As Byte
+        
+        Private _pictureInitialized As Boolean
         
         Private _products As EntityCollection(Of Product)
         
@@ -116,11 +122,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._categoryName
             End Get
             Set
-                If (String.Equals(Me._categoryName, value) = false) Then
+                If ((String.Equals(Me._categoryName, value) = false)  _
+                            OrElse (Me._categoryNameInitialized = false)) Then
                     Me.OnCategoryNameChanging(value)
                     Me.RaiseDataMemberChanging("CategoryName")
                     Me.ValidateProperty("CategoryName", value)
                     Me._categoryName = value
+                    Me._categoryNameInitialized = true
                     Me.RaiseDataMemberChanged("CategoryName")
                     Me.OnCategoryNameChanged
                 End If
@@ -137,11 +145,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._description
             End Get
             Set
-                If (String.Equals(Me._description, value) = false) Then
+                If ((String.Equals(Me._description, value) = false)  _
+                            OrElse (Me._descriptionInitialized = false)) Then
                     Me.OnDescriptionChanging(value)
                     Me.RaiseDataMemberChanging("Description")
                     Me.ValidateProperty("Description", value)
                     Me._description = value
+                    Me._descriptionInitialized = true
                     Me.RaiseDataMemberChanged("Description")
                     Me.OnDescriptionChanged
                 End If
@@ -158,11 +168,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._picture
             End Get
             Set
-                If (Object.Equals(Me._picture, value) = false) Then
+                If ((Object.Equals(Me._picture, value) = false)  _
+                            OrElse (Me._pictureInitialized = false)) Then
                     Me.OnPictureChanging(value)
                     Me.RaiseDataMemberChanging("Picture")
                     Me.ValidateProperty("Picture", value)
                     Me._picture = value
+                    Me._pictureInitialized = true
                     Me.RaiseDataMemberChanged("Picture")
                     Me.OnPictureChanged
                 End If
@@ -212,27 +224,49 @@ Namespace DataTests.Northwind.LTS
         
         Private _address As String
         
+        Private _addressInitialized As Boolean
+        
         Private _city As String
+        
+        Private _cityInitialized As Boolean
         
         Private _companyName As String
         
+        Private _companyNameInitialized As Boolean
+        
         Private _contactName As String
+        
+        Private _contactNameInitialized As Boolean
         
         Private _contactTitle As String
         
+        Private _contactTitleInitialized As Boolean
+        
         Private _country As String
+        
+        Private _countryInitialized As Boolean
         
         Private _customerID As String
         
+        Private _customerIDInitialized As Boolean
+        
         Private _fax As String
+        
+        Private _faxInitialized As Boolean
         
         Private _orders As EntityCollection(Of Order)
         
         Private _phone As String
         
+        Private _phoneInitialized As Boolean
+        
         Private _postalCode As String
         
+        Private _postalCodeInitialized As Boolean
+        
         Private _region As String
+        
+        Private _regionInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -310,11 +344,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._address
             End Get
             Set
-                If (String.Equals(Me._address, value) = false) Then
+                If ((String.Equals(Me._address, value) = false)  _
+                            OrElse (Me._addressInitialized = false)) Then
                     Me.OnAddressChanging(value)
                     Me.RaiseDataMemberChanging("Address")
                     Me.ValidateProperty("Address", value)
                     Me._address = value
+                    Me._addressInitialized = true
                     Me.RaiseDataMemberChanged("Address")
                     Me.OnAddressChanged
                 End If
@@ -333,11 +369,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._city
             End Get
             Set
-                If (String.Equals(Me._city, value) = false) Then
+                If ((String.Equals(Me._city, value) = false)  _
+                            OrElse (Me._cityInitialized = false)) Then
                     Me.OnCityChanging(value)
                     Me.RaiseDataMemberChanging("City")
                     Me.ValidateProperty("City", value)
                     Me._city = value
+                    Me._cityInitialized = true
                     Me.RaiseDataMemberChanged("City")
                     Me.OnCityChanged
                 End If
@@ -357,11 +395,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._companyName
             End Get
             Set
-                If (String.Equals(Me._companyName, value) = false) Then
+                If ((String.Equals(Me._companyName, value) = false)  _
+                            OrElse (Me._companyNameInitialized = false)) Then
                     Me.OnCompanyNameChanging(value)
                     Me.RaiseDataMemberChanging("CompanyName")
                     Me.ValidateProperty("CompanyName", value)
                     Me._companyName = value
+                    Me._companyNameInitialized = true
                     Me.RaiseDataMemberChanged("CompanyName")
                     Me.OnCompanyNameChanged
                 End If
@@ -380,11 +420,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._contactName
             End Get
             Set
-                If (String.Equals(Me._contactName, value) = false) Then
+                If ((String.Equals(Me._contactName, value) = false)  _
+                            OrElse (Me._contactNameInitialized = false)) Then
                     Me.OnContactNameChanging(value)
                     Me.RaiseDataMemberChanging("ContactName")
                     Me.ValidateProperty("ContactName", value)
                     Me._contactName = value
+                    Me._contactNameInitialized = true
                     Me.RaiseDataMemberChanged("ContactName")
                     Me.OnContactNameChanged
                 End If
@@ -403,11 +445,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._contactTitle
             End Get
             Set
-                If (String.Equals(Me._contactTitle, value) = false) Then
+                If ((String.Equals(Me._contactTitle, value) = false)  _
+                            OrElse (Me._contactTitleInitialized = false)) Then
                     Me.OnContactTitleChanging(value)
                     Me.RaiseDataMemberChanging("ContactTitle")
                     Me.ValidateProperty("ContactTitle", value)
                     Me._contactTitle = value
+                    Me._contactTitleInitialized = true
                     Me.RaiseDataMemberChanged("ContactTitle")
                     Me.OnContactTitleChanged
                 End If
@@ -426,11 +470,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._country
             End Get
             Set
-                If (String.Equals(Me._country, value) = false) Then
+                If ((String.Equals(Me._country, value) = false)  _
+                            OrElse (Me._countryInitialized = false)) Then
                     Me.OnCountryChanging(value)
                     Me.RaiseDataMemberChanging("Country")
                     Me.ValidateProperty("Country", value)
                     Me._country = value
+                    Me._countryInitialized = true
                     Me.RaiseDataMemberChanged("Country")
                     Me.OnCountryChanged
                 End If
@@ -452,10 +498,12 @@ Namespace DataTests.Northwind.LTS
                 Return Me._customerID
             End Get
             Set
-                If (String.Equals(Me._customerID, value) = false) Then
+                If ((String.Equals(Me._customerID, value) = false)  _
+                            OrElse (Me._customerIDInitialized = false)) Then
                     Me.OnCustomerIDChanging(value)
                     Me.ValidateProperty("CustomerID", value)
                     Me._customerID = value
+                    Me._customerIDInitialized = true
                     Me.RaisePropertyChanged("CustomerID")
                     Me.OnCustomerIDChanged
                 End If
@@ -474,11 +522,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._fax
             End Get
             Set
-                If (String.Equals(Me._fax, value) = false) Then
+                If ((String.Equals(Me._fax, value) = false)  _
+                            OrElse (Me._faxInitialized = false)) Then
                     Me.OnFaxChanging(value)
                     Me.RaiseDataMemberChanging("Fax")
                     Me.ValidateProperty("Fax", value)
                     Me._fax = value
+                    Me._faxInitialized = true
                     Me.RaiseDataMemberChanged("Fax")
                     Me.OnFaxChanged
                 End If
@@ -510,11 +560,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._phone
             End Get
             Set
-                If (String.Equals(Me._phone, value) = false) Then
+                If ((String.Equals(Me._phone, value) = false)  _
+                            OrElse (Me._phoneInitialized = false)) Then
                     Me.OnPhoneChanging(value)
                     Me.RaiseDataMemberChanging("Phone")
                     Me.ValidateProperty("Phone", value)
                     Me._phone = value
+                    Me._phoneInitialized = true
                     Me.RaiseDataMemberChanged("Phone")
                     Me.OnPhoneChanged
                 End If
@@ -533,11 +585,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._postalCode
             End Get
             Set
-                If (String.Equals(Me._postalCode, value) = false) Then
+                If ((String.Equals(Me._postalCode, value) = false)  _
+                            OrElse (Me._postalCodeInitialized = false)) Then
                     Me.OnPostalCodeChanging(value)
                     Me.RaiseDataMemberChanging("PostalCode")
                     Me.ValidateProperty("PostalCode", value)
                     Me._postalCode = value
+                    Me._postalCodeInitialized = true
                     Me.RaiseDataMemberChanged("PostalCode")
                     Me.OnPostalCodeChanged
                 End If
@@ -556,11 +610,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._region
             End Get
             Set
-                If (String.Equals(Me._region, value) = false) Then
+                If ((String.Equals(Me._region, value) = false)  _
+                            OrElse (Me._regionInitialized = false)) Then
                     Me.OnRegionChanging(value)
                     Me.RaiseDataMemberChanging("Region")
                     Me.ValidateProperty("Region", value)
                     Me._region = value
+                    Me._regionInitialized = true
                     Me.RaiseDataMemberChanged("Region")
                     Me.OnRegionChanged
                 End If
@@ -599,35 +655,63 @@ Namespace DataTests.Northwind.LTS
         
         Private _customerID As String
         
+        Private _customerIDInitialized As Boolean
+        
         Private _employeeID As Nullable(Of Integer)
+        
+        Private _employeeIDInitialized As Boolean
         
         Private _formattedName As String
         
+        Private _formattedNameInitialized As Boolean
+        
         Private _freight As Nullable(Of Decimal)
+        
+        Private _freightInitialized As Boolean
         
         Private _order_Details As EntityCollection(Of Order_Detail)
         
         Private _orderDate As Nullable(Of DateTime)
         
+        Private _orderDateInitialized As Boolean
+        
         Private _orderID As Integer
         
         Private _requiredDate As Nullable(Of DateTime)
         
+        Private _requiredDateInitialized As Boolean
+        
         Private _shipAddress As String
+        
+        Private _shipAddressInitialized As Boolean
         
         Private _shipCity As String
         
+        Private _shipCityInitialized As Boolean
+        
         Private _shipCountry As String
+        
+        Private _shipCountryInitialized As Boolean
         
         Private _shipName As String
         
+        Private _shipNameInitialized As Boolean
+        
         Private _shippedDate As Nullable(Of DateTime)
+        
+        Private _shippedDateInitialized As Boolean
         
         Private _shipPostalCode As String
         
+        Private _shipPostalCodeInitialized As Boolean
+        
         Private _shipRegion As String
         
+        Private _shipRegionInitialized As Boolean
+        
         Private _shipVia As Nullable(Of Integer)
+        
+        Private _shipViaInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -760,11 +844,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._customerID
             End Get
             Set
-                If (String.Equals(Me._customerID, value) = false) Then
+                If ((String.Equals(Me._customerID, value) = false)  _
+                            OrElse (Me._customerIDInitialized = false)) Then
                     Me.OnCustomerIDChanging(value)
                     Me.RaiseDataMemberChanging("CustomerID")
                     Me.ValidateProperty("CustomerID", value)
                     Me._customerID = value
+                    Me._customerIDInitialized = true
                     Me.RaiseDataMemberChanged("CustomerID")
                     Me.OnCustomerIDChanged
                 End If
@@ -782,11 +868,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._employeeID
             End Get
             Set
-                If (Me._employeeID.Equals(value) = false) Then
+                If ((Me._employeeID.Equals(value) = false)  _
+                            OrElse (Me._employeeIDInitialized = false)) Then
                     Me.OnEmployeeIDChanging(value)
                     Me.RaiseDataMemberChanging("EmployeeID")
                     Me.ValidateProperty("EmployeeID", value)
                     Me._employeeID = value
+                    Me._employeeIDInitialized = true
                     Me.RaiseDataMemberChanged("EmployeeID")
                     Me.OnEmployeeIDChanged
                 End If
@@ -805,10 +893,12 @@ Namespace DataTests.Northwind.LTS
                 Return Me._formattedName
             End Get
             Set
-                If (String.Equals(Me._formattedName, value) = false) Then
+                If ((String.Equals(Me._formattedName, value) = false)  _
+                            OrElse (Me._formattedNameInitialized = false)) Then
                     Me.OnFormattedNameChanging(value)
                     Me.ValidateProperty("FormattedName", value)
                     Me._formattedName = value
+                    Me._formattedNameInitialized = true
                     Me.RaisePropertyChanged("FormattedName")
                     Me.OnFormattedNameChanged
                 End If
@@ -826,11 +916,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._freight
             End Get
             Set
-                If (Me._freight.Equals(value) = false) Then
+                If ((Me._freight.Equals(value) = false)  _
+                            OrElse (Me._freightInitialized = false)) Then
                     Me.OnFreightChanging(value)
                     Me.RaiseDataMemberChanging("Freight")
                     Me.ValidateProperty("Freight", value)
                     Me._freight = value
+                    Me._freightInitialized = true
                     Me.RaiseDataMemberChanged("Freight")
                     Me.OnFreightChanged
                 End If
@@ -861,11 +953,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._orderDate
             End Get
             Set
-                If (Me._orderDate.Equals(value) = false) Then
+                If ((Me._orderDate.Equals(value) = false)  _
+                            OrElse (Me._orderDateInitialized = false)) Then
                     Me.OnOrderDateChanging(value)
                     Me.RaiseDataMemberChanging("OrderDate")
                     Me.ValidateProperty("OrderDate", value)
                     Me._orderDate = value
+                    Me._orderDateInitialized = true
                     Me.RaiseDataMemberChanged("OrderDate")
                     Me.OnOrderDateChanged
                 End If
@@ -907,11 +1001,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._requiredDate
             End Get
             Set
-                If (Me._requiredDate.Equals(value) = false) Then
+                If ((Me._requiredDate.Equals(value) = false)  _
+                            OrElse (Me._requiredDateInitialized = false)) Then
                     Me.OnRequiredDateChanging(value)
                     Me.RaiseDataMemberChanging("RequiredDate")
                     Me.ValidateProperty("RequiredDate", value)
                     Me._requiredDate = value
+                    Me._requiredDateInitialized = true
                     Me.RaiseDataMemberChanged("RequiredDate")
                     Me.OnRequiredDateChanged
                 End If
@@ -930,11 +1026,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shipAddress
             End Get
             Set
-                If (String.Equals(Me._shipAddress, value) = false) Then
+                If ((String.Equals(Me._shipAddress, value) = false)  _
+                            OrElse (Me._shipAddressInitialized = false)) Then
                     Me.OnShipAddressChanging(value)
                     Me.RaiseDataMemberChanging("ShipAddress")
                     Me.ValidateProperty("ShipAddress", value)
                     Me._shipAddress = value
+                    Me._shipAddressInitialized = true
                     Me.RaiseDataMemberChanged("ShipAddress")
                     Me.OnShipAddressChanged
                 End If
@@ -953,11 +1051,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shipCity
             End Get
             Set
-                If (String.Equals(Me._shipCity, value) = false) Then
+                If ((String.Equals(Me._shipCity, value) = false)  _
+                            OrElse (Me._shipCityInitialized = false)) Then
                     Me.OnShipCityChanging(value)
                     Me.RaiseDataMemberChanging("ShipCity")
                     Me.ValidateProperty("ShipCity", value)
                     Me._shipCity = value
+                    Me._shipCityInitialized = true
                     Me.RaiseDataMemberChanged("ShipCity")
                     Me.OnShipCityChanged
                 End If
@@ -976,11 +1076,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shipCountry
             End Get
             Set
-                If (String.Equals(Me._shipCountry, value) = false) Then
+                If ((String.Equals(Me._shipCountry, value) = false)  _
+                            OrElse (Me._shipCountryInitialized = false)) Then
                     Me.OnShipCountryChanging(value)
                     Me.RaiseDataMemberChanging("ShipCountry")
                     Me.ValidateProperty("ShipCountry", value)
                     Me._shipCountry = value
+                    Me._shipCountryInitialized = true
                     Me.RaiseDataMemberChanged("ShipCountry")
                     Me.OnShipCountryChanged
                 End If
@@ -999,11 +1101,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shipName
             End Get
             Set
-                If (String.Equals(Me._shipName, value) = false) Then
+                If ((String.Equals(Me._shipName, value) = false)  _
+                            OrElse (Me._shipNameInitialized = false)) Then
                     Me.OnShipNameChanging(value)
                     Me.RaiseDataMemberChanging("ShipName")
                     Me.ValidateProperty("ShipName", value)
                     Me._shipName = value
+                    Me._shipNameInitialized = true
                     Me.RaiseDataMemberChanged("ShipName")
                     Me.OnShipNameChanged
                 End If
@@ -1021,11 +1125,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shippedDate
             End Get
             Set
-                If (Me._shippedDate.Equals(value) = false) Then
+                If ((Me._shippedDate.Equals(value) = false)  _
+                            OrElse (Me._shippedDateInitialized = false)) Then
                     Me.OnShippedDateChanging(value)
                     Me.RaiseDataMemberChanging("ShippedDate")
                     Me.ValidateProperty("ShippedDate", value)
                     Me._shippedDate = value
+                    Me._shippedDateInitialized = true
                     Me.RaiseDataMemberChanged("ShippedDate")
                     Me.OnShippedDateChanged
                 End If
@@ -1044,11 +1150,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shipPostalCode
             End Get
             Set
-                If (String.Equals(Me._shipPostalCode, value) = false) Then
+                If ((String.Equals(Me._shipPostalCode, value) = false)  _
+                            OrElse (Me._shipPostalCodeInitialized = false)) Then
                     Me.OnShipPostalCodeChanging(value)
                     Me.RaiseDataMemberChanging("ShipPostalCode")
                     Me.ValidateProperty("ShipPostalCode", value)
                     Me._shipPostalCode = value
+                    Me._shipPostalCodeInitialized = true
                     Me.RaiseDataMemberChanged("ShipPostalCode")
                     Me.OnShipPostalCodeChanged
                 End If
@@ -1067,11 +1175,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shipRegion
             End Get
             Set
-                If (String.Equals(Me._shipRegion, value) = false) Then
+                If ((String.Equals(Me._shipRegion, value) = false)  _
+                            OrElse (Me._shipRegionInitialized = false)) Then
                     Me.OnShipRegionChanging(value)
                     Me.RaiseDataMemberChanging("ShipRegion")
                     Me.ValidateProperty("ShipRegion", value)
                     Me._shipRegion = value
+                    Me._shipRegionInitialized = true
                     Me.RaiseDataMemberChanged("ShipRegion")
                     Me.OnShipRegionChanged
                 End If
@@ -1089,11 +1199,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._shipVia
             End Get
             Set
-                If (Me._shipVia.Equals(value) = false) Then
+                If ((Me._shipVia.Equals(value) = false)  _
+                            OrElse (Me._shipViaInitialized = false)) Then
                     Me.OnShipViaChanging(value)
                     Me.RaiseDataMemberChanging("ShipVia")
                     Me.ValidateProperty("ShipVia", value)
                     Me._shipVia = value
+                    Me._shipViaInitialized = true
                     Me.RaiseDataMemberChanged("ShipVia")
                     Me.OnShipViaChanged
                 End If
@@ -1409,7 +1521,11 @@ Namespace DataTests.Northwind.LTS
         
         Private _categoryID As Nullable(Of Integer)
         
+        Private _categoryIDInitialized As Boolean
+        
         Private _categoryName As String
+        
+        Private _categoryNameInitialized As Boolean
         
         Private _discontinued As Boolean
         
@@ -1419,21 +1535,39 @@ Namespace DataTests.Northwind.LTS
         
         Private _productName As String
         
+        Private _productNameInitialized As Boolean
+        
         Private _quantityPerUnit As String
+        
+        Private _quantityPerUnitInitialized As Boolean
         
         Private _reorderLevel As Nullable(Of Short)
         
+        Private _reorderLevelInitialized As Boolean
+        
         Private _resolveMethod As String
+        
+        Private _resolveMethodInitialized As Boolean
         
         Private _supplierID As Nullable(Of Integer)
         
+        Private _supplierIDInitialized As Boolean
+        
         Private _supplierName As String
+        
+        Private _supplierNameInitialized As Boolean
         
         Private _unitPrice As Nullable(Of Decimal)
         
+        Private _unitPriceInitialized As Boolean
+        
         Private _unitsInStock As Nullable(Of Short)
         
+        Private _unitsInStockInitialized As Boolean
+        
         Private _unitsOnOrder As Nullable(Of Short)
+        
+        Private _unitsOnOrderInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -1561,11 +1695,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._categoryID
             End Get
             Set
-                If (Me._categoryID.Equals(value) = false) Then
+                If ((Me._categoryID.Equals(value) = false)  _
+                            OrElse (Me._categoryIDInitialized = false)) Then
                     Me.OnCategoryIDChanging(value)
                     Me.RaiseDataMemberChanging("CategoryID")
                     Me.ValidateProperty("CategoryID", value)
                     Me._categoryID = value
+                    Me._categoryIDInitialized = true
                     Me.RaiseDataMemberChanged("CategoryID")
                     Me.OnCategoryIDChanged
                 End If
@@ -1583,10 +1719,12 @@ Namespace DataTests.Northwind.LTS
                 Return Me._categoryName
             End Get
             Set
-                If (String.Equals(Me._categoryName, value) = false) Then
+                If ((String.Equals(Me._categoryName, value) = false)  _
+                            OrElse (Me._categoryNameInitialized = false)) Then
                     Me.OnCategoryNameChanging(value)
                     Me.ValidateProperty("CategoryName", value)
                     Me._categoryName = value
+                    Me._categoryNameInitialized = true
                     Me.RaisePropertyChanged("CategoryName")
                     Me.OnCategoryNameChanged
                 End If
@@ -1665,11 +1803,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._productName
             End Get
             Set
-                If (String.Equals(Me._productName, value) = false) Then
+                If ((String.Equals(Me._productName, value) = false)  _
+                            OrElse (Me._productNameInitialized = false)) Then
                     Me.OnProductNameChanging(value)
                     Me.RaiseDataMemberChanging("ProductName")
                     Me.ValidateProperty("ProductName", value)
                     Me._productName = value
+                    Me._productNameInitialized = true
                     Me.RaiseDataMemberChanged("ProductName")
                     Me.OnProductNameChanged
                 End If
@@ -1688,11 +1828,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._quantityPerUnit
             End Get
             Set
-                If (String.Equals(Me._quantityPerUnit, value) = false) Then
+                If ((String.Equals(Me._quantityPerUnit, value) = false)  _
+                            OrElse (Me._quantityPerUnitInitialized = false)) Then
                     Me.OnQuantityPerUnitChanging(value)
                     Me.RaiseDataMemberChanging("QuantityPerUnit")
                     Me.ValidateProperty("QuantityPerUnit", value)
                     Me._quantityPerUnit = value
+                    Me._quantityPerUnitInitialized = true
                     Me.RaiseDataMemberChanged("QuantityPerUnit")
                     Me.OnQuantityPerUnitChanged
                 End If
@@ -1710,11 +1852,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._reorderLevel
             End Get
             Set
-                If (Me._reorderLevel.Equals(value) = false) Then
+                If ((Me._reorderLevel.Equals(value) = false)  _
+                            OrElse (Me._reorderLevelInitialized = false)) Then
                     Me.OnReorderLevelChanging(value)
                     Me.RaiseDataMemberChanging("ReorderLevel")
                     Me.ValidateProperty("ReorderLevel", value)
                     Me._reorderLevel = value
+                    Me._reorderLevelInitialized = true
                     Me.RaiseDataMemberChanged("ReorderLevel")
                     Me.OnReorderLevelChanged
                 End If
@@ -1731,11 +1875,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._resolveMethod
             End Get
             Set
-                If (String.Equals(Me._resolveMethod, value) = false) Then
+                If ((String.Equals(Me._resolveMethod, value) = false)  _
+                            OrElse (Me._resolveMethodInitialized = false)) Then
                     Me.OnResolveMethodChanging(value)
                     Me.RaiseDataMemberChanging("ResolveMethod")
                     Me.ValidateProperty("ResolveMethod", value)
                     Me._resolveMethod = value
+                    Me._resolveMethodInitialized = true
                     Me.RaiseDataMemberChanged("ResolveMethod")
                     Me.OnResolveMethodChanged
                 End If
@@ -1753,11 +1899,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._supplierID
             End Get
             Set
-                If (Me._supplierID.Equals(value) = false) Then
+                If ((Me._supplierID.Equals(value) = false)  _
+                            OrElse (Me._supplierIDInitialized = false)) Then
                     Me.OnSupplierIDChanging(value)
                     Me.RaiseDataMemberChanging("SupplierID")
                     Me.ValidateProperty("SupplierID", value)
                     Me._supplierID = value
+                    Me._supplierIDInitialized = true
                     Me.RaiseDataMemberChanged("SupplierID")
                     Me.OnSupplierIDChanged
                 End If
@@ -1774,10 +1922,12 @@ Namespace DataTests.Northwind.LTS
                 Return Me._supplierName
             End Get
             Set
-                If (String.Equals(Me._supplierName, value) = false) Then
+                If ((String.Equals(Me._supplierName, value) = false)  _
+                            OrElse (Me._supplierNameInitialized = false)) Then
                     Me.OnSupplierNameChanging(value)
                     Me.ValidateProperty("SupplierName", value)
                     Me._supplierName = value
+                    Me._supplierNameInitialized = true
                     Me.RaisePropertyChanged("SupplierName")
                     Me.OnSupplierNameChanged
                 End If
@@ -1795,11 +1945,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._unitPrice
             End Get
             Set
-                If (Me._unitPrice.Equals(value) = false) Then
+                If ((Me._unitPrice.Equals(value) = false)  _
+                            OrElse (Me._unitPriceInitialized = false)) Then
                     Me.OnUnitPriceChanging(value)
                     Me.RaiseDataMemberChanging("UnitPrice")
                     Me.ValidateProperty("UnitPrice", value)
                     Me._unitPrice = value
+                    Me._unitPriceInitialized = true
                     Me.RaiseDataMemberChanged("UnitPrice")
                     Me.OnUnitPriceChanged
                 End If
@@ -1817,11 +1969,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._unitsInStock
             End Get
             Set
-                If (Me._unitsInStock.Equals(value) = false) Then
+                If ((Me._unitsInStock.Equals(value) = false)  _
+                            OrElse (Me._unitsInStockInitialized = false)) Then
                     Me.OnUnitsInStockChanging(value)
                     Me.RaiseDataMemberChanging("UnitsInStock")
                     Me.ValidateProperty("UnitsInStock", value)
                     Me._unitsInStock = value
+                    Me._unitsInStockInitialized = true
                     Me.RaiseDataMemberChanged("UnitsInStock")
                     Me.OnUnitsInStockChanged
                 End If
@@ -1839,11 +1993,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._unitsOnOrder
             End Get
             Set
-                If (Me._unitsOnOrder.Equals(value) = false) Then
+                If ((Me._unitsOnOrder.Equals(value) = false)  _
+                            OrElse (Me._unitsOnOrderInitialized = false)) Then
                     Me.OnUnitsOnOrderChanging(value)
                     Me.RaiseDataMemberChanging("UnitsOnOrder")
                     Me.ValidateProperty("UnitsOnOrder", value)
                     Me._unitsOnOrder = value
+                    Me._unitsOnOrderInitialized = true
                     Me.RaiseDataMemberChanged("UnitsOnOrder")
                     Me.OnUnitsOnOrderChanged
                 End If
@@ -1914,11 +2070,17 @@ Namespace DataTests.Northwind.LTS
         
         Private _categoryName As String
         
+        Private _categoryNameInitialized As Boolean
+        
         Private _productID As Integer
         
         Private _productName As String
         
+        Private _productNameInitialized As Boolean
+        
         Private _supplierName As String
+        
+        Private _supplierNameInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -1966,10 +2128,12 @@ Namespace DataTests.Northwind.LTS
                 Return Me._categoryName
             End Get
             Set
-                If (String.Equals(Me._categoryName, value) = false) Then
+                If ((String.Equals(Me._categoryName, value) = false)  _
+                            OrElse (Me._categoryNameInitialized = false)) Then
                     Me.OnCategoryNameChanging(value)
                     Me.ValidateProperty("CategoryName", value)
                     Me._categoryName = value
+                    Me._categoryNameInitialized = true
                     Me.RaisePropertyChanged("CategoryName")
                     Me.OnCategoryNameChanged
                 End If
@@ -2008,11 +2172,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._productName
             End Get
             Set
-                If (String.Equals(Me._productName, value) = false) Then
+                If ((String.Equals(Me._productName, value) = false)  _
+                            OrElse (Me._productNameInitialized = false)) Then
                     Me.OnProductNameChanging(value)
                     Me.RaiseDataMemberChanging("ProductName")
                     Me.ValidateProperty("ProductName", value)
                     Me._productName = value
+                    Me._productNameInitialized = true
                     Me.RaiseDataMemberChanged("ProductName")
                     Me.OnProductNameChanged
                 End If
@@ -2029,10 +2195,12 @@ Namespace DataTests.Northwind.LTS
                 Return Me._supplierName
             End Get
             Set
-                If (String.Equals(Me._supplierName, value) = false) Then
+                If ((String.Equals(Me._supplierName, value) = false)  _
+                            OrElse (Me._supplierNameInitialized = false)) Then
                     Me.OnSupplierNameChanging(value)
                     Me.ValidateProperty("SupplierName", value)
                     Me._supplierName = value
+                    Me._supplierNameInitialized = true
                     Me.RaisePropertyChanged("SupplierName")
                     Me.OnSupplierNameChanged
                 End If
@@ -2056,6 +2224,8 @@ Namespace DataTests.Northwind.LTS
         Inherits Entity
         
         Private _regionDescription As String
+        
+        Private _regionDescriptionInitialized As Boolean
         
         Private _regionID As Integer
         
@@ -2102,11 +2272,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._regionDescription
             End Get
             Set
-                If (String.Equals(Me._regionDescription, value) = false) Then
+                If ((String.Equals(Me._regionDescription, value) = false)  _
+                            OrElse (Me._regionDescriptionInitialized = false)) Then
                     Me.OnRegionDescriptionChanging(value)
                     Me.RaiseDataMemberChanging("RegionDescription")
                     Me.ValidateProperty("RegionDescription", value)
                     Me._regionDescription = value
+                    Me._regionDescriptionInitialized = true
                     Me.RaiseDataMemberChanged("RegionDescription")
                     Me.OnRegionDescriptionChanged
                 End If
@@ -2185,7 +2357,11 @@ Namespace DataTests.Northwind.LTS
         
         Private _territoryDescription As String
         
+        Private _territoryDescriptionInitialized As Boolean
+        
         Private _territoryID As String
+        
+        Private _territoryIDInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -2294,11 +2470,13 @@ Namespace DataTests.Northwind.LTS
                 Return Me._territoryDescription
             End Get
             Set
-                If (String.Equals(Me._territoryDescription, value) = false) Then
+                If ((String.Equals(Me._territoryDescription, value) = false)  _
+                            OrElse (Me._territoryDescriptionInitialized = false)) Then
                     Me.OnTerritoryDescriptionChanging(value)
                     Me.RaiseDataMemberChanging("TerritoryDescription")
                     Me.ValidateProperty("TerritoryDescription", value)
                     Me._territoryDescription = value
+                    Me._territoryDescriptionInitialized = true
                     Me.RaiseDataMemberChanged("TerritoryDescription")
                     Me.OnTerritoryDescriptionChanged
                 End If
@@ -2320,10 +2498,12 @@ Namespace DataTests.Northwind.LTS
                 Return Me._territoryID
             End Get
             Set
-                If (String.Equals(Me._territoryID, value) = false) Then
+                If ((String.Equals(Me._territoryID, value) = false)  _
+                            OrElse (Me._territoryIDInitialized = false)) Then
                     Me.OnTerritoryIDChanging(value)
                     Me.ValidateProperty("TerritoryID", value)
                     Me._territoryID = value
+                    Me._territoryIDInitialized = true
                     Me.RaisePropertyChanged("TerritoryID")
                     Me.OnTerritoryIDChanged
                 End If

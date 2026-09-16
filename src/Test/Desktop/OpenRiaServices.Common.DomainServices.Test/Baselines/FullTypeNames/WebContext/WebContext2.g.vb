@@ -429,7 +429,11 @@ Namespace TestNamespace
         
         Private _name As String = String.Empty
         
+        Private _nameInitialized As Boolean
+        
         Private _roles As Global.System.Collections.Generic.IEnumerable(Of String)
+        
+        Private _rolesInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -471,10 +475,12 @@ Namespace TestNamespace
                 Return Me._name
             End Get
             Set
-                If (String.Equals(Me._name, value) = false) Then
+                If ((String.Equals(Me._name, value) = false)  _
+                            OrElse (Me._nameInitialized = false)) Then
                     Me.OnNameChanging(value)
                     Me.ValidateProperty("Name", value)
                     Me._name = value
+                    Me._nameInitialized = true
                     Me.RaisePropertyChanged("Name")
                     Me.OnNameChanged
                     Me.RaisePropertyChanged("IsAuthenticated")
@@ -492,10 +498,12 @@ Namespace TestNamespace
                 Return Me._roles
             End Get
             Set
-                If (Object.Equals(Me._roles, value) = false) Then
+                If ((Object.Equals(Me._roles, value) = false)  _
+                            OrElse (Me._rolesInitialized = false)) Then
                     Me.OnRolesChanging(value)
                     Me.ValidateProperty("Roles", value)
                     Me._roles = value
+                    Me._rolesInitialized = true
                     Me.RaisePropertyChanged("Roles")
                     Me.OnRolesChanged
                 End If
@@ -567,7 +575,11 @@ Namespace TestNamespace
         
         Private _name As String = String.Empty
         
+        Private _nameInitialized As Boolean
+        
         Private _roles As Global.System.Collections.Generic.IEnumerable(Of String)
+        
+        Private _rolesInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -609,10 +621,12 @@ Namespace TestNamespace
                 Return Me._name
             End Get
             Set
-                If (String.Equals(Me._name, value) = false) Then
+                If ((String.Equals(Me._name, value) = false)  _
+                            OrElse (Me._nameInitialized = false)) Then
                     Me.OnNameChanging(value)
                     Me.ValidateProperty("Name", value)
                     Me._name = value
+                    Me._nameInitialized = true
                     Me.RaisePropertyChanged("Name")
                     Me.OnNameChanged
                     Me.RaisePropertyChanged("IsAuthenticated")
@@ -630,10 +644,12 @@ Namespace TestNamespace
                 Return Me._roles
             End Get
             Set
-                If (Object.Equals(Me._roles, value) = false) Then
+                If ((Object.Equals(Me._roles, value) = false)  _
+                            OrElse (Me._rolesInitialized = false)) Then
                     Me.OnRolesChanging(value)
                     Me.ValidateProperty("Roles", value)
                     Me._roles = value
+                    Me._rolesInitialized = true
                     Me.RaisePropertyChanged("Roles")
                     Me.OnRolesChanged
                 End If

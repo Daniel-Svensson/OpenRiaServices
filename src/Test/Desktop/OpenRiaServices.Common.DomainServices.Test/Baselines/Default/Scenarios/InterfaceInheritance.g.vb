@@ -38,6 +38,8 @@ Namespace TestDomainServices
         
         Private _xElem As XElement
         
+        Private _xElemInitialized As Boolean
+        
         #Region "Extensibility Method Definitions"
 
         ''' <summary>
@@ -106,11 +108,13 @@ Namespace TestDomainServices
                 Return Me._xElem
             End Get
             Set
-                If (Object.Equals(Me._xElem, value) = false) Then
+                If ((Object.Equals(Me._xElem, value) = false)  _
+                            OrElse (Me._xElemInitialized = false)) Then
                     Me.OnXElemChanging(value)
                     Me.RaiseDataMemberChanging("XElem")
                     Me.ValidateProperty("XElem", value)
                     Me._xElem = value
+                    Me._xElemInitialized = true
                     Me.RaiseDataMemberChanged("XElem")
                     Me.OnXElemChanged
                 End If

@@ -44,19 +44,29 @@ Namespace DataTests.AdventureWorks.LTS
         
         Private _gender As String
         
+        Private _genderInitialized As Boolean
+        
         Private _hireDate As DateTime
         
         Private _loginID As String
+        
+        Private _loginIDInitialized As Boolean
         
         Private _manager As EntityRef(Of Employee)
         
         Private _managerID As Nullable(Of Integer)
         
+        Private _managerIDInitialized As Boolean
+        
         Private _maritalStatus As String
+        
+        Private _maritalStatusInitialized As Boolean
         
         Private _modifiedDate As DateTime
         
         Private _nationalIDNumber As String
+        
+        Private _nationalIDNumberInitialized As Boolean
         
         Private _purchaseOrders As EntityCollection(Of PurchaseOrder)
         
@@ -69,6 +79,8 @@ Namespace DataTests.AdventureWorks.LTS
         Private _sickLeaveHours As Short
         
         Private _title As String
+        
+        Private _titleInitialized As Boolean
         
         Private _vacationHours As Short
         
@@ -262,11 +274,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._gender
             End Get
             Set
-                If (String.Equals(Me._gender, value) = false) Then
+                If ((String.Equals(Me._gender, value) = false)  _
+                            OrElse (Me._genderInitialized = false)) Then
                     Me.OnGenderChanging(value)
                     Me.RaiseDataMemberChanging("Gender")
                     Me.ValidateProperty("Gender", value)
                     Me._gender = value
+                    Me._genderInitialized = true
                     Me.RaiseDataMemberChanged("Gender")
                     Me.OnGenderChanged
                 End If
@@ -309,11 +323,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._loginID
             End Get
             Set
-                If (String.Equals(Me._loginID, value) = false) Then
+                If ((String.Equals(Me._loginID, value) = false)  _
+                            OrElse (Me._loginIDInitialized = false)) Then
                     Me.OnLoginIDChanging(value)
                     Me.RaiseDataMemberChanging("LoginID")
                     Me.ValidateProperty("LoginID", value)
                     Me._loginID = value
+                    Me._loginIDInitialized = true
                     Me.RaiseDataMemberChanged("LoginID")
                     Me.OnLoginIDChanged
                 End If
@@ -370,11 +386,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._managerID
             End Get
             Set
-                If (Me._managerID.Equals(value) = false) Then
+                If ((Me._managerID.Equals(value) = false)  _
+                            OrElse (Me._managerIDInitialized = false)) Then
                     Me.OnManagerIDChanging(value)
                     Me.RaiseDataMemberChanging("ManagerID")
                     Me.ValidateProperty("ManagerID", value)
                     Me._managerID = value
+                    Me._managerIDInitialized = true
                     Me.RaiseDataMemberChanged("ManagerID")
                     Me.OnManagerIDChanged
                 End If
@@ -394,11 +412,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._maritalStatus
             End Get
             Set
-                If (String.Equals(Me._maritalStatus, value) = false) Then
+                If ((String.Equals(Me._maritalStatus, value) = false)  _
+                            OrElse (Me._maritalStatusInitialized = false)) Then
                     Me.OnMaritalStatusChanging(value)
                     Me.RaiseDataMemberChanging("MaritalStatus")
                     Me.ValidateProperty("MaritalStatus", value)
                     Me._maritalStatus = value
+                    Me._maritalStatusInitialized = true
                     Me.RaiseDataMemberChanged("MaritalStatus")
                     Me.OnMaritalStatusChanged
                 End If
@@ -441,11 +461,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._nationalIDNumber
             End Get
             Set
-                If (String.Equals(Me._nationalIDNumber, value) = false) Then
+                If ((String.Equals(Me._nationalIDNumber, value) = false)  _
+                            OrElse (Me._nationalIDNumberInitialized = false)) Then
                     Me.OnNationalIDNumberChanging(value)
                     Me.RaiseDataMemberChanging("NationalIDNumber")
                     Me.ValidateProperty("NationalIDNumber", value)
                     Me._nationalIDNumber = value
+                    Me._nationalIDNumberInitialized = true
                     Me.RaiseDataMemberChanged("NationalIDNumber")
                     Me.OnNationalIDNumberChanged
                 End If
@@ -560,11 +582,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._title
             End Get
             Set
-                If (String.Equals(Me._title, value) = false) Then
+                If ((String.Equals(Me._title, value) = false)  _
+                            OrElse (Me._titleInitialized = false)) Then
                     Me.OnTitleChanging(value)
                     Me.RaiseDataMemberChanging("Title")
                     Me.ValidateProperty("Title", value)
                     Me._title = value
+                    Me._titleInitialized = true
                     Me.RaiseDataMemberChanged("Title")
                     Me.OnTitleChanged
                 End If
@@ -640,11 +664,17 @@ Namespace DataTests.AdventureWorks.LTS
         
         Private _class As String
         
+        Private _classInitialized As Boolean
+        
         Private _color As String
+        
+        Private _colorInitialized As Boolean
         
         Private _daysToManufacture As Integer
         
         Private _discontinuedDate As Nullable(Of DateTime)
+        
+        Private _discontinuedDateInitialized As Boolean
         
         Private _finishedGoodsFlag As Boolean
         
@@ -656,15 +686,25 @@ Namespace DataTests.AdventureWorks.LTS
         
         Private _name As String
         
+        Private _nameInitialized As Boolean
+        
         Private _productID As Integer
         
         Private _productLine As String
         
+        Private _productLineInitialized As Boolean
+        
         Private _productModelID As Nullable(Of Integer)
+        
+        Private _productModelIDInitialized As Boolean
         
         Private _productNumber As String
         
+        Private _productNumberInitialized As Boolean
+        
         Private _productSubcategoryID As Nullable(Of Integer)
+        
+        Private _productSubcategoryIDInitialized As Boolean
         
         Private _purchaseOrderDetails As EntityCollection(Of PurchaseOrderDetail)
         
@@ -674,19 +714,31 @@ Namespace DataTests.AdventureWorks.LTS
         
         Private _sellEndDate As Nullable(Of DateTime)
         
+        Private _sellEndDateInitialized As Boolean
+        
         Private _sellStartDate As DateTime
         
         Private _size As String
         
+        Private _sizeInitialized As Boolean
+        
         Private _sizeUnitMeasureCode As String
+        
+        Private _sizeUnitMeasureCodeInitialized As Boolean
         
         Private _standardCost As Decimal
         
         Private _style As String
         
+        Private _styleInitialized As Boolean
+        
         Private _weight As Nullable(Of Decimal)
         
+        Private _weightInitialized As Boolean
+        
         Private _weightUnitMeasureCode As String
+        
+        Private _weightUnitMeasureCodeInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -816,11 +868,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._class
             End Get
             Set
-                If (String.Equals(Me._class, value) = false) Then
+                If ((String.Equals(Me._class, value) = false)  _
+                            OrElse (Me._classInitialized = false)) Then
                     Me.OnClassChanging(value)
                     Me.RaiseDataMemberChanging("Class")
                     Me.ValidateProperty("Class", value)
                     Me._class = value
+                    Me._classInitialized = true
                     Me.RaiseDataMemberChanged("Class")
                     Me.OnClassChanged
                 End If
@@ -839,11 +893,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._color
             End Get
             Set
-                If (String.Equals(Me._color, value) = false) Then
+                If ((String.Equals(Me._color, value) = false)  _
+                            OrElse (Me._colorInitialized = false)) Then
                     Me.OnColorChanging(value)
                     Me.RaiseDataMemberChanging("Color")
                     Me.ValidateProperty("Color", value)
                     Me._color = value
+                    Me._colorInitialized = true
                     Me.RaiseDataMemberChanged("Color")
                     Me.OnColorChanged
                 End If
@@ -884,11 +940,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._discontinuedDate
             End Get
             Set
-                If (Me._discontinuedDate.Equals(value) = false) Then
+                If ((Me._discontinuedDate.Equals(value) = false)  _
+                            OrElse (Me._discontinuedDateInitialized = false)) Then
                     Me.OnDiscontinuedDateChanging(value)
                     Me.RaiseDataMemberChanging("DiscontinuedDate")
                     Me.ValidateProperty("DiscontinuedDate", value)
                     Me._discontinuedDate = value
+                    Me._discontinuedDateInitialized = true
                     Me.RaiseDataMemberChanged("DiscontinuedDate")
                     Me.OnDiscontinuedDateChanged
                 End If
@@ -1000,11 +1058,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._name
             End Get
             Set
-                If (String.Equals(Me._name, value) = false) Then
+                If ((String.Equals(Me._name, value) = false)  _
+                            OrElse (Me._nameInitialized = false)) Then
                     Me.OnNameChanging(value)
                     Me.RaiseDataMemberChanging("Name")
                     Me.ValidateProperty("Name", value)
                     Me._name = value
+                    Me._nameInitialized = true
                     Me.RaiseDataMemberChanged("Name")
                     Me.OnNameChanged
                 End If
@@ -1047,11 +1107,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._productLine
             End Get
             Set
-                If (String.Equals(Me._productLine, value) = false) Then
+                If ((String.Equals(Me._productLine, value) = false)  _
+                            OrElse (Me._productLineInitialized = false)) Then
                     Me.OnProductLineChanging(value)
                     Me.RaiseDataMemberChanging("ProductLine")
                     Me.ValidateProperty("ProductLine", value)
                     Me._productLine = value
+                    Me._productLineInitialized = true
                     Me.RaiseDataMemberChanged("ProductLine")
                     Me.OnProductLineChanged
                 End If
@@ -1069,11 +1131,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._productModelID
             End Get
             Set
-                If (Me._productModelID.Equals(value) = false) Then
+                If ((Me._productModelID.Equals(value) = false)  _
+                            OrElse (Me._productModelIDInitialized = false)) Then
                     Me.OnProductModelIDChanging(value)
                     Me.RaiseDataMemberChanging("ProductModelID")
                     Me.ValidateProperty("ProductModelID", value)
                     Me._productModelID = value
+                    Me._productModelIDInitialized = true
                     Me.RaiseDataMemberChanged("ProductModelID")
                     Me.OnProductModelIDChanged
                 End If
@@ -1093,11 +1157,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._productNumber
             End Get
             Set
-                If (String.Equals(Me._productNumber, value) = false) Then
+                If ((String.Equals(Me._productNumber, value) = false)  _
+                            OrElse (Me._productNumberInitialized = false)) Then
                     Me.OnProductNumberChanging(value)
                     Me.RaiseDataMemberChanging("ProductNumber")
                     Me.ValidateProperty("ProductNumber", value)
                     Me._productNumber = value
+                    Me._productNumberInitialized = true
                     Me.RaiseDataMemberChanged("ProductNumber")
                     Me.OnProductNumberChanged
                 End If
@@ -1115,11 +1181,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._productSubcategoryID
             End Get
             Set
-                If (Me._productSubcategoryID.Equals(value) = false) Then
+                If ((Me._productSubcategoryID.Equals(value) = false)  _
+                            OrElse (Me._productSubcategoryIDInitialized = false)) Then
                     Me.OnProductSubcategoryIDChanging(value)
                     Me.RaiseDataMemberChanging("ProductSubcategoryID")
                     Me.ValidateProperty("ProductSubcategoryID", value)
                     Me._productSubcategoryID = value
+                    Me._productSubcategoryIDInitialized = true
                     Me.RaiseDataMemberChanged("ProductSubcategoryID")
                     Me.OnProductSubcategoryIDChanged
                 End If
@@ -1196,11 +1264,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._sellEndDate
             End Get
             Set
-                If (Me._sellEndDate.Equals(value) = false) Then
+                If ((Me._sellEndDate.Equals(value) = false)  _
+                            OrElse (Me._sellEndDateInitialized = false)) Then
                     Me.OnSellEndDateChanging(value)
                     Me.RaiseDataMemberChanging("SellEndDate")
                     Me.ValidateProperty("SellEndDate", value)
                     Me._sellEndDate = value
+                    Me._sellEndDateInitialized = true
                     Me.RaiseDataMemberChanged("SellEndDate")
                     Me.OnSellEndDateChanged
                 End If
@@ -1242,11 +1312,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._size
             End Get
             Set
-                If (String.Equals(Me._size, value) = false) Then
+                If ((String.Equals(Me._size, value) = false)  _
+                            OrElse (Me._sizeInitialized = false)) Then
                     Me.OnSizeChanging(value)
                     Me.RaiseDataMemberChanging("Size")
                     Me.ValidateProperty("Size", value)
                     Me._size = value
+                    Me._sizeInitialized = true
                     Me.RaiseDataMemberChanged("Size")
                     Me.OnSizeChanged
                 End If
@@ -1265,11 +1337,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._sizeUnitMeasureCode
             End Get
             Set
-                If (String.Equals(Me._sizeUnitMeasureCode, value) = false) Then
+                If ((String.Equals(Me._sizeUnitMeasureCode, value) = false)  _
+                            OrElse (Me._sizeUnitMeasureCodeInitialized = false)) Then
                     Me.OnSizeUnitMeasureCodeChanging(value)
                     Me.RaiseDataMemberChanging("SizeUnitMeasureCode")
                     Me.ValidateProperty("SizeUnitMeasureCode", value)
                     Me._sizeUnitMeasureCode = value
+                    Me._sizeUnitMeasureCodeInitialized = true
                     Me.RaiseDataMemberChanged("SizeUnitMeasureCode")
                     Me.OnSizeUnitMeasureCodeChanged
                 End If
@@ -1311,11 +1385,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._style
             End Get
             Set
-                If (String.Equals(Me._style, value) = false) Then
+                If ((String.Equals(Me._style, value) = false)  _
+                            OrElse (Me._styleInitialized = false)) Then
                     Me.OnStyleChanging(value)
                     Me.RaiseDataMemberChanging("Style")
                     Me.ValidateProperty("Style", value)
                     Me._style = value
+                    Me._styleInitialized = true
                     Me.RaiseDataMemberChanged("Style")
                     Me.OnStyleChanged
                 End If
@@ -1333,11 +1409,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._weight
             End Get
             Set
-                If (Me._weight.Equals(value) = false) Then
+                If ((Me._weight.Equals(value) = false)  _
+                            OrElse (Me._weightInitialized = false)) Then
                     Me.OnWeightChanging(value)
                     Me.RaiseDataMemberChanging("Weight")
                     Me.ValidateProperty("Weight", value)
                     Me._weight = value
+                    Me._weightInitialized = true
                     Me.RaiseDataMemberChanged("Weight")
                     Me.OnWeightChanged
                 End If
@@ -1356,11 +1434,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._weightUnitMeasureCode
             End Get
             Set
-                If (String.Equals(Me._weightUnitMeasureCode, value) = false) Then
+                If ((String.Equals(Me._weightUnitMeasureCode, value) = false)  _
+                            OrElse (Me._weightUnitMeasureCodeInitialized = false)) Then
                     Me.OnWeightUnitMeasureCodeChanging(value)
                     Me.RaiseDataMemberChanging("WeightUnitMeasureCode")
                     Me.ValidateProperty("WeightUnitMeasureCode", value)
                     Me._weightUnitMeasureCode = value
+                    Me._weightUnitMeasureCodeInitialized = true
                     Me.RaiseDataMemberChanged("WeightUnitMeasureCode")
                     Me.OnWeightUnitMeasureCodeChanged
                 End If
@@ -1412,6 +1492,8 @@ Namespace DataTests.AdventureWorks.LTS
         Private _revisionNumber As Byte
         
         Private _shipDate As Nullable(Of DateTime)
+        
+        Private _shipDateInitialized As Boolean
         
         Private _shipMethodID As Integer
         
@@ -1699,11 +1781,13 @@ Namespace DataTests.AdventureWorks.LTS
                 Return Me._shipDate
             End Get
             Set
-                If (Me._shipDate.Equals(value) = false) Then
+                If ((Me._shipDate.Equals(value) = false)  _
+                            OrElse (Me._shipDateInitialized = false)) Then
                     Me.OnShipDateChanging(value)
                     Me.RaiseDataMemberChanging("ShipDate")
                     Me.ValidateProperty("ShipDate", value)
                     Me._shipDate = value
+                    Me._shipDateInitialized = true
                     Me.RaiseDataMemberChanged("ShipDate")
                     Me.OnShipDateChanged
                 End If

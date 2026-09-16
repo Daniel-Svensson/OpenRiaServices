@@ -23,9 +23,15 @@ namespace DataTests.Northwind.LTS
         
         private string _categoryName;
         
+        private bool _categoryNameInitialized;
+        
         private string _description;
         
+        private bool _descriptionInitialized;
+        
         private byte[] _picture;
+        
+        private bool _pictureInitialized;
         
         private global::OpenRiaServices.Client.EntityCollection<global::DataTests.Northwind.LTS.Product> _products;
         
@@ -98,12 +104,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._categoryName != value))
+                if (((this._categoryName != value) 
+                            || (this._categoryNameInitialized == false)))
                 {
                     this.OnCategoryNameChanging(value);
                     this.RaiseDataMemberChanging("CategoryName");
                     this.ValidateProperty("CategoryName", value);
                     this._categoryName = value;
+                    this._categoryNameInitialized = true;
                     this.RaiseDataMemberChanged("CategoryName");
                     this.OnCategoryNameChanged();
                 }
@@ -123,12 +131,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._description != value))
+                if (((this._description != value) 
+                            || (this._descriptionInitialized == false)))
                 {
                     this.OnDescriptionChanging(value);
                     this.RaiseDataMemberChanging("Description");
                     this.ValidateProperty("Description", value);
                     this._description = value;
+                    this._descriptionInitialized = true;
                     this.RaiseDataMemberChanged("Description");
                     this.OnDescriptionChanged();
                 }
@@ -148,12 +158,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._picture != value))
+                if (((this._picture != value) 
+                            || (this._pictureInitialized == false)))
                 {
                     this.OnPictureChanging(value);
                     this.RaiseDataMemberChanging("Picture");
                     this.ValidateProperty("Picture", value);
                     this._picture = value;
+                    this._pictureInitialized = true;
                     this.RaiseDataMemberChanged("Picture");
                     this.OnPictureChanged();
                 }
@@ -210,27 +222,49 @@ namespace DataTests.Northwind.LTS
         
         private string _address;
         
+        private bool _addressInitialized;
+        
         private string _city;
+        
+        private bool _cityInitialized;
         
         private string _companyName;
         
+        private bool _companyNameInitialized;
+        
         private string _contactName;
+        
+        private bool _contactNameInitialized;
         
         private string _contactTitle;
         
+        private bool _contactTitleInitialized;
+        
         private string _country;
+        
+        private bool _countryInitialized;
         
         private string _customerID;
         
+        private bool _customerIDInitialized;
+        
         private string _fax;
+        
+        private bool _faxInitialized;
         
         private global::OpenRiaServices.Client.EntityCollection<global::DataTests.Northwind.LTS.Order> _orders;
         
         private string _phone;
         
+        private bool _phoneInitialized;
+        
         private string _postalCode;
         
+        private bool _postalCodeInitialized;
+        
         private string _region;
+        
+        private bool _regionInitialized;
         
         #region Extensibility Method Definitions
 
@@ -288,12 +322,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._address != value))
+                if (((this._address != value) 
+                            || (this._addressInitialized == false)))
                 {
                     this.OnAddressChanging(value);
                     this.RaiseDataMemberChanging("Address");
                     this.ValidateProperty("Address", value);
                     this._address = value;
+                    this._addressInitialized = true;
                     this.RaiseDataMemberChanged("Address");
                     this.OnAddressChanged();
                 }
@@ -315,12 +351,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._city != value))
+                if (((this._city != value) 
+                            || (this._cityInitialized == false)))
                 {
                     this.OnCityChanging(value);
                     this.RaiseDataMemberChanging("City");
                     this.ValidateProperty("City", value);
                     this._city = value;
+                    this._cityInitialized = true;
                     this.RaiseDataMemberChanged("City");
                     this.OnCityChanged();
                 }
@@ -343,12 +381,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._companyName != value))
+                if (((this._companyName != value) 
+                            || (this._companyNameInitialized == false)))
                 {
                     this.OnCompanyNameChanging(value);
                     this.RaiseDataMemberChanging("CompanyName");
                     this.ValidateProperty("CompanyName", value);
                     this._companyName = value;
+                    this._companyNameInitialized = true;
                     this.RaiseDataMemberChanged("CompanyName");
                     this.OnCompanyNameChanged();
                 }
@@ -370,12 +410,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._contactName != value))
+                if (((this._contactName != value) 
+                            || (this._contactNameInitialized == false)))
                 {
                     this.OnContactNameChanging(value);
                     this.RaiseDataMemberChanging("ContactName");
                     this.ValidateProperty("ContactName", value);
                     this._contactName = value;
+                    this._contactNameInitialized = true;
                     this.RaiseDataMemberChanged("ContactName");
                     this.OnContactNameChanged();
                 }
@@ -397,12 +439,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._contactTitle != value))
+                if (((this._contactTitle != value) 
+                            || (this._contactTitleInitialized == false)))
                 {
                     this.OnContactTitleChanging(value);
                     this.RaiseDataMemberChanging("ContactTitle");
                     this.ValidateProperty("ContactTitle", value);
                     this._contactTitle = value;
+                    this._contactTitleInitialized = true;
                     this.RaiseDataMemberChanged("ContactTitle");
                     this.OnContactTitleChanged();
                 }
@@ -424,12 +468,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._country != value))
+                if (((this._country != value) 
+                            || (this._countryInitialized == false)))
                 {
                     this.OnCountryChanging(value);
                     this.RaiseDataMemberChanging("Country");
                     this.ValidateProperty("Country", value);
                     this._country = value;
+                    this._countryInitialized = true;
                     this.RaiseDataMemberChanged("Country");
                     this.OnCountryChanged();
                 }
@@ -454,11 +500,13 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._customerID != value))
+                if (((this._customerID != value) 
+                            || (this._customerIDInitialized == false)))
                 {
                     this.OnCustomerIDChanging(value);
                     this.ValidateProperty("CustomerID", value);
                     this._customerID = value;
+                    this._customerIDInitialized = true;
                     this.RaisePropertyChanged("CustomerID");
                     this.OnCustomerIDChanged();
                 }
@@ -480,12 +528,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._fax != value))
+                if (((this._fax != value) 
+                            || (this._faxInitialized == false)))
                 {
                     this.OnFaxChanging(value);
                     this.RaiseDataMemberChanging("Fax");
                     this.ValidateProperty("Fax", value);
                     this._fax = value;
+                    this._faxInitialized = true;
                     this.RaiseDataMemberChanged("Fax");
                     this.OnFaxChanged();
                 }
@@ -523,12 +573,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._phone != value))
+                if (((this._phone != value) 
+                            || (this._phoneInitialized == false)))
                 {
                     this.OnPhoneChanging(value);
                     this.RaiseDataMemberChanging("Phone");
                     this.ValidateProperty("Phone", value);
                     this._phone = value;
+                    this._phoneInitialized = true;
                     this.RaiseDataMemberChanged("Phone");
                     this.OnPhoneChanged();
                 }
@@ -550,12 +602,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._postalCode != value))
+                if (((this._postalCode != value) 
+                            || (this._postalCodeInitialized == false)))
                 {
                     this.OnPostalCodeChanging(value);
                     this.RaiseDataMemberChanging("PostalCode");
                     this.ValidateProperty("PostalCode", value);
                     this._postalCode = value;
+                    this._postalCodeInitialized = true;
                     this.RaiseDataMemberChanged("PostalCode");
                     this.OnPostalCodeChanged();
                 }
@@ -577,12 +631,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._region != value))
+                if (((this._region != value) 
+                            || (this._regionInitialized == false)))
                 {
                     this.OnRegionChanging(value);
                     this.RaiseDataMemberChanging("Region");
                     this.ValidateProperty("Region", value);
                     this._region = value;
+                    this._regionInitialized = true;
                     this.RaiseDataMemberChanged("Region");
                     this.OnRegionChanged();
                 }
@@ -625,35 +681,63 @@ namespace DataTests.Northwind.LTS
         
         private string _customerID;
         
+        private bool _customerIDInitialized;
+        
         private global::System.Nullable<int> _employeeID;
+        
+        private bool _employeeIDInitialized;
         
         private string _formattedName;
         
+        private bool _formattedNameInitialized;
+        
         private global::System.Nullable<decimal> _freight;
+        
+        private bool _freightInitialized;
         
         private global::OpenRiaServices.Client.EntityCollection<global::DataTests.Northwind.LTS.Order_Detail> _order_Details;
         
         private global::System.Nullable<global::System.DateTime> _orderDate;
         
+        private bool _orderDateInitialized;
+        
         private int _orderID;
         
         private global::System.Nullable<global::System.DateTime> _requiredDate;
         
+        private bool _requiredDateInitialized;
+        
         private string _shipAddress;
+        
+        private bool _shipAddressInitialized;
         
         private string _shipCity;
         
+        private bool _shipCityInitialized;
+        
         private string _shipCountry;
+        
+        private bool _shipCountryInitialized;
         
         private string _shipName;
         
+        private bool _shipNameInitialized;
+        
         private global::System.Nullable<global::System.DateTime> _shippedDate;
+        
+        private bool _shippedDateInitialized;
         
         private string _shipPostalCode;
         
+        private bool _shipPostalCodeInitialized;
+        
         private string _shipRegion;
         
+        private bool _shipRegionInitialized;
+        
         private global::System.Nullable<int> _shipVia;
+        
+        private bool _shipViaInitialized;
         
         #region Extensibility Method Definitions
 
@@ -771,12 +855,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._customerID != value))
+                if (((this._customerID != value) 
+                            || (this._customerIDInitialized == false)))
                 {
                     this.OnCustomerIDChanging(value);
                     this.RaiseDataMemberChanging("CustomerID");
                     this.ValidateProperty("CustomerID", value);
                     this._customerID = value;
+                    this._customerIDInitialized = true;
                     this.RaiseDataMemberChanged("CustomerID");
                     this.OnCustomerIDChanged();
                 }
@@ -797,12 +883,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._employeeID != value))
+                if (((this._employeeID != value) 
+                            || (this._employeeIDInitialized == false)))
                 {
                     this.OnEmployeeIDChanging(value);
                     this.RaiseDataMemberChanging("EmployeeID");
                     this.ValidateProperty("EmployeeID", value);
                     this._employeeID = value;
+                    this._employeeIDInitialized = true;
                     this.RaiseDataMemberChanged("EmployeeID");
                     this.OnEmployeeIDChanged();
                 }
@@ -824,11 +912,13 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._formattedName != value))
+                if (((this._formattedName != value) 
+                            || (this._formattedNameInitialized == false)))
                 {
                     this.OnFormattedNameChanging(value);
                     this.ValidateProperty("FormattedName", value);
                     this._formattedName = value;
+                    this._formattedNameInitialized = true;
                     this.RaisePropertyChanged("FormattedName");
                     this.OnFormattedNameChanged();
                 }
@@ -849,12 +939,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._freight != value))
+                if (((this._freight != value) 
+                            || (this._freightInitialized == false)))
                 {
                     this.OnFreightChanging(value);
                     this.RaiseDataMemberChanging("Freight");
                     this.ValidateProperty("Freight", value);
                     this._freight = value;
+                    this._freightInitialized = true;
                     this.RaiseDataMemberChanged("Freight");
                     this.OnFreightChanged();
                 }
@@ -891,12 +983,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._orderDate != value))
+                if (((this._orderDate != value) 
+                            || (this._orderDateInitialized == false)))
                 {
                     this.OnOrderDateChanging(value);
                     this.RaiseDataMemberChanging("OrderDate");
                     this.ValidateProperty("OrderDate", value);
                     this._orderDate = value;
+                    this._orderDateInitialized = true;
                     this.RaiseDataMemberChanged("OrderDate");
                     this.OnOrderDateChanged();
                 }
@@ -944,12 +1038,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._requiredDate != value))
+                if (((this._requiredDate != value) 
+                            || (this._requiredDateInitialized == false)))
                 {
                     this.OnRequiredDateChanging(value);
                     this.RaiseDataMemberChanging("RequiredDate");
                     this.ValidateProperty("RequiredDate", value);
                     this._requiredDate = value;
+                    this._requiredDateInitialized = true;
                     this.RaiseDataMemberChanged("RequiredDate");
                     this.OnRequiredDateChanged();
                 }
@@ -971,12 +1067,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shipAddress != value))
+                if (((this._shipAddress != value) 
+                            || (this._shipAddressInitialized == false)))
                 {
                     this.OnShipAddressChanging(value);
                     this.RaiseDataMemberChanging("ShipAddress");
                     this.ValidateProperty("ShipAddress", value);
                     this._shipAddress = value;
+                    this._shipAddressInitialized = true;
                     this.RaiseDataMemberChanged("ShipAddress");
                     this.OnShipAddressChanged();
                 }
@@ -998,12 +1096,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shipCity != value))
+                if (((this._shipCity != value) 
+                            || (this._shipCityInitialized == false)))
                 {
                     this.OnShipCityChanging(value);
                     this.RaiseDataMemberChanging("ShipCity");
                     this.ValidateProperty("ShipCity", value);
                     this._shipCity = value;
+                    this._shipCityInitialized = true;
                     this.RaiseDataMemberChanged("ShipCity");
                     this.OnShipCityChanged();
                 }
@@ -1025,12 +1125,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shipCountry != value))
+                if (((this._shipCountry != value) 
+                            || (this._shipCountryInitialized == false)))
                 {
                     this.OnShipCountryChanging(value);
                     this.RaiseDataMemberChanging("ShipCountry");
                     this.ValidateProperty("ShipCountry", value);
                     this._shipCountry = value;
+                    this._shipCountryInitialized = true;
                     this.RaiseDataMemberChanged("ShipCountry");
                     this.OnShipCountryChanged();
                 }
@@ -1052,12 +1154,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shipName != value))
+                if (((this._shipName != value) 
+                            || (this._shipNameInitialized == false)))
                 {
                     this.OnShipNameChanging(value);
                     this.RaiseDataMemberChanging("ShipName");
                     this.ValidateProperty("ShipName", value);
                     this._shipName = value;
+                    this._shipNameInitialized = true;
                     this.RaiseDataMemberChanged("ShipName");
                     this.OnShipNameChanged();
                 }
@@ -1078,12 +1182,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shippedDate != value))
+                if (((this._shippedDate != value) 
+                            || (this._shippedDateInitialized == false)))
                 {
                     this.OnShippedDateChanging(value);
                     this.RaiseDataMemberChanging("ShippedDate");
                     this.ValidateProperty("ShippedDate", value);
                     this._shippedDate = value;
+                    this._shippedDateInitialized = true;
                     this.RaiseDataMemberChanged("ShippedDate");
                     this.OnShippedDateChanged();
                 }
@@ -1105,12 +1211,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shipPostalCode != value))
+                if (((this._shipPostalCode != value) 
+                            || (this._shipPostalCodeInitialized == false)))
                 {
                     this.OnShipPostalCodeChanging(value);
                     this.RaiseDataMemberChanging("ShipPostalCode");
                     this.ValidateProperty("ShipPostalCode", value);
                     this._shipPostalCode = value;
+                    this._shipPostalCodeInitialized = true;
                     this.RaiseDataMemberChanged("ShipPostalCode");
                     this.OnShipPostalCodeChanged();
                 }
@@ -1132,12 +1240,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shipRegion != value))
+                if (((this._shipRegion != value) 
+                            || (this._shipRegionInitialized == false)))
                 {
                     this.OnShipRegionChanging(value);
                     this.RaiseDataMemberChanging("ShipRegion");
                     this.ValidateProperty("ShipRegion", value);
                     this._shipRegion = value;
+                    this._shipRegionInitialized = true;
                     this.RaiseDataMemberChanged("ShipRegion");
                     this.OnShipRegionChanged();
                 }
@@ -1158,12 +1268,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._shipVia != value))
+                if (((this._shipVia != value) 
+                            || (this._shipViaInitialized == false)))
                 {
                     this.OnShipViaChanging(value);
                     this.RaiseDataMemberChanging("ShipVia");
                     this.ValidateProperty("ShipVia", value);
                     this._shipVia = value;
+                    this._shipViaInitialized = true;
                     this.RaiseDataMemberChanged("ShipVia");
                     this.OnShipViaChanged();
                 }
@@ -1517,7 +1629,11 @@ namespace DataTests.Northwind.LTS
         
         private global::System.Nullable<int> _categoryID;
         
+        private bool _categoryIDInitialized;
+        
         private string _categoryName;
+        
+        private bool _categoryNameInitialized;
         
         private bool _discontinued;
         
@@ -1527,21 +1643,39 @@ namespace DataTests.Northwind.LTS
         
         private string _productName;
         
+        private bool _productNameInitialized;
+        
         private string _quantityPerUnit;
+        
+        private bool _quantityPerUnitInitialized;
         
         private global::System.Nullable<short> _reorderLevel;
         
+        private bool _reorderLevelInitialized;
+        
         private string _resolveMethod;
+        
+        private bool _resolveMethodInitialized;
         
         private global::System.Nullable<int> _supplierID;
         
+        private bool _supplierIDInitialized;
+        
         private string _supplierName;
+        
+        private bool _supplierNameInitialized;
         
         private global::System.Nullable<decimal> _unitPrice;
         
+        private bool _unitPriceInitialized;
+        
         private global::System.Nullable<short> _unitsInStock;
         
+        private bool _unitsInStockInitialized;
+        
         private global::System.Nullable<short> _unitsOnOrder;
+        
+        private bool _unitsOnOrderInitialized;
         
         #region Extensibility Method Definitions
 
@@ -1656,12 +1790,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._categoryID != value))
+                if (((this._categoryID != value) 
+                            || (this._categoryIDInitialized == false)))
                 {
                     this.OnCategoryIDChanging(value);
                     this.RaiseDataMemberChanging("CategoryID");
                     this.ValidateProperty("CategoryID", value);
                     this._categoryID = value;
+                    this._categoryIDInitialized = true;
                     this.RaiseDataMemberChanged("CategoryID");
                     this.OnCategoryIDChanged();
                 }
@@ -1682,11 +1818,13 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._categoryName != value))
+                if (((this._categoryName != value) 
+                            || (this._categoryNameInitialized == false)))
                 {
                     this.OnCategoryNameChanging(value);
                     this.ValidateProperty("CategoryName", value);
                     this._categoryName = value;
+                    this._categoryNameInitialized = true;
                     this.RaisePropertyChanged("CategoryName");
                     this.OnCategoryNameChanged();
                 }
@@ -1777,12 +1915,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._productName != value))
+                if (((this._productName != value) 
+                            || (this._productNameInitialized == false)))
                 {
                     this.OnProductNameChanging(value);
                     this.RaiseDataMemberChanging("ProductName");
                     this.ValidateProperty("ProductName", value);
                     this._productName = value;
+                    this._productNameInitialized = true;
                     this.RaiseDataMemberChanged("ProductName");
                     this.OnProductNameChanged();
                 }
@@ -1804,12 +1944,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._quantityPerUnit != value))
+                if (((this._quantityPerUnit != value) 
+                            || (this._quantityPerUnitInitialized == false)))
                 {
                     this.OnQuantityPerUnitChanging(value);
                     this.RaiseDataMemberChanging("QuantityPerUnit");
                     this.ValidateProperty("QuantityPerUnit", value);
                     this._quantityPerUnit = value;
+                    this._quantityPerUnitInitialized = true;
                     this.RaiseDataMemberChanged("QuantityPerUnit");
                     this.OnQuantityPerUnitChanged();
                 }
@@ -1830,12 +1972,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._reorderLevel != value))
+                if (((this._reorderLevel != value) 
+                            || (this._reorderLevelInitialized == false)))
                 {
                     this.OnReorderLevelChanging(value);
                     this.RaiseDataMemberChanging("ReorderLevel");
                     this.ValidateProperty("ReorderLevel", value);
                     this._reorderLevel = value;
+                    this._reorderLevelInitialized = true;
                     this.RaiseDataMemberChanged("ReorderLevel");
                     this.OnReorderLevelChanged();
                 }
@@ -1855,12 +1999,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._resolveMethod != value))
+                if (((this._resolveMethod != value) 
+                            || (this._resolveMethodInitialized == false)))
                 {
                     this.OnResolveMethodChanging(value);
                     this.RaiseDataMemberChanging("ResolveMethod");
                     this.ValidateProperty("ResolveMethod", value);
                     this._resolveMethod = value;
+                    this._resolveMethodInitialized = true;
                     this.RaiseDataMemberChanged("ResolveMethod");
                     this.OnResolveMethodChanged();
                 }
@@ -1881,12 +2027,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._supplierID != value))
+                if (((this._supplierID != value) 
+                            || (this._supplierIDInitialized == false)))
                 {
                     this.OnSupplierIDChanging(value);
                     this.RaiseDataMemberChanging("SupplierID");
                     this.ValidateProperty("SupplierID", value);
                     this._supplierID = value;
+                    this._supplierIDInitialized = true;
                     this.RaiseDataMemberChanged("SupplierID");
                     this.OnSupplierIDChanged();
                 }
@@ -1906,11 +2054,13 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._supplierName != value))
+                if (((this._supplierName != value) 
+                            || (this._supplierNameInitialized == false)))
                 {
                     this.OnSupplierNameChanging(value);
                     this.ValidateProperty("SupplierName", value);
                     this._supplierName = value;
+                    this._supplierNameInitialized = true;
                     this.RaisePropertyChanged("SupplierName");
                     this.OnSupplierNameChanged();
                 }
@@ -1931,12 +2081,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._unitPrice != value))
+                if (((this._unitPrice != value) 
+                            || (this._unitPriceInitialized == false)))
                 {
                     this.OnUnitPriceChanging(value);
                     this.RaiseDataMemberChanging("UnitPrice");
                     this.ValidateProperty("UnitPrice", value);
                     this._unitPrice = value;
+                    this._unitPriceInitialized = true;
                     this.RaiseDataMemberChanged("UnitPrice");
                     this.OnUnitPriceChanged();
                 }
@@ -1957,12 +2109,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._unitsInStock != value))
+                if (((this._unitsInStock != value) 
+                            || (this._unitsInStockInitialized == false)))
                 {
                     this.OnUnitsInStockChanging(value);
                     this.RaiseDataMemberChanging("UnitsInStock");
                     this.ValidateProperty("UnitsInStock", value);
                     this._unitsInStock = value;
+                    this._unitsInStockInitialized = true;
                     this.RaiseDataMemberChanged("UnitsInStock");
                     this.OnUnitsInStockChanged();
                 }
@@ -1983,12 +2137,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._unitsOnOrder != value))
+                if (((this._unitsOnOrder != value) 
+                            || (this._unitsOnOrderInitialized == false)))
                 {
                     this.OnUnitsOnOrderChanging(value);
                     this.RaiseDataMemberChanging("UnitsOnOrder");
                     this.ValidateProperty("UnitsOnOrder", value);
                     this._unitsOnOrder = value;
+                    this._unitsOnOrderInitialized = true;
                     this.RaiseDataMemberChanged("UnitsOnOrder");
                     this.OnUnitsOnOrderChanged();
                 }
@@ -2069,11 +2225,17 @@ namespace DataTests.Northwind.LTS
         
         private string _categoryName;
         
+        private bool _categoryNameInitialized;
+        
         private int _productID;
         
         private string _productName;
         
+        private bool _productNameInitialized;
+        
         private string _supplierName;
+        
+        private bool _supplierNameInitialized;
         
         #region Extensibility Method Definitions
 
@@ -2115,11 +2277,13 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._categoryName != value))
+                if (((this._categoryName != value) 
+                            || (this._categoryNameInitialized == false)))
                 {
                     this.OnCategoryNameChanging(value);
                     this.ValidateProperty("CategoryName", value);
                     this._categoryName = value;
+                    this._categoryNameInitialized = true;
                     this.RaisePropertyChanged("CategoryName");
                     this.OnCategoryNameChanged();
                 }
@@ -2164,12 +2328,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._productName != value))
+                if (((this._productName != value) 
+                            || (this._productNameInitialized == false)))
                 {
                     this.OnProductNameChanging(value);
                     this.RaiseDataMemberChanging("ProductName");
                     this.ValidateProperty("ProductName", value);
                     this._productName = value;
+                    this._productNameInitialized = true;
                     this.RaiseDataMemberChanged("ProductName");
                     this.OnProductNameChanged();
                 }
@@ -2189,11 +2355,13 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._supplierName != value))
+                if (((this._supplierName != value) 
+                            || (this._supplierNameInitialized == false)))
                 {
                     this.OnSupplierNameChanging(value);
                     this.ValidateProperty("SupplierName", value);
                     this._supplierName = value;
+                    this._supplierNameInitialized = true;
                     this.RaisePropertyChanged("SupplierName");
                     this.OnSupplierNameChanged();
                 }
@@ -2218,6 +2386,8 @@ namespace DataTests.Northwind.LTS
     {
         
         private string _regionDescription;
+        
+        private bool _regionDescriptionInitialized;
         
         private int _regionID;
         
@@ -2262,12 +2432,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._regionDescription != value))
+                if (((this._regionDescription != value) 
+                            || (this._regionDescriptionInitialized == false)))
                 {
                     this.OnRegionDescriptionChanging(value);
                     this.RaiseDataMemberChanging("RegionDescription");
                     this.ValidateProperty("RegionDescription", value);
                     this._regionDescription = value;
+                    this._regionDescriptionInitialized = true;
                     this.RaiseDataMemberChanged("RegionDescription");
                     this.OnRegionDescriptionChanged();
                 }
@@ -2356,7 +2528,11 @@ namespace DataTests.Northwind.LTS
         
         private string _territoryDescription;
         
+        private bool _territoryDescriptionInitialized;
+        
         private string _territoryID;
+        
+        private bool _territoryIDInitialized;
         
         #region Extensibility Method Definitions
 
@@ -2477,12 +2653,14 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._territoryDescription != value))
+                if (((this._territoryDescription != value) 
+                            || (this._territoryDescriptionInitialized == false)))
                 {
                     this.OnTerritoryDescriptionChanging(value);
                     this.RaiseDataMemberChanging("TerritoryDescription");
                     this.ValidateProperty("TerritoryDescription", value);
                     this._territoryDescription = value;
+                    this._territoryDescriptionInitialized = true;
                     this.RaiseDataMemberChanged("TerritoryDescription");
                     this.OnTerritoryDescriptionChanged();
                 }
@@ -2507,11 +2685,13 @@ namespace DataTests.Northwind.LTS
             }
             set
             {
-                if ((this._territoryID != value))
+                if (((this._territoryID != value) 
+                            || (this._territoryIDInitialized == false)))
                 {
                     this.OnTerritoryIDChanging(value);
                     this.ValidateProperty("TerritoryID", value);
                     this._territoryID = value;
+                    this._territoryIDInitialized = true;
                     this.RaisePropertyChanged("TerritoryID");
                     this.OnTerritoryIDChanged();
                 }
@@ -2548,9 +2728,15 @@ namespace NorthwindModel
         
         private string _categoryName;
         
+        private bool _categoryNameInitialized;
+        
         private string _description;
         
+        private bool _descriptionInitialized;
+        
         private byte[] _picture;
+        
+        private bool _pictureInitialized;
         
         private global::OpenRiaServices.Client.EntityCollection<global::NorthwindModel.Product> _products;
         
@@ -2622,12 +2808,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._categoryName != value))
+                if (((this._categoryName != value) 
+                            || (this._categoryNameInitialized == false)))
                 {
                     this.OnCategoryNameChanging(value);
                     this.RaiseDataMemberChanging("CategoryName");
                     this.ValidateProperty("CategoryName", value);
                     this._categoryName = value;
+                    this._categoryNameInitialized = true;
                     this.RaiseDataMemberChanged("CategoryName");
                     this.OnCategoryNameChanged();
                 }
@@ -2646,12 +2834,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._description != value))
+                if (((this._description != value) 
+                            || (this._descriptionInitialized == false)))
                 {
                     this.OnDescriptionChanging(value);
                     this.RaiseDataMemberChanging("Description");
                     this.ValidateProperty("Description", value);
                     this._description = value;
+                    this._descriptionInitialized = true;
                     this.RaiseDataMemberChanged("Description");
                     this.OnDescriptionChanged();
                 }
@@ -2670,12 +2860,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._picture != value))
+                if (((this._picture != value) 
+                            || (this._pictureInitialized == false)))
                 {
                     this.OnPictureChanging(value);
                     this.RaiseDataMemberChanging("Picture");
                     this.ValidateProperty("Picture", value);
                     this._picture = value;
+                    this._pictureInitialized = true;
                     this.RaiseDataMemberChanged("Picture");
                     this.OnPictureChanged();
                 }
@@ -2732,27 +2924,49 @@ namespace NorthwindModel
         
         private string _address;
         
+        private bool _addressInitialized;
+        
         private string _city;
+        
+        private bool _cityInitialized;
         
         private string _companyName;
         
+        private bool _companyNameInitialized;
+        
         private string _contactName;
+        
+        private bool _contactNameInitialized;
         
         private string _contactTitle;
         
+        private bool _contactTitleInitialized;
+        
         private string _country;
+        
+        private bool _countryInitialized;
         
         private string _customerID;
         
+        private bool _customerIDInitialized;
+        
         private string _fax;
+        
+        private bool _faxInitialized;
         
         private global::OpenRiaServices.Client.EntityCollection<global::NorthwindModel.Order> _orders;
         
         private string _phone;
         
+        private bool _phoneInitialized;
+        
         private string _postalCode;
         
+        private bool _postalCodeInitialized;
+        
         private string _region;
+        
+        private bool _regionInitialized;
         
         #region Extensibility Method Definitions
 
@@ -2810,12 +3024,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._address != value))
+                if (((this._address != value) 
+                            || (this._addressInitialized == false)))
                 {
                     this.OnAddressChanging(value);
                     this.RaiseDataMemberChanging("Address");
                     this.ValidateProperty("Address", value);
                     this._address = value;
+                    this._addressInitialized = true;
                     this.RaiseDataMemberChanged("Address");
                     this.OnAddressChanged();
                 }
@@ -2837,12 +3053,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._city != value))
+                if (((this._city != value) 
+                            || (this._cityInitialized == false)))
                 {
                     this.OnCityChanging(value);
                     this.RaiseDataMemberChanging("City");
                     this.ValidateProperty("City", value);
                     this._city = value;
+                    this._cityInitialized = true;
                     this.RaiseDataMemberChanged("City");
                     this.OnCityChanged();
                 }
@@ -2865,12 +3083,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._companyName != value))
+                if (((this._companyName != value) 
+                            || (this._companyNameInitialized == false)))
                 {
                     this.OnCompanyNameChanging(value);
                     this.RaiseDataMemberChanging("CompanyName");
                     this.ValidateProperty("CompanyName", value);
                     this._companyName = value;
+                    this._companyNameInitialized = true;
                     this.RaiseDataMemberChanged("CompanyName");
                     this.OnCompanyNameChanged();
                 }
@@ -2892,12 +3112,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._contactName != value))
+                if (((this._contactName != value) 
+                            || (this._contactNameInitialized == false)))
                 {
                     this.OnContactNameChanging(value);
                     this.RaiseDataMemberChanging("ContactName");
                     this.ValidateProperty("ContactName", value);
                     this._contactName = value;
+                    this._contactNameInitialized = true;
                     this.RaiseDataMemberChanged("ContactName");
                     this.OnContactNameChanged();
                 }
@@ -2919,12 +3141,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._contactTitle != value))
+                if (((this._contactTitle != value) 
+                            || (this._contactTitleInitialized == false)))
                 {
                     this.OnContactTitleChanging(value);
                     this.RaiseDataMemberChanging("ContactTitle");
                     this.ValidateProperty("ContactTitle", value);
                     this._contactTitle = value;
+                    this._contactTitleInitialized = true;
                     this.RaiseDataMemberChanged("ContactTitle");
                     this.OnContactTitleChanged();
                 }
@@ -2946,12 +3170,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._country != value))
+                if (((this._country != value) 
+                            || (this._countryInitialized == false)))
                 {
                     this.OnCountryChanging(value);
                     this.RaiseDataMemberChanging("Country");
                     this.ValidateProperty("Country", value);
                     this._country = value;
+                    this._countryInitialized = true;
                     this.RaiseDataMemberChanged("Country");
                     this.OnCountryChanged();
                 }
@@ -2976,11 +3202,13 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._customerID != value))
+                if (((this._customerID != value) 
+                            || (this._customerIDInitialized == false)))
                 {
                     this.OnCustomerIDChanging(value);
                     this.ValidateProperty("CustomerID", value);
                     this._customerID = value;
+                    this._customerIDInitialized = true;
                     this.RaisePropertyChanged("CustomerID");
                     this.OnCustomerIDChanged();
                 }
@@ -3002,12 +3230,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._fax != value))
+                if (((this._fax != value) 
+                            || (this._faxInitialized == false)))
                 {
                     this.OnFaxChanging(value);
                     this.RaiseDataMemberChanging("Fax");
                     this.ValidateProperty("Fax", value);
                     this._fax = value;
+                    this._faxInitialized = true;
                     this.RaiseDataMemberChanged("Fax");
                     this.OnFaxChanged();
                 }
@@ -3045,12 +3275,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._phone != value))
+                if (((this._phone != value) 
+                            || (this._phoneInitialized == false)))
                 {
                     this.OnPhoneChanging(value);
                     this.RaiseDataMemberChanging("Phone");
                     this.ValidateProperty("Phone", value);
                     this._phone = value;
+                    this._phoneInitialized = true;
                     this.RaiseDataMemberChanged("Phone");
                     this.OnPhoneChanged();
                 }
@@ -3072,12 +3304,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._postalCode != value))
+                if (((this._postalCode != value) 
+                            || (this._postalCodeInitialized == false)))
                 {
                     this.OnPostalCodeChanging(value);
                     this.RaiseDataMemberChanging("PostalCode");
                     this.ValidateProperty("PostalCode", value);
                     this._postalCode = value;
+                    this._postalCodeInitialized = true;
                     this.RaiseDataMemberChanged("PostalCode");
                     this.OnPostalCodeChanged();
                 }
@@ -3099,12 +3333,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._region != value))
+                if (((this._region != value) 
+                            || (this._regionInitialized == false)))
                 {
                     this.OnRegionChanging(value);
                     this.RaiseDataMemberChanging("Region");
                     this.ValidateProperty("Region", value);
                     this._region = value;
+                    this._regionInitialized = true;
                     this.RaiseDataMemberChanged("Region");
                     this.OnRegionChanged();
                 }
@@ -3147,35 +3383,63 @@ namespace NorthwindModel
         
         private string _customerID;
         
+        private bool _customerIDInitialized;
+        
         private global::System.Nullable<int> _employeeID;
+        
+        private bool _employeeIDInitialized;
         
         private string _formattedName;
         
+        private bool _formattedNameInitialized;
+        
         private global::System.Nullable<decimal> _freight;
+        
+        private bool _freightInitialized;
         
         private global::OpenRiaServices.Client.EntityCollection<global::NorthwindModel.Order_Detail> _order_Details;
         
         private global::System.Nullable<global::System.DateTime> _orderDate;
         
+        private bool _orderDateInitialized;
+        
         private int _orderID;
         
         private global::System.Nullable<global::System.DateTime> _requiredDate;
         
+        private bool _requiredDateInitialized;
+        
         private string _shipAddress;
+        
+        private bool _shipAddressInitialized;
         
         private string _shipCity;
         
+        private bool _shipCityInitialized;
+        
         private string _shipCountry;
+        
+        private bool _shipCountryInitialized;
         
         private string _shipName;
         
+        private bool _shipNameInitialized;
+        
         private global::System.Nullable<global::System.DateTime> _shippedDate;
+        
+        private bool _shippedDateInitialized;
         
         private string _shipPostalCode;
         
+        private bool _shipPostalCodeInitialized;
+        
         private string _shipRegion;
         
+        private bool _shipRegionInitialized;
+        
         private global::System.Nullable<int> _shipVia;
+        
+        private bool _shipViaInitialized;
         
         #region Extensibility Method Definitions
 
@@ -3293,12 +3557,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._customerID != value))
+                if (((this._customerID != value) 
+                            || (this._customerIDInitialized == false)))
                 {
                     this.OnCustomerIDChanging(value);
                     this.RaiseDataMemberChanging("CustomerID");
                     this.ValidateProperty("CustomerID", value);
                     this._customerID = value;
+                    this._customerIDInitialized = true;
                     this.RaiseDataMemberChanged("CustomerID");
                     this.OnCustomerIDChanged();
                 }
@@ -3319,12 +3585,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._employeeID != value))
+                if (((this._employeeID != value) 
+                            || (this._employeeIDInitialized == false)))
                 {
                     this.OnEmployeeIDChanging(value);
                     this.RaiseDataMemberChanging("EmployeeID");
                     this.ValidateProperty("EmployeeID", value);
                     this._employeeID = value;
+                    this._employeeIDInitialized = true;
                     this.RaiseDataMemberChanged("EmployeeID");
                     this.OnEmployeeIDChanged();
                 }
@@ -3345,11 +3613,13 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._formattedName != value))
+                if (((this._formattedName != value) 
+                            || (this._formattedNameInitialized == false)))
                 {
                     this.OnFormattedNameChanging(value);
                     this.ValidateProperty("FormattedName", value);
                     this._formattedName = value;
+                    this._formattedNameInitialized = true;
                     this.RaisePropertyChanged("FormattedName");
                     this.OnFormattedNameChanged();
                 }
@@ -3370,12 +3640,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._freight != value))
+                if (((this._freight != value) 
+                            || (this._freightInitialized == false)))
                 {
                     this.OnFreightChanging(value);
                     this.RaiseDataMemberChanging("Freight");
                     this.ValidateProperty("Freight", value);
                     this._freight = value;
+                    this._freightInitialized = true;
                     this.RaiseDataMemberChanged("Freight");
                     this.OnFreightChanged();
                 }
@@ -3412,12 +3684,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._orderDate != value))
+                if (((this._orderDate != value) 
+                            || (this._orderDateInitialized == false)))
                 {
                     this.OnOrderDateChanging(value);
                     this.RaiseDataMemberChanging("OrderDate");
                     this.ValidateProperty("OrderDate", value);
                     this._orderDate = value;
+                    this._orderDateInitialized = true;
                     this.RaiseDataMemberChanged("OrderDate");
                     this.OnOrderDateChanged();
                 }
@@ -3465,12 +3739,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._requiredDate != value))
+                if (((this._requiredDate != value) 
+                            || (this._requiredDateInitialized == false)))
                 {
                     this.OnRequiredDateChanging(value);
                     this.RaiseDataMemberChanging("RequiredDate");
                     this.ValidateProperty("RequiredDate", value);
                     this._requiredDate = value;
+                    this._requiredDateInitialized = true;
                     this.RaiseDataMemberChanged("RequiredDate");
                     this.OnRequiredDateChanged();
                 }
@@ -3492,12 +3768,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shipAddress != value))
+                if (((this._shipAddress != value) 
+                            || (this._shipAddressInitialized == false)))
                 {
                     this.OnShipAddressChanging(value);
                     this.RaiseDataMemberChanging("ShipAddress");
                     this.ValidateProperty("ShipAddress", value);
                     this._shipAddress = value;
+                    this._shipAddressInitialized = true;
                     this.RaiseDataMemberChanged("ShipAddress");
                     this.OnShipAddressChanged();
                 }
@@ -3519,12 +3797,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shipCity != value))
+                if (((this._shipCity != value) 
+                            || (this._shipCityInitialized == false)))
                 {
                     this.OnShipCityChanging(value);
                     this.RaiseDataMemberChanging("ShipCity");
                     this.ValidateProperty("ShipCity", value);
                     this._shipCity = value;
+                    this._shipCityInitialized = true;
                     this.RaiseDataMemberChanged("ShipCity");
                     this.OnShipCityChanged();
                 }
@@ -3546,12 +3826,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shipCountry != value))
+                if (((this._shipCountry != value) 
+                            || (this._shipCountryInitialized == false)))
                 {
                     this.OnShipCountryChanging(value);
                     this.RaiseDataMemberChanging("ShipCountry");
                     this.ValidateProperty("ShipCountry", value);
                     this._shipCountry = value;
+                    this._shipCountryInitialized = true;
                     this.RaiseDataMemberChanged("ShipCountry");
                     this.OnShipCountryChanged();
                 }
@@ -3573,12 +3855,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shipName != value))
+                if (((this._shipName != value) 
+                            || (this._shipNameInitialized == false)))
                 {
                     this.OnShipNameChanging(value);
                     this.RaiseDataMemberChanging("ShipName");
                     this.ValidateProperty("ShipName", value);
                     this._shipName = value;
+                    this._shipNameInitialized = true;
                     this.RaiseDataMemberChanged("ShipName");
                     this.OnShipNameChanged();
                 }
@@ -3599,12 +3883,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shippedDate != value))
+                if (((this._shippedDate != value) 
+                            || (this._shippedDateInitialized == false)))
                 {
                     this.OnShippedDateChanging(value);
                     this.RaiseDataMemberChanging("ShippedDate");
                     this.ValidateProperty("ShippedDate", value);
                     this._shippedDate = value;
+                    this._shippedDateInitialized = true;
                     this.RaiseDataMemberChanged("ShippedDate");
                     this.OnShippedDateChanged();
                 }
@@ -3626,12 +3912,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shipPostalCode != value))
+                if (((this._shipPostalCode != value) 
+                            || (this._shipPostalCodeInitialized == false)))
                 {
                     this.OnShipPostalCodeChanging(value);
                     this.RaiseDataMemberChanging("ShipPostalCode");
                     this.ValidateProperty("ShipPostalCode", value);
                     this._shipPostalCode = value;
+                    this._shipPostalCodeInitialized = true;
                     this.RaiseDataMemberChanged("ShipPostalCode");
                     this.OnShipPostalCodeChanged();
                 }
@@ -3653,12 +3941,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shipRegion != value))
+                if (((this._shipRegion != value) 
+                            || (this._shipRegionInitialized == false)))
                 {
                     this.OnShipRegionChanging(value);
                     this.RaiseDataMemberChanging("ShipRegion");
                     this.ValidateProperty("ShipRegion", value);
                     this._shipRegion = value;
+                    this._shipRegionInitialized = true;
                     this.RaiseDataMemberChanged("ShipRegion");
                     this.OnShipRegionChanged();
                 }
@@ -3679,12 +3969,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._shipVia != value))
+                if (((this._shipVia != value) 
+                            || (this._shipViaInitialized == false)))
                 {
                     this.OnShipViaChanging(value);
                     this.RaiseDataMemberChanging("ShipVia");
                     this.ValidateProperty("ShipVia", value);
                     this._shipVia = value;
+                    this._shipViaInitialized = true;
                     this.RaiseDataMemberChanged("ShipVia");
                     this.OnShipViaChanged();
                 }
@@ -4038,7 +4330,11 @@ namespace NorthwindModel
         
         private global::System.Nullable<int> _categoryID;
         
+        private bool _categoryIDInitialized;
+        
         private string _categoryName;
+        
+        private bool _categoryNameInitialized;
         
         private bool _discontinued;
         
@@ -4048,21 +4344,39 @@ namespace NorthwindModel
         
         private string _productName;
         
+        private bool _productNameInitialized;
+        
         private string _quantityPerUnit;
+        
+        private bool _quantityPerUnitInitialized;
         
         private global::System.Nullable<short> _reorderLevel;
         
+        private bool _reorderLevelInitialized;
+        
         private string _resolveMethod;
+        
+        private bool _resolveMethodInitialized;
         
         private global::System.Nullable<int> _supplierID;
         
+        private bool _supplierIDInitialized;
+        
         private string _supplierName;
+        
+        private bool _supplierNameInitialized;
         
         private global::System.Nullable<decimal> _unitPrice;
         
+        private bool _unitPriceInitialized;
+        
         private global::System.Nullable<short> _unitsInStock;
         
+        private bool _unitsInStockInitialized;
+        
         private global::System.Nullable<short> _unitsOnOrder;
+        
+        private bool _unitsOnOrderInitialized;
         
         #region Extensibility Method Definitions
 
@@ -4177,12 +4491,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._categoryID != value))
+                if (((this._categoryID != value) 
+                            || (this._categoryIDInitialized == false)))
                 {
                     this.OnCategoryIDChanging(value);
                     this.RaiseDataMemberChanging("CategoryID");
                     this.ValidateProperty("CategoryID", value);
                     this._categoryID = value;
+                    this._categoryIDInitialized = true;
                     this.RaiseDataMemberChanged("CategoryID");
                     this.OnCategoryIDChanged();
                 }
@@ -4203,11 +4519,13 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._categoryName != value))
+                if (((this._categoryName != value) 
+                            || (this._categoryNameInitialized == false)))
                 {
                     this.OnCategoryNameChanging(value);
                     this.ValidateProperty("CategoryName", value);
                     this._categoryName = value;
+                    this._categoryNameInitialized = true;
                     this.RaisePropertyChanged("CategoryName");
                     this.OnCategoryNameChanged();
                 }
@@ -4298,12 +4616,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._productName != value))
+                if (((this._productName != value) 
+                            || (this._productNameInitialized == false)))
                 {
                     this.OnProductNameChanging(value);
                     this.RaiseDataMemberChanging("ProductName");
                     this.ValidateProperty("ProductName", value);
                     this._productName = value;
+                    this._productNameInitialized = true;
                     this.RaiseDataMemberChanged("ProductName");
                     this.OnProductNameChanged();
                 }
@@ -4325,12 +4645,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._quantityPerUnit != value))
+                if (((this._quantityPerUnit != value) 
+                            || (this._quantityPerUnitInitialized == false)))
                 {
                     this.OnQuantityPerUnitChanging(value);
                     this.RaiseDataMemberChanging("QuantityPerUnit");
                     this.ValidateProperty("QuantityPerUnit", value);
                     this._quantityPerUnit = value;
+                    this._quantityPerUnitInitialized = true;
                     this.RaiseDataMemberChanged("QuantityPerUnit");
                     this.OnQuantityPerUnitChanged();
                 }
@@ -4351,12 +4673,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._reorderLevel != value))
+                if (((this._reorderLevel != value) 
+                            || (this._reorderLevelInitialized == false)))
                 {
                     this.OnReorderLevelChanging(value);
                     this.RaiseDataMemberChanging("ReorderLevel");
                     this.ValidateProperty("ReorderLevel", value);
                     this._reorderLevel = value;
+                    this._reorderLevelInitialized = true;
                     this.RaiseDataMemberChanged("ReorderLevel");
                     this.OnReorderLevelChanged();
                 }
@@ -4375,12 +4699,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._resolveMethod != value))
+                if (((this._resolveMethod != value) 
+                            || (this._resolveMethodInitialized == false)))
                 {
                     this.OnResolveMethodChanging(value);
                     this.RaiseDataMemberChanging("ResolveMethod");
                     this.ValidateProperty("ResolveMethod", value);
                     this._resolveMethod = value;
+                    this._resolveMethodInitialized = true;
                     this.RaiseDataMemberChanged("ResolveMethod");
                     this.OnResolveMethodChanged();
                 }
@@ -4401,12 +4727,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._supplierID != value))
+                if (((this._supplierID != value) 
+                            || (this._supplierIDInitialized == false)))
                 {
                     this.OnSupplierIDChanging(value);
                     this.RaiseDataMemberChanging("SupplierID");
                     this.ValidateProperty("SupplierID", value);
                     this._supplierID = value;
+                    this._supplierIDInitialized = true;
                     this.RaiseDataMemberChanged("SupplierID");
                     this.OnSupplierIDChanged();
                 }
@@ -4426,11 +4754,13 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._supplierName != value))
+                if (((this._supplierName != value) 
+                            || (this._supplierNameInitialized == false)))
                 {
                     this.OnSupplierNameChanging(value);
                     this.ValidateProperty("SupplierName", value);
                     this._supplierName = value;
+                    this._supplierNameInitialized = true;
                     this.RaisePropertyChanged("SupplierName");
                     this.OnSupplierNameChanged();
                 }
@@ -4451,12 +4781,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._unitPrice != value))
+                if (((this._unitPrice != value) 
+                            || (this._unitPriceInitialized == false)))
                 {
                     this.OnUnitPriceChanging(value);
                     this.RaiseDataMemberChanging("UnitPrice");
                     this.ValidateProperty("UnitPrice", value);
                     this._unitPrice = value;
+                    this._unitPriceInitialized = true;
                     this.RaiseDataMemberChanged("UnitPrice");
                     this.OnUnitPriceChanged();
                 }
@@ -4477,12 +4809,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._unitsInStock != value))
+                if (((this._unitsInStock != value) 
+                            || (this._unitsInStockInitialized == false)))
                 {
                     this.OnUnitsInStockChanging(value);
                     this.RaiseDataMemberChanging("UnitsInStock");
                     this.ValidateProperty("UnitsInStock", value);
                     this._unitsInStock = value;
+                    this._unitsInStockInitialized = true;
                     this.RaiseDataMemberChanged("UnitsInStock");
                     this.OnUnitsInStockChanged();
                 }
@@ -4503,12 +4837,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._unitsOnOrder != value))
+                if (((this._unitsOnOrder != value) 
+                            || (this._unitsOnOrderInitialized == false)))
                 {
                     this.OnUnitsOnOrderChanging(value);
                     this.RaiseDataMemberChanging("UnitsOnOrder");
                     this.ValidateProperty("UnitsOnOrder", value);
                     this._unitsOnOrder = value;
+                    this._unitsOnOrderInitialized = true;
                     this.RaiseDataMemberChanged("UnitsOnOrder");
                     this.OnUnitsOnOrderChanged();
                 }
@@ -4589,11 +4925,17 @@ namespace NorthwindModel
         
         private string _categoryName;
         
+        private bool _categoryNameInitialized;
+        
         private int _productID;
         
         private string _productName;
         
+        private bool _productNameInitialized;
+        
         private string _supplierName;
+        
+        private bool _supplierNameInitialized;
         
         #region Extensibility Method Definitions
 
@@ -4635,11 +4977,13 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._categoryName != value))
+                if (((this._categoryName != value) 
+                            || (this._categoryNameInitialized == false)))
                 {
                     this.OnCategoryNameChanging(value);
                     this.ValidateProperty("CategoryName", value);
                     this._categoryName = value;
+                    this._categoryNameInitialized = true;
                     this.RaisePropertyChanged("CategoryName");
                     this.OnCategoryNameChanged();
                 }
@@ -4684,12 +5028,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._productName != value))
+                if (((this._productName != value) 
+                            || (this._productNameInitialized == false)))
                 {
                     this.OnProductNameChanging(value);
                     this.RaiseDataMemberChanging("ProductName");
                     this.ValidateProperty("ProductName", value);
                     this._productName = value;
+                    this._productNameInitialized = true;
                     this.RaiseDataMemberChanged("ProductName");
                     this.OnProductNameChanged();
                 }
@@ -4709,11 +5055,13 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._supplierName != value))
+                if (((this._supplierName != value) 
+                            || (this._supplierNameInitialized == false)))
                 {
                     this.OnSupplierNameChanging(value);
                     this.ValidateProperty("SupplierName", value);
                     this._supplierName = value;
+                    this._supplierNameInitialized = true;
                     this.RaisePropertyChanged("SupplierName");
                     this.OnSupplierNameChanged();
                 }
@@ -4738,6 +5086,8 @@ namespace NorthwindModel
     {
         
         private string _regionDescription;
+        
+        private bool _regionDescriptionInitialized;
         
         private int _regionID;
         
@@ -4780,12 +5130,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._regionDescription != value))
+                if (((this._regionDescription != value) 
+                            || (this._regionDescriptionInitialized == false)))
                 {
                     this.OnRegionDescriptionChanging(value);
                     this.RaiseDataMemberChanging("RegionDescription");
                     this.ValidateProperty("RegionDescription", value);
                     this._regionDescription = value;
+                    this._regionDescriptionInitialized = true;
                     this.RaiseDataMemberChanged("RegionDescription");
                     this.OnRegionDescriptionChanged();
                 }
@@ -4873,7 +5225,11 @@ namespace NorthwindModel
         
         private string _territoryDescription;
         
+        private bool _territoryDescriptionInitialized;
+        
         private string _territoryID;
+        
+        private bool _territoryIDInitialized;
         
         #region Extensibility Method Definitions
 
@@ -4991,12 +5347,14 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._territoryDescription != value))
+                if (((this._territoryDescription != value) 
+                            || (this._territoryDescriptionInitialized == false)))
                 {
                     this.OnTerritoryDescriptionChanging(value);
                     this.RaiseDataMemberChanging("TerritoryDescription");
                     this.ValidateProperty("TerritoryDescription", value);
                     this._territoryDescription = value;
+                    this._territoryDescriptionInitialized = true;
                     this.RaiseDataMemberChanged("TerritoryDescription");
                     this.OnTerritoryDescriptionChanged();
                 }
@@ -5020,11 +5378,13 @@ namespace NorthwindModel
             }
             set
             {
-                if ((this._territoryID != value))
+                if (((this._territoryID != value) 
+                            || (this._territoryIDInitialized == false)))
                 {
                     this.OnTerritoryIDChanging(value);
                     this.ValidateProperty("TerritoryID", value);
                     this._territoryID = value;
+                    this._territoryIDInitialized = true;
                     this.RaisePropertyChanged("TerritoryID");
                     this.OnTerritoryIDChanged();
                 }

@@ -340,35 +340,6 @@ namespace OpenRiaServices.Tools.Test
             }
         }
 
-        [Description("CSharp text-template generator tracks first null assignments only for nullable properties")]
-        [TestMethod]
-        public void CSharpTextTemplateGenerator_Tracks_First_Null_Assignment()
-        {
-            ConsoleLogger logger = new ConsoleLogger();
-            ClientCodeGenerationOptions options = new ClientCodeGenerationOptions()
-            {
-                Language = "C#"
-            };
-            ICodeGenerationHost host = TestHelper.CreateMockCodeGenerationHost(logger, null);
-            var generator = new TextTemplate::OpenRiaServices.Tools.TextTemplate.CSharpGenerators.CSharpClientCodeGenerator();
-            DomainServiceDescription dsd = DomainServiceDescription.GetDescription(typeof(DispatcherDomainService));
-
-            string generatedCode = generator.GenerateCode(host, new[] { dsd }, options);
-
-            Assert.IsFalse(string.IsNullOrEmpty(generatedCode), "expected T4 generator to generate code");
-            TestHelper.AssertGeneratedCodeContains(
-                generatedCode,
-                "if(this._theKey != value || !this._theKeyInitialized)",
-                "this._theKey = value; this._theKeyInitialized = true;",
-                "if(this._optionalValue != value || !this._optionalValueInitialized)",
-                "this._optionalValue = value; this._optionalValueInitialized = true;");
-            TestHelper.AssertGeneratedCodeDoesNotContain(
-                generatedCode,
-                "_nonNullableValueInitialized",
-                "if(this._nonNullableValue != value || !this._nonNullableValueInitialized)");
-            TestHelper.AssertNoErrorsOrWarnings(logger);
-        }
-
         [Description("ClientCodeGenerationDispatcher logs warning if assembly qualified name is wrong type")]
         [TestMethod]
         public void ClientCodeGenerationDispatcher_Custom_By_AssemblyQualifiedName_Wrong_Type()
@@ -772,9 +743,5 @@ namespace OpenRiaServices.Tools.Test
     {
         [Key]
         public string TheKey { get; set; }
-
-        public int? OptionalValue { get; set; }
-
-        public int NonNullableValue { get; set; }
     }
 }

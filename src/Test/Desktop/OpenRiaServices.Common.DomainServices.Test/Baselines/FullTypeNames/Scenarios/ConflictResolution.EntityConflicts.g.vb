@@ -227,6 +227,8 @@ Namespace TestDomainServices.TypeNameConflictResolution
         
         Private _name As String
         
+        Private _nameInitialized As Boolean
+        
         #Region "Extensibility Method Definitions"
 
         ''' <summary>
@@ -263,10 +265,12 @@ Namespace TestDomainServices.TypeNameConflictResolution
                 Return Me._name
             End Get
             Set
-                If (String.Equals(Me._name, value) = false) Then
+                If ((String.Equals(Me._name, value) = false)  _
+                            OrElse (Me._nameInitialized = false)) Then
                     Me.OnNameChanging(value)
                     Me.ValidateProperty("Name", value)
                     Me._name = value
+                    Me._nameInitialized = true
                     Me.RaisePropertyChanged("Name")
                     Me.OnNameChanged
                 End If

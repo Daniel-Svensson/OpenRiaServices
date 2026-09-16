@@ -31,15 +31,25 @@ namespace TestDomainServices
         
         private string _bp1;
         
+        private bool _bp1Initialized;
+        
         private string _cp1;
         
+        private bool _cp1Initialized;
+        
         private string _dp2;
+        
+        private bool _dp2Initialized;
         
         private int _id;
         
         private string _p1;
         
+        private bool _p1Initialized;
+        
         private string _p2;
+        
+        private bool _p2Initialized;
         
         #region Extensibility Method Definitions
 
@@ -85,11 +95,13 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._bp1 != value))
+                if (((this._bp1 != value) 
+                            || (this._bp1Initialized == false)))
                 {
                     this.OnBP1Changing(value);
                     this.ValidateProperty("BP1", value);
                     this._bp1 = value;
+                    this._bp1Initialized = true;
                     this.RaisePropertyChanged("BP1");
                     this.OnBP1Changed();
                 }
@@ -109,11 +121,13 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._cp1 != value))
+                if (((this._cp1 != value) 
+                            || (this._cp1Initialized == false)))
                 {
                     this.OnCP1Changing(value);
                     this.ValidateProperty("CP1", value);
                     this._cp1 = value;
+                    this._cp1Initialized = true;
                     this.RaisePropertyChanged("CP1");
                     this.OnCP1Changed();
                 }
@@ -133,11 +147,13 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._dp2 != value))
+                if (((this._dp2 != value) 
+                            || (this._dp2Initialized == false)))
                 {
                     this.OnDP2Changing(value);
                     this.ValidateProperty("DP2", value);
                     this._dp2 = value;
+                    this._dp2Initialized = true;
                     this.RaisePropertyChanged("DP2");
                     this.OnDP2Changed();
                 }
@@ -182,12 +198,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._p1 != value))
+                if (((this._p1 != value) 
+                            || (this._p1Initialized == false)))
                 {
                     this.OnP1Changing(value);
                     this.RaiseDataMemberChanging("P1");
                     this.ValidateProperty("P1", value);
                     this._p1 = value;
+                    this._p1Initialized = true;
                     this.RaiseDataMemberChanged("P1");
                     this.OnP1Changed();
                 }
@@ -206,12 +224,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._p2 != value))
+                if (((this._p2 != value) 
+                            || (this._p2Initialized == false)))
                 {
                     this.OnP2Changing(value);
                     this.RaiseDataMemberChanging("P2");
                     this.ValidateProperty("P2", value);
                     this._p2 = value;
+                    this._p2Initialized = true;
                     this.RaiseDataMemberChanged("P2");
                     this.OnP2Changed();
                 }

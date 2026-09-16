@@ -35,15 +35,25 @@ Namespace TestDomainServices
         
         Private _bp1 As String
         
+        Private _bp1Initialized As Boolean
+        
         Private _cp1 As String
         
+        Private _cp1Initialized As Boolean
+        
         Private _dp2 As String
+        
+        Private _dp2Initialized As Boolean
         
         Private _id As Integer
         
         Private _p1 As String
         
+        Private _p1Initialized As Boolean
+        
         Private _p2 As String
+        
+        Private _p2Initialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -99,10 +109,12 @@ Namespace TestDomainServices
                 Return Me._bp1
             End Get
             Set
-                If (String.Equals(Me._bp1, value) = false) Then
+                If ((String.Equals(Me._bp1, value) = false)  _
+                            OrElse (Me._bp1Initialized = false)) Then
                     Me.OnBP1Changing(value)
                     Me.ValidateProperty("BP1", value)
                     Me._bp1 = value
+                    Me._bp1Initialized = true
                     Me.RaisePropertyChanged("BP1")
                     Me.OnBP1Changed
                 End If
@@ -119,10 +131,12 @@ Namespace TestDomainServices
                 Return Me._cp1
             End Get
             Set
-                If (String.Equals(Me._cp1, value) = false) Then
+                If ((String.Equals(Me._cp1, value) = false)  _
+                            OrElse (Me._cp1Initialized = false)) Then
                     Me.OnCP1Changing(value)
                     Me.ValidateProperty("CP1", value)
                     Me._cp1 = value
+                    Me._cp1Initialized = true
                     Me.RaisePropertyChanged("CP1")
                     Me.OnCP1Changed
                 End If
@@ -139,10 +153,12 @@ Namespace TestDomainServices
                 Return Me._dp2
             End Get
             Set
-                If (String.Equals(Me._dp2, value) = false) Then
+                If ((String.Equals(Me._dp2, value) = false)  _
+                            OrElse (Me._dp2Initialized = false)) Then
                     Me.OnDP2Changing(value)
                     Me.ValidateProperty("DP2", value)
                     Me._dp2 = value
+                    Me._dp2Initialized = true
                     Me.RaisePropertyChanged("DP2")
                     Me.OnDP2Changed
                 End If
@@ -181,11 +197,13 @@ Namespace TestDomainServices
                 Return Me._p1
             End Get
             Set
-                If (String.Equals(Me._p1, value) = false) Then
+                If ((String.Equals(Me._p1, value) = false)  _
+                            OrElse (Me._p1Initialized = false)) Then
                     Me.OnP1Changing(value)
                     Me.RaiseDataMemberChanging("P1")
                     Me.ValidateProperty("P1", value)
                     Me._p1 = value
+                    Me._p1Initialized = true
                     Me.RaiseDataMemberChanged("P1")
                     Me.OnP1Changed
                 End If
@@ -201,11 +219,13 @@ Namespace TestDomainServices
                 Return Me._p2
             End Get
             Set
-                If (String.Equals(Me._p2, value) = false) Then
+                If ((String.Equals(Me._p2, value) = false)  _
+                            OrElse (Me._p2Initialized = false)) Then
                     Me.OnP2Changing(value)
                     Me.RaiseDataMemberChanging("P2")
                     Me.ValidateProperty("P2", value)
                     Me._p2 = value
+                    Me._p2Initialized = true
                     Me.RaiseDataMemberChanged("P2")
                     Me.OnP2Changed
                 End If

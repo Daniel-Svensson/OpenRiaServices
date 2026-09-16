@@ -34,21 +34,39 @@ namespace DataTests.Inheritance.LTS
         
         private string _address;
         
+        private bool _addressInitialized;
+        
         private string _city;
+        
+        private bool _cityInitialized;
         
         private string _companyName;
         
+        private bool _companyNameInitialized;
+        
         private string _contactName;
+        
+        private bool _contactNameInitialized;
         
         private string _contactTitle;
         
+        private bool _contactTitleInitialized;
+        
         private string _country;
+        
+        private bool _countryInitialized;
         
         private string _customerID;
         
+        private bool _customerIDInitialized;
+        
         private string _postalCode;
         
+        private bool _postalCodeInitialized;
+        
         private string _region;
+        
+        private bool _regionInitialized;
         
         #region Extensibility Method Definitions
 
@@ -102,12 +120,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._address != value))
+                if (((this._address != value) 
+                            || (this._addressInitialized == false)))
                 {
                     this.OnAddressChanging(value);
                     this.RaiseDataMemberChanging("Address");
                     this.ValidateProperty("Address", value);
                     this._address = value;
+                    this._addressInitialized = true;
                     this.RaiseDataMemberChanged("Address");
                     this.OnAddressChanged();
                 }
@@ -129,12 +149,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._city != value))
+                if (((this._city != value) 
+                            || (this._cityInitialized == false)))
                 {
                     this.OnCityChanging(value);
                     this.RaiseDataMemberChanging("City");
                     this.ValidateProperty("City", value);
                     this._city = value;
+                    this._cityInitialized = true;
                     this.RaiseDataMemberChanged("City");
                     this.OnCityChanged();
                 }
@@ -157,12 +179,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._companyName != value))
+                if (((this._companyName != value) 
+                            || (this._companyNameInitialized == false)))
                 {
                     this.OnCompanyNameChanging(value);
                     this.RaiseDataMemberChanging("CompanyName");
                     this.ValidateProperty("CompanyName", value);
                     this._companyName = value;
+                    this._companyNameInitialized = true;
                     this.RaiseDataMemberChanged("CompanyName");
                     this.OnCompanyNameChanged();
                 }
@@ -184,12 +208,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._contactName != value))
+                if (((this._contactName != value) 
+                            || (this._contactNameInitialized == false)))
                 {
                     this.OnContactNameChanging(value);
                     this.RaiseDataMemberChanging("ContactName");
                     this.ValidateProperty("ContactName", value);
                     this._contactName = value;
+                    this._contactNameInitialized = true;
                     this.RaiseDataMemberChanged("ContactName");
                     this.OnContactNameChanged();
                 }
@@ -211,12 +237,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._contactTitle != value))
+                if (((this._contactTitle != value) 
+                            || (this._contactTitleInitialized == false)))
                 {
                     this.OnContactTitleChanging(value);
                     this.RaiseDataMemberChanging("ContactTitle");
                     this.ValidateProperty("ContactTitle", value);
                     this._contactTitle = value;
+                    this._contactTitleInitialized = true;
                     this.RaiseDataMemberChanged("ContactTitle");
                     this.OnContactTitleChanged();
                 }
@@ -238,12 +266,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._country != value))
+                if (((this._country != value) 
+                            || (this._countryInitialized == false)))
                 {
                     this.OnCountryChanging(value);
                     this.RaiseDataMemberChanging("Country");
                     this.ValidateProperty("Country", value);
                     this._country = value;
+                    this._countryInitialized = true;
                     this.RaiseDataMemberChanged("Country");
                     this.OnCountryChanged();
                 }
@@ -268,11 +298,13 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._customerID != value))
+                if (((this._customerID != value) 
+                            || (this._customerIDInitialized == false)))
                 {
                     this.OnCustomerIDChanging(value);
                     this.ValidateProperty("CustomerID", value);
                     this._customerID = value;
+                    this._customerIDInitialized = true;
                     this.RaisePropertyChanged("CustomerID");
                     this.OnCustomerIDChanged();
                 }
@@ -294,12 +326,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._postalCode != value))
+                if (((this._postalCode != value) 
+                            || (this._postalCodeInitialized == false)))
                 {
                     this.OnPostalCodeChanging(value);
                     this.RaiseDataMemberChanging("PostalCode");
                     this.ValidateProperty("PostalCode", value);
                     this._postalCode = value;
+                    this._postalCodeInitialized = true;
                     this.RaiseDataMemberChanged("PostalCode");
                     this.OnPostalCodeChanged();
                 }
@@ -321,12 +355,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._region != value))
+                if (((this._region != value) 
+                            || (this._regionInitialized == false)))
                 {
                     this.OnRegionChanging(value);
                     this.RaiseDataMemberChanging("Region");
                     this.ValidateProperty("Region", value);
                     this._region = value;
+                    this._regionInitialized = true;
                     this.RaiseDataMemberChanged("Region");
                     this.OnRegionChanged();
                 }
@@ -351,6 +387,8 @@ namespace DataTests.Inheritance.LTS
     {
         
         private string _phone;
+        
+        private bool _phoneInitialized;
         
         #region Extensibility Method Definitions
 
@@ -388,12 +426,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._phone != value))
+                if (((this._phone != value) 
+                            || (this._phoneInitialized == false)))
                 {
                     this.OnPhoneChanging(value);
                     this.RaiseDataMemberChanging("Phone");
                     this.ValidateProperty("Phone", value);
                     this._phone = value;
+                    this._phoneInitialized = true;
                     this.RaiseDataMemberChanged("Phone");
                     this.OnPhoneChanged();
                 }
@@ -409,6 +449,8 @@ namespace DataTests.Inheritance.LTS
     {
         
         private string _fax;
+        
+        private bool _faxInitialized;
         
         #region Extensibility Method Definitions
 
@@ -446,12 +488,14 @@ namespace DataTests.Inheritance.LTS
             }
             set
             {
-                if ((this._fax != value))
+                if (((this._fax != value) 
+                            || (this._faxInitialized == false)))
                 {
                     this.OnFaxChanging(value);
                     this.RaiseDataMemberChanging("Fax");
                     this.ValidateProperty("Fax", value);
                     this._fax = value;
+                    this._faxInitialized = true;
                     this.RaiseDataMemberChanged("Fax");
                     this.OnFaxChanged();
                 }

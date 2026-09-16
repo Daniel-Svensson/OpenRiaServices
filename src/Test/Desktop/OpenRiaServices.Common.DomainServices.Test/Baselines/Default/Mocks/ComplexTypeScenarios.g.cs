@@ -33,13 +33,23 @@ namespace TestDomainServices
         
         private string _addressLine1;
         
+        private bool _addressLine1Initialized;
+        
         private string _addressLine2;
+        
+        private bool _addressLine2Initialized;
         
         private string _city;
         
+        private bool _cityInitialized;
+        
         private string _state;
         
+        private bool _stateInitialized;
+        
         private string _zip;
+        
+        private bool _zipInitialized;
         
         #region Extensibility Method Definitions
 
@@ -82,12 +92,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._addressLine1 != value))
+                if (((this._addressLine1 != value) 
+                            || (this._addressLine1Initialized == false)))
                 {
                     this.OnAddressLine1Changing(value);
                     this.RaiseDataMemberChanging("AddressLine1");
                     this.ValidateProperty("AddressLine1", value);
                     this._addressLine1 = value;
+                    this._addressLine1Initialized = true;
                     this.RaiseDataMemberChanged("AddressLine1");
                     this.OnAddressLine1Changed();
                 }
@@ -106,12 +118,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._addressLine2 != value))
+                if (((this._addressLine2 != value) 
+                            || (this._addressLine2Initialized == false)))
                 {
                     this.OnAddressLine2Changing(value);
                     this.RaiseDataMemberChanging("AddressLine2");
                     this.ValidateProperty("AddressLine2", value);
                     this._addressLine2 = value;
+                    this._addressLine2Initialized = true;
                     this.RaiseDataMemberChanged("AddressLine2");
                     this.OnAddressLine2Changed();
                 }
@@ -130,12 +144,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._city != value))
+                if (((this._city != value) 
+                            || (this._cityInitialized == false)))
                 {
                     this.OnCityChanging(value);
                     this.RaiseDataMemberChanging("City");
                     this.ValidateProperty("City", value);
                     this._city = value;
+                    this._cityInitialized = true;
                     this.RaiseDataMemberChanged("City");
                     this.OnCityChanged();
                 }
@@ -155,12 +171,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._state != value))
+                if (((this._state != value) 
+                            || (this._stateInitialized == false)))
                 {
                     this.OnStateChanging(value);
                     this.RaiseDataMemberChanging("State");
                     this.ValidateProperty("State", value);
                     this._state = value;
+                    this._stateInitialized = true;
                     this.RaiseDataMemberChanged("State");
                     this.OnStateChanged();
                 }
@@ -180,12 +198,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._zip != value))
+                if (((this._zip != value) 
+                            || (this._zipInitialized == false)))
                 {
                     this.OnZipChanging(value);
                     this.RaiseDataMemberChanging("Zip");
                     this.ValidateProperty("Zip", value);
                     this._zip = value;
+                    this._zipInitialized = true;
                     this.RaiseDataMemberChanged("Zip");
                     this.OnZipChanged();
                 }
@@ -342,6 +362,8 @@ namespace TestDomainServices
         
         private ContactInfo _contactInfo;
         
+        private bool _contactInfoInitialized;
+        
         private int _id;
         
         #region Extensibility Method Definitions
@@ -383,12 +405,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._contactInfo != value))
+                if (((this._contactInfo != value) 
+                            || (this._contactInfoInitialized == false)))
                 {
                     this.OnContactInfoChanging(value);
                     this.RaiseDataMemberChanging("ContactInfo");
                     this.ValidateProperty("ContactInfo", value);
                     this._contactInfo = value;
+                    this._contactInfoInitialized = true;
                     this.RaiseDataMemberChanged("ContactInfo");
                     this.OnContactInfoChanged();
                 }
@@ -475,6 +499,8 @@ namespace TestDomainServices
         
         private ComplexInheritance_Child _child;
         
+        private bool _childInitialized;
+        
         #region Extensibility Method Definitions
 
         /// <summary>
@@ -511,12 +537,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._child != value))
+                if (((this._child != value) 
+                            || (this._childInitialized == false)))
                 {
                     this.OnChildChanging(value);
                     this.RaiseDataMemberChanging("Child");
                     this.ValidateProperty("Child", value);
                     this._child = value;
+                    this._childInitialized = true;
                     this.RaiseDataMemberChanged("Child");
                     this.OnChildChanged();
                 }
@@ -1414,9 +1442,15 @@ namespace TestDomainServices
         
         private Address _homeAddress;
         
+        private bool _homeAddressInitialized;
+        
         private string _name;
         
+        private bool _nameInitialized;
+        
         private Phone _primaryPhone;
+        
+        private bool _primaryPhoneInitialized;
         
         #region Extensibility Method Definitions
 
@@ -1456,12 +1490,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._homeAddress != value))
+                if (((this._homeAddress != value) 
+                            || (this._homeAddressInitialized == false)))
                 {
                     this.OnHomeAddressChanging(value);
                     this.RaiseDataMemberChanging("HomeAddress");
                     this.ValidateProperty("HomeAddress", value);
                     this._homeAddress = value;
+                    this._homeAddressInitialized = true;
                     this.RaiseDataMemberChanged("HomeAddress");
                     this.OnHomeAddressChanged();
                 }
@@ -1480,12 +1516,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._name != value))
+                if (((this._name != value) 
+                            || (this._nameInitialized == false)))
                 {
                     this.OnNameChanging(value);
                     this.RaiseDataMemberChanging("Name");
                     this.ValidateProperty("Name", value);
                     this._name = value;
+                    this._nameInitialized = true;
                     this.RaiseDataMemberChanged("Name");
                     this.OnNameChanged();
                 }
@@ -1505,12 +1543,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._primaryPhone != value))
+                if (((this._primaryPhone != value) 
+                            || (this._primaryPhoneInitialized == false)))
                 {
                     this.OnPrimaryPhoneChanging(value);
                     this.RaiseDataMemberChanging("PrimaryPhone");
                     this.ValidateProperty("PrimaryPhone", value);
                     this._primaryPhone = value;
+                    this._primaryPhoneInitialized = true;
                     this.RaiseDataMemberChanged("PrimaryPhone");
                     this.OnPrimaryPhoneChanged();
                 }
@@ -1529,7 +1569,11 @@ namespace TestDomainServices
         
         private string _areaCode;
         
+        private bool _areaCodeInitialized;
+        
         private string _number;
+        
+        private bool _numberInitialized;
         
         #region Extensibility Method Definitions
 
@@ -1568,12 +1612,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._areaCode != value))
+                if (((this._areaCode != value) 
+                            || (this._areaCodeInitialized == false)))
                 {
                     this.OnAreaCodeChanging(value);
                     this.RaiseDataMemberChanging("AreaCode");
                     this.ValidateProperty("AreaCode", value);
                     this._areaCode = value;
+                    this._areaCodeInitialized = true;
                     this.RaiseDataMemberChanged("AreaCode");
                     this.OnAreaCodeChanged();
                 }
@@ -1593,12 +1639,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._number != value))
+                if (((this._number != value) 
+                            || (this._numberInitialized == false)))
                 {
                     this.OnNumberChanging(value);
                     this.RaiseDataMemberChanging("Number");
                     this.ValidateProperty("Number", value);
                     this._number = value;
+                    this._numberInitialized = true;
                     this.RaiseDataMemberChanged("Number");
                     this.OnNumberChanged();
                 }

@@ -446,7 +446,11 @@ namespace RootNamespace.TestNamespace
         
         private string _name = string.Empty;
         
+        private bool _nameInitialized;
+        
         private global::System.Collections.Generic.IEnumerable<string> _roles;
+        
+        private bool _rolesInitialized;
         
         #region Extensibility Method Definitions
 
@@ -486,11 +490,13 @@ namespace RootNamespace.TestNamespace
             }
             set
             {
-                if ((this._name != value))
+                if (((this._name != value) 
+                            || (this._nameInitialized == false)))
                 {
                     this.OnNameChanging(value);
                     this.ValidateProperty("Name", value);
                     this._name = value;
+                    this._nameInitialized = true;
                     this.RaisePropertyChanged("Name");
                     this.OnNameChanged();
                     this.RaisePropertyChanged("IsAuthenticated");
@@ -511,11 +517,13 @@ namespace RootNamespace.TestNamespace
             }
             set
             {
-                if ((this._roles != value))
+                if (((this._roles != value) 
+                            || (this._rolesInitialized == false)))
                 {
                     this.OnRolesChanging(value);
                     this.ValidateProperty("Roles", value);
                     this._roles = value;
+                    this._rolesInitialized = true;
                     this.RaisePropertyChanged("Roles");
                     this.OnRolesChanged();
                 }
@@ -597,7 +605,11 @@ namespace RootNamespace.TestNamespace
         
         private string _name = string.Empty;
         
+        private bool _nameInitialized;
+        
         private global::System.Collections.Generic.IEnumerable<string> _roles;
+        
+        private bool _rolesInitialized;
         
         #region Extensibility Method Definitions
 
@@ -637,11 +649,13 @@ namespace RootNamespace.TestNamespace
             }
             set
             {
-                if ((this._name != value))
+                if (((this._name != value) 
+                            || (this._nameInitialized == false)))
                 {
                     this.OnNameChanging(value);
                     this.ValidateProperty("Name", value);
                     this._name = value;
+                    this._nameInitialized = true;
                     this.RaisePropertyChanged("Name");
                     this.OnNameChanged();
                     this.RaisePropertyChanged("IsAuthenticated");
@@ -662,11 +676,13 @@ namespace RootNamespace.TestNamespace
             }
             set
             {
-                if ((this._roles != value))
+                if (((this._roles != value) 
+                            || (this._rolesInitialized == false)))
                 {
                     this.OnRolesChanging(value);
                     this.ValidateProperty("Roles", value);
                     this._roles = value;
+                    this._rolesInitialized = true;
                     this.RaisePropertyChanged("Roles");
                     this.OnRolesChanged();
                 }

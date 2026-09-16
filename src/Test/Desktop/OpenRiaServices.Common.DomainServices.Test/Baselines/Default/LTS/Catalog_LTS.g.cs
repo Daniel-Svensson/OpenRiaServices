@@ -39,19 +39,29 @@ namespace DataTests.AdventureWorks.LTS
         
         private string _gender;
         
+        private bool _genderInitialized;
+        
         private DateTime _hireDate;
         
         private string _loginID;
+        
+        private bool _loginIDInitialized;
         
         private EntityRef<Employee> _manager;
         
         private Nullable<int> _managerID;
         
+        private bool _managerIDInitialized;
+        
         private string _maritalStatus;
+        
+        private bool _maritalStatusInitialized;
         
         private DateTime _modifiedDate;
         
         private string _nationalIDNumber;
+        
+        private bool _nationalIDNumberInitialized;
         
         private EntityCollection<PurchaseOrder> _purchaseOrders;
         
@@ -64,6 +74,8 @@ namespace DataTests.AdventureWorks.LTS
         private short _sickLeaveHours;
         
         private string _title;
+        
+        private bool _titleInitialized;
         
         private short _vacationHours;
         
@@ -239,12 +251,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._gender != value))
+                if (((this._gender != value) 
+                            || (this._genderInitialized == false)))
                 {
                     this.OnGenderChanging(value);
                     this.RaiseDataMemberChanging("Gender");
                     this.ValidateProperty("Gender", value);
                     this._gender = value;
+                    this._genderInitialized = true;
                     this.RaiseDataMemberChanged("Gender");
                     this.OnGenderChanged();
                 }
@@ -293,12 +307,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._loginID != value))
+                if (((this._loginID != value) 
+                            || (this._loginIDInitialized == false)))
                 {
                     this.OnLoginIDChanging(value);
                     this.RaiseDataMemberChanging("LoginID");
                     this.ValidateProperty("LoginID", value);
                     this._loginID = value;
+                    this._loginIDInitialized = true;
                     this.RaiseDataMemberChanged("LoginID");
                     this.OnLoginIDChanged();
                 }
@@ -371,12 +387,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._managerID != value))
+                if (((this._managerID != value) 
+                            || (this._managerIDInitialized == false)))
                 {
                     this.OnManagerIDChanging(value);
                     this.RaiseDataMemberChanging("ManagerID");
                     this.ValidateProperty("ManagerID", value);
                     this._managerID = value;
+                    this._managerIDInitialized = true;
                     this.RaiseDataMemberChanged("ManagerID");
                     this.OnManagerIDChanged();
                 }
@@ -399,12 +417,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._maritalStatus != value))
+                if (((this._maritalStatus != value) 
+                            || (this._maritalStatusInitialized == false)))
                 {
                     this.OnMaritalStatusChanging(value);
                     this.RaiseDataMemberChanging("MaritalStatus");
                     this.ValidateProperty("MaritalStatus", value);
                     this._maritalStatus = value;
+                    this._maritalStatusInitialized = true;
                     this.RaiseDataMemberChanged("MaritalStatus");
                     this.OnMaritalStatusChanged();
                 }
@@ -453,12 +473,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._nationalIDNumber != value))
+                if (((this._nationalIDNumber != value) 
+                            || (this._nationalIDNumberInitialized == false)))
                 {
                     this.OnNationalIDNumberChanging(value);
                     this.RaiseDataMemberChanging("NationalIDNumber");
                     this.ValidateProperty("NationalIDNumber", value);
                     this._nationalIDNumber = value;
+                    this._nationalIDNumberInitialized = true;
                     this.RaiseDataMemberChanged("NationalIDNumber");
                     this.OnNationalIDNumberChanged();
                 }
@@ -591,12 +613,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._title != value))
+                if (((this._title != value) 
+                            || (this._titleInitialized == false)))
                 {
                     this.OnTitleChanging(value);
                     this.RaiseDataMemberChanging("Title");
                     this.ValidateProperty("Title", value);
                     this._title = value;
+                    this._titleInitialized = true;
                     this.RaiseDataMemberChanged("Title");
                     this.OnTitleChanged();
                 }
@@ -683,11 +707,17 @@ namespace DataTests.AdventureWorks.LTS
         
         private string _class;
         
+        private bool _classInitialized;
+        
         private string _color;
+        
+        private bool _colorInitialized;
         
         private int _daysToManufacture;
         
         private Nullable<DateTime> _discontinuedDate;
+        
+        private bool _discontinuedDateInitialized;
         
         private bool _finishedGoodsFlag;
         
@@ -699,15 +729,25 @@ namespace DataTests.AdventureWorks.LTS
         
         private string _name;
         
+        private bool _nameInitialized;
+        
         private int _productID;
         
         private string _productLine;
         
+        private bool _productLineInitialized;
+        
         private Nullable<int> _productModelID;
+        
+        private bool _productModelIDInitialized;
         
         private string _productNumber;
         
+        private bool _productNumberInitialized;
+        
         private Nullable<int> _productSubcategoryID;
+        
+        private bool _productSubcategoryIDInitialized;
         
         private EntityCollection<PurchaseOrderDetail> _purchaseOrderDetails;
         
@@ -717,19 +757,31 @@ namespace DataTests.AdventureWorks.LTS
         
         private Nullable<DateTime> _sellEndDate;
         
+        private bool _sellEndDateInitialized;
+        
         private DateTime _sellStartDate;
         
         private string _size;
         
+        private bool _sizeInitialized;
+        
         private string _sizeUnitMeasureCode;
+        
+        private bool _sizeUnitMeasureCodeInitialized;
         
         private decimal _standardCost;
         
         private string _style;
         
+        private bool _styleInitialized;
+        
         private Nullable<decimal> _weight;
         
+        private bool _weightInitialized;
+        
         private string _weightUnitMeasureCode;
+        
+        private bool _weightUnitMeasureCodeInitialized;
         
         #region Extensibility Method Definitions
 
@@ -813,12 +865,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._class != value))
+                if (((this._class != value) 
+                            || (this._classInitialized == false)))
                 {
                     this.OnClassChanging(value);
                     this.RaiseDataMemberChanging("Class");
                     this.ValidateProperty("Class", value);
                     this._class = value;
+                    this._classInitialized = true;
                     this.RaiseDataMemberChanged("Class");
                     this.OnClassChanged();
                 }
@@ -840,12 +894,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._color != value))
+                if (((this._color != value) 
+                            || (this._colorInitialized == false)))
                 {
                     this.OnColorChanging(value);
                     this.RaiseDataMemberChanging("Color");
                     this.ValidateProperty("Color", value);
                     this._color = value;
+                    this._colorInitialized = true;
                     this.RaiseDataMemberChanged("Color");
                     this.OnColorChanged();
                 }
@@ -892,12 +948,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._discontinuedDate != value))
+                if (((this._discontinuedDate != value) 
+                            || (this._discontinuedDateInitialized == false)))
                 {
                     this.OnDiscontinuedDateChanging(value);
                     this.RaiseDataMemberChanging("DiscontinuedDate");
                     this.ValidateProperty("DiscontinuedDate", value);
                     this._discontinuedDate = value;
+                    this._discontinuedDateInitialized = true;
                     this.RaiseDataMemberChanged("DiscontinuedDate");
                     this.OnDiscontinuedDateChanged();
                 }
@@ -1024,12 +1082,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._name != value))
+                if (((this._name != value) 
+                            || (this._nameInitialized == false)))
                 {
                     this.OnNameChanging(value);
                     this.RaiseDataMemberChanging("Name");
                     this.ValidateProperty("Name", value);
                     this._name = value;
+                    this._nameInitialized = true;
                     this.RaiseDataMemberChanged("Name");
                     this.OnNameChanged();
                 }
@@ -1078,12 +1138,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._productLine != value))
+                if (((this._productLine != value) 
+                            || (this._productLineInitialized == false)))
                 {
                     this.OnProductLineChanging(value);
                     this.RaiseDataMemberChanging("ProductLine");
                     this.ValidateProperty("ProductLine", value);
                     this._productLine = value;
+                    this._productLineInitialized = true;
                     this.RaiseDataMemberChanged("ProductLine");
                     this.OnProductLineChanged();
                 }
@@ -1104,12 +1166,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._productModelID != value))
+                if (((this._productModelID != value) 
+                            || (this._productModelIDInitialized == false)))
                 {
                     this.OnProductModelIDChanging(value);
                     this.RaiseDataMemberChanging("ProductModelID");
                     this.ValidateProperty("ProductModelID", value);
                     this._productModelID = value;
+                    this._productModelIDInitialized = true;
                     this.RaiseDataMemberChanged("ProductModelID");
                     this.OnProductModelIDChanged();
                 }
@@ -1132,12 +1196,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._productNumber != value))
+                if (((this._productNumber != value) 
+                            || (this._productNumberInitialized == false)))
                 {
                     this.OnProductNumberChanging(value);
                     this.RaiseDataMemberChanging("ProductNumber");
                     this.ValidateProperty("ProductNumber", value);
                     this._productNumber = value;
+                    this._productNumberInitialized = true;
                     this.RaiseDataMemberChanged("ProductNumber");
                     this.OnProductNumberChanged();
                 }
@@ -1158,12 +1224,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._productSubcategoryID != value))
+                if (((this._productSubcategoryID != value) 
+                            || (this._productSubcategoryIDInitialized == false)))
                 {
                     this.OnProductSubcategoryIDChanging(value);
                     this.RaiseDataMemberChanging("ProductSubcategoryID");
                     this.ValidateProperty("ProductSubcategoryID", value);
                     this._productSubcategoryID = value;
+                    this._productSubcategoryIDInitialized = true;
                     this.RaiseDataMemberChanged("ProductSubcategoryID");
                     this.OnProductSubcategoryIDChanged();
                 }
@@ -1252,12 +1320,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._sellEndDate != value))
+                if (((this._sellEndDate != value) 
+                            || (this._sellEndDateInitialized == false)))
                 {
                     this.OnSellEndDateChanging(value);
                     this.RaiseDataMemberChanging("SellEndDate");
                     this.ValidateProperty("SellEndDate", value);
                     this._sellEndDate = value;
+                    this._sellEndDateInitialized = true;
                     this.RaiseDataMemberChanged("SellEndDate");
                     this.OnSellEndDateChanged();
                 }
@@ -1305,12 +1375,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._size != value))
+                if (((this._size != value) 
+                            || (this._sizeInitialized == false)))
                 {
                     this.OnSizeChanging(value);
                     this.RaiseDataMemberChanging("Size");
                     this.ValidateProperty("Size", value);
                     this._size = value;
+                    this._sizeInitialized = true;
                     this.RaiseDataMemberChanged("Size");
                     this.OnSizeChanged();
                 }
@@ -1332,12 +1404,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._sizeUnitMeasureCode != value))
+                if (((this._sizeUnitMeasureCode != value) 
+                            || (this._sizeUnitMeasureCodeInitialized == false)))
                 {
                     this.OnSizeUnitMeasureCodeChanging(value);
                     this.RaiseDataMemberChanging("SizeUnitMeasureCode");
                     this.ValidateProperty("SizeUnitMeasureCode", value);
                     this._sizeUnitMeasureCode = value;
+                    this._sizeUnitMeasureCodeInitialized = true;
                     this.RaiseDataMemberChanged("SizeUnitMeasureCode");
                     this.OnSizeUnitMeasureCodeChanged();
                 }
@@ -1385,12 +1459,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._style != value))
+                if (((this._style != value) 
+                            || (this._styleInitialized == false)))
                 {
                     this.OnStyleChanging(value);
                     this.RaiseDataMemberChanging("Style");
                     this.ValidateProperty("Style", value);
                     this._style = value;
+                    this._styleInitialized = true;
                     this.RaiseDataMemberChanged("Style");
                     this.OnStyleChanged();
                 }
@@ -1411,12 +1487,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._weight != value))
+                if (((this._weight != value) 
+                            || (this._weightInitialized == false)))
                 {
                     this.OnWeightChanging(value);
                     this.RaiseDataMemberChanging("Weight");
                     this.ValidateProperty("Weight", value);
                     this._weight = value;
+                    this._weightInitialized = true;
                     this.RaiseDataMemberChanged("Weight");
                     this.OnWeightChanged();
                 }
@@ -1438,12 +1516,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._weightUnitMeasureCode != value))
+                if (((this._weightUnitMeasureCode != value) 
+                            || (this._weightUnitMeasureCodeInitialized == false)))
                 {
                     this.OnWeightUnitMeasureCodeChanging(value);
                     this.RaiseDataMemberChanging("WeightUnitMeasureCode");
                     this.ValidateProperty("WeightUnitMeasureCode", value);
                     this._weightUnitMeasureCode = value;
+                    this._weightUnitMeasureCodeInitialized = true;
                     this.RaiseDataMemberChanged("WeightUnitMeasureCode");
                     this.OnWeightUnitMeasureCodeChanged();
                 }
@@ -1499,6 +1579,8 @@ namespace DataTests.AdventureWorks.LTS
         private byte _revisionNumber;
         
         private Nullable<DateTime> _shipDate;
+        
+        private bool _shipDateInitialized;
         
         private int _shipMethodID;
         
@@ -1796,12 +1878,14 @@ namespace DataTests.AdventureWorks.LTS
             }
             set
             {
-                if ((this._shipDate != value))
+                if (((this._shipDate != value) 
+                            || (this._shipDateInitialized == false)))
                 {
                     this.OnShipDateChanging(value);
                     this.RaiseDataMemberChanging("ShipDate");
                     this.ValidateProperty("ShipDate", value);
                     this._shipDate = value;
+                    this._shipDateInitialized = true;
                     this.RaiseDataMemberChanged("ShipDate");
                     this.OnShipDateChanged();
                 }

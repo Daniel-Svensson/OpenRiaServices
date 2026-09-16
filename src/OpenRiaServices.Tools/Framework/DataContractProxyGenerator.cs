@@ -431,6 +431,7 @@ namespace OpenRiaServices.Tools
         {
             string propertyName = propertyDescriptor.Name;
             Type propertyType = CodeGenUtilities.TranslateType(propertyDescriptor.PropertyType);
+            bool trackPropertyInitialization = ShouldTrackPropertyInitialization(propertyType);
 
             // ----------------------------------------------------------------
             // Property type ref
@@ -512,6 +513,13 @@ namespace OpenRiaServices.Tools
             this.ProxyClass.Members.Add(field);
             var fieldRef = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldName);
             var valueRef = new CodePropertySetValueReferenceExpression();
+            CodeFieldReferenceExpression fieldInitializedRef = null;
+            if (trackPropertyInitialization)
+            {
+                var fieldInitialized = new CodeMemberField(typeof(bool), fieldName + "Initialized");
+                this.ProxyClass.Members.Add(fieldInitialized);
+                fieldInitializedRef = new CodeFieldReferenceExpression(new CodeThisReferenceExpression(), fieldInitialized.Name);
+            }
 
             // ----------------------------------------------------------------
             // getter body
@@ -538,6 +546,10 @@ namespace OpenRiaServices.Tools
 
             // this._field = value
             bodyStatements.Add(new CodeAssignStatement(fieldRef, valueRef));
+            if (trackPropertyInitialization)
+            {
+                bodyStatements.Add(new CodeAssignStatement(fieldInitializedRef, new CodePrimitiveExpression(true)));
+            }
 
             if (!propertyIsReadOnly)
             {
@@ -554,6 +566,13 @@ namespace OpenRiaServices.Tools
 
             // if (this._field != value)...
             CodeExpression valueTest = CodeGenUtilities.MakeNotEqual(propertyType, fieldRef, valueRef, this.ClientProxyGenerator.IsCSharp);
+            if (trackPropertyInitialization)
+            {
+                valueTest = new CodeBinaryOperatorExpression(
+                    valueTest,
+                    CodeBinaryOperatorType.BooleanOr,
+                    new CodeBinaryOperatorExpression(fieldInitializedRef, CodeBinaryOperatorType.ValueEquality, new CodePrimitiveExpression(false)));
+            }
 
             CodeConditionStatement body = new CodeConditionStatement(valueTest, bodyStatements.ToArray<CodeStatement>());
 
@@ -561,6 +580,11 @@ namespace OpenRiaServices.Tools
 
             // add property
             this.ProxyClass.Members.Add(property);
+        }
+
+        private static bool ShouldTrackPropertyInitialization(Type propertyType)
+        {
+            return !propertyType.IsValueType || Nullable.GetUnderlyingType(propertyType) != null;
         }
 
         /// <summary>

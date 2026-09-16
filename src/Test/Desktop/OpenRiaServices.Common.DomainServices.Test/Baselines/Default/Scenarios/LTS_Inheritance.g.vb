@@ -38,21 +38,39 @@ Namespace DataTests.Inheritance.LTS
         
         Private _address As String
         
+        Private _addressInitialized As Boolean
+        
         Private _city As String
+        
+        Private _cityInitialized As Boolean
         
         Private _companyName As String
         
+        Private _companyNameInitialized As Boolean
+        
         Private _contactName As String
+        
+        Private _contactNameInitialized As Boolean
         
         Private _contactTitle As String
         
+        Private _contactTitleInitialized As Boolean
+        
         Private _country As String
+        
+        Private _countryInitialized As Boolean
         
         Private _customerID As String
         
+        Private _customerIDInitialized As Boolean
+        
         Private _postalCode As String
         
+        Private _postalCodeInitialized As Boolean
+        
         Private _region As String
+        
+        Private _regionInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -122,11 +140,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._address
             End Get
             Set
-                If (String.Equals(Me._address, value) = false) Then
+                If ((String.Equals(Me._address, value) = false)  _
+                            OrElse (Me._addressInitialized = false)) Then
                     Me.OnAddressChanging(value)
                     Me.RaiseDataMemberChanging("Address")
                     Me.ValidateProperty("Address", value)
                     Me._address = value
+                    Me._addressInitialized = true
                     Me.RaiseDataMemberChanged("Address")
                     Me.OnAddressChanged
                 End If
@@ -145,11 +165,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._city
             End Get
             Set
-                If (String.Equals(Me._city, value) = false) Then
+                If ((String.Equals(Me._city, value) = false)  _
+                            OrElse (Me._cityInitialized = false)) Then
                     Me.OnCityChanging(value)
                     Me.RaiseDataMemberChanging("City")
                     Me.ValidateProperty("City", value)
                     Me._city = value
+                    Me._cityInitialized = true
                     Me.RaiseDataMemberChanged("City")
                     Me.OnCityChanged
                 End If
@@ -169,11 +191,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._companyName
             End Get
             Set
-                If (String.Equals(Me._companyName, value) = false) Then
+                If ((String.Equals(Me._companyName, value) = false)  _
+                            OrElse (Me._companyNameInitialized = false)) Then
                     Me.OnCompanyNameChanging(value)
                     Me.RaiseDataMemberChanging("CompanyName")
                     Me.ValidateProperty("CompanyName", value)
                     Me._companyName = value
+                    Me._companyNameInitialized = true
                     Me.RaiseDataMemberChanged("CompanyName")
                     Me.OnCompanyNameChanged
                 End If
@@ -192,11 +216,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._contactName
             End Get
             Set
-                If (String.Equals(Me._contactName, value) = false) Then
+                If ((String.Equals(Me._contactName, value) = false)  _
+                            OrElse (Me._contactNameInitialized = false)) Then
                     Me.OnContactNameChanging(value)
                     Me.RaiseDataMemberChanging("ContactName")
                     Me.ValidateProperty("ContactName", value)
                     Me._contactName = value
+                    Me._contactNameInitialized = true
                     Me.RaiseDataMemberChanged("ContactName")
                     Me.OnContactNameChanged
                 End If
@@ -215,11 +241,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._contactTitle
             End Get
             Set
-                If (String.Equals(Me._contactTitle, value) = false) Then
+                If ((String.Equals(Me._contactTitle, value) = false)  _
+                            OrElse (Me._contactTitleInitialized = false)) Then
                     Me.OnContactTitleChanging(value)
                     Me.RaiseDataMemberChanging("ContactTitle")
                     Me.ValidateProperty("ContactTitle", value)
                     Me._contactTitle = value
+                    Me._contactTitleInitialized = true
                     Me.RaiseDataMemberChanged("ContactTitle")
                     Me.OnContactTitleChanged
                 End If
@@ -238,11 +266,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._country
             End Get
             Set
-                If (String.Equals(Me._country, value) = false) Then
+                If ((String.Equals(Me._country, value) = false)  _
+                            OrElse (Me._countryInitialized = false)) Then
                     Me.OnCountryChanging(value)
                     Me.RaiseDataMemberChanging("Country")
                     Me.ValidateProperty("Country", value)
                     Me._country = value
+                    Me._countryInitialized = true
                     Me.RaiseDataMemberChanged("Country")
                     Me.OnCountryChanged
                 End If
@@ -264,10 +294,12 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._customerID
             End Get
             Set
-                If (String.Equals(Me._customerID, value) = false) Then
+                If ((String.Equals(Me._customerID, value) = false)  _
+                            OrElse (Me._customerIDInitialized = false)) Then
                     Me.OnCustomerIDChanging(value)
                     Me.ValidateProperty("CustomerID", value)
                     Me._customerID = value
+                    Me._customerIDInitialized = true
                     Me.RaisePropertyChanged("CustomerID")
                     Me.OnCustomerIDChanged
                 End If
@@ -286,11 +318,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._postalCode
             End Get
             Set
-                If (String.Equals(Me._postalCode, value) = false) Then
+                If ((String.Equals(Me._postalCode, value) = false)  _
+                            OrElse (Me._postalCodeInitialized = false)) Then
                     Me.OnPostalCodeChanging(value)
                     Me.RaiseDataMemberChanging("PostalCode")
                     Me.ValidateProperty("PostalCode", value)
                     Me._postalCode = value
+                    Me._postalCodeInitialized = true
                     Me.RaiseDataMemberChanged("PostalCode")
                     Me.OnPostalCodeChanged
                 End If
@@ -309,11 +343,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._region
             End Get
             Set
-                If (String.Equals(Me._region, value) = false) Then
+                If ((String.Equals(Me._region, value) = false)  _
+                            OrElse (Me._regionInitialized = false)) Then
                     Me.OnRegionChanging(value)
                     Me.RaiseDataMemberChanging("Region")
                     Me.ValidateProperty("Region", value)
                     Me._region = value
+                    Me._regionInitialized = true
                     Me.RaiseDataMemberChanged("Region")
                     Me.OnRegionChanged
                 End If
@@ -337,6 +373,8 @@ Namespace DataTests.Inheritance.LTS
         Inherits A
         
         Private _phone As String
+        
+        Private _phoneInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -374,11 +412,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._phone
             End Get
             Set
-                If (String.Equals(Me._phone, value) = false) Then
+                If ((String.Equals(Me._phone, value) = false)  _
+                            OrElse (Me._phoneInitialized = false)) Then
                     Me.OnPhoneChanging(value)
                     Me.RaiseDataMemberChanging("Phone")
                     Me.ValidateProperty("Phone", value)
                     Me._phone = value
+                    Me._phoneInitialized = true
                     Me.RaiseDataMemberChanged("Phone")
                     Me.OnPhoneChanged
                 End If
@@ -394,6 +434,8 @@ Namespace DataTests.Inheritance.LTS
         Inherits A
         
         Private _fax As String
+        
+        Private _faxInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -431,11 +473,13 @@ Namespace DataTests.Inheritance.LTS
                 Return Me._fax
             End Get
             Set
-                If (String.Equals(Me._fax, value) = false) Then
+                If ((String.Equals(Me._fax, value) = false)  _
+                            OrElse (Me._faxInitialized = false)) Then
                     Me.OnFaxChanging(value)
                     Me.RaiseDataMemberChanging("Fax")
                     Me.ValidateProperty("Fax", value)
                     Me._fax = value
+                    Me._faxInitialized = true
                     Me.RaiseDataMemberChanged("Fax")
                     Me.OnFaxChanged
                 End If

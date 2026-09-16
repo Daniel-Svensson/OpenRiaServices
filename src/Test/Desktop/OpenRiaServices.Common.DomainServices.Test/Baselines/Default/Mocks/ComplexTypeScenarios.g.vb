@@ -37,13 +37,23 @@ Namespace TestDomainServices
         
         Private _addressLine1 As String
         
+        Private _addressLine1Initialized As Boolean
+        
         Private _addressLine2 As String
+        
+        Private _addressLine2Initialized As Boolean
         
         Private _city As String
         
+        Private _cityInitialized As Boolean
+        
         Private _state As String
         
+        Private _stateInitialized As Boolean
+        
         Private _zip As String
+        
+        Private _zipInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -94,11 +104,13 @@ Namespace TestDomainServices
                 Return Me._addressLine1
             End Get
             Set
-                If (String.Equals(Me._addressLine1, value) = false) Then
+                If ((String.Equals(Me._addressLine1, value) = false)  _
+                            OrElse (Me._addressLine1Initialized = false)) Then
                     Me.OnAddressLine1Changing(value)
                     Me.RaiseDataMemberChanging("AddressLine1")
                     Me.ValidateProperty("AddressLine1", value)
                     Me._addressLine1 = value
+                    Me._addressLine1Initialized = true
                     Me.RaiseDataMemberChanged("AddressLine1")
                     Me.OnAddressLine1Changed
                 End If
@@ -114,11 +126,13 @@ Namespace TestDomainServices
                 Return Me._addressLine2
             End Get
             Set
-                If (String.Equals(Me._addressLine2, value) = false) Then
+                If ((String.Equals(Me._addressLine2, value) = false)  _
+                            OrElse (Me._addressLine2Initialized = false)) Then
                     Me.OnAddressLine2Changing(value)
                     Me.RaiseDataMemberChanging("AddressLine2")
                     Me.ValidateProperty("AddressLine2", value)
                     Me._addressLine2 = value
+                    Me._addressLine2Initialized = true
                     Me.RaiseDataMemberChanged("AddressLine2")
                     Me.OnAddressLine2Changed
                 End If
@@ -134,11 +148,13 @@ Namespace TestDomainServices
                 Return Me._city
             End Get
             Set
-                If (String.Equals(Me._city, value) = false) Then
+                If ((String.Equals(Me._city, value) = false)  _
+                            OrElse (Me._cityInitialized = false)) Then
                     Me.OnCityChanging(value)
                     Me.RaiseDataMemberChanging("City")
                     Me.ValidateProperty("City", value)
                     Me._city = value
+                    Me._cityInitialized = true
                     Me.RaiseDataMemberChanged("City")
                     Me.OnCityChanged
                 End If
@@ -155,11 +171,13 @@ Namespace TestDomainServices
                 Return Me._state
             End Get
             Set
-                If (String.Equals(Me._state, value) = false) Then
+                If ((String.Equals(Me._state, value) = false)  _
+                            OrElse (Me._stateInitialized = false)) Then
                     Me.OnStateChanging(value)
                     Me.RaiseDataMemberChanging("State")
                     Me.ValidateProperty("State", value)
                     Me._state = value
+                    Me._stateInitialized = true
                     Me.RaiseDataMemberChanged("State")
                     Me.OnStateChanged
                 End If
@@ -176,11 +194,13 @@ Namespace TestDomainServices
                 Return Me._zip
             End Get
             Set
-                If (String.Equals(Me._zip, value) = false) Then
+                If ((String.Equals(Me._zip, value) = false)  _
+                            OrElse (Me._zipInitialized = false)) Then
                     Me.OnZipChanging(value)
                     Me.RaiseDataMemberChanging("Zip")
                     Me.ValidateProperty("Zip", value)
                     Me._zip = value
+                    Me._zipInitialized = true
                     Me.RaiseDataMemberChanged("Zip")
                     Me.OnZipChanged
                 End If
@@ -334,6 +354,8 @@ Namespace TestDomainServices
         
         Private _contactInfo As ContactInfo
         
+        Private _contactInfoInitialized As Boolean
+        
         Private _id As Integer
         
         #Region "Extensibility Method Definitions"
@@ -384,11 +406,13 @@ Namespace TestDomainServices
                 Return Me._contactInfo
             End Get
             Set
-                If (Object.Equals(Me._contactInfo, value) = false) Then
+                If ((Object.Equals(Me._contactInfo, value) = false)  _
+                            OrElse (Me._contactInfoInitialized = false)) Then
                     Me.OnContactInfoChanging(value)
                     Me.RaiseDataMemberChanging("ContactInfo")
                     Me.ValidateProperty("ContactInfo", value)
                     Me._contactInfo = value
+                    Me._contactInfoInitialized = true
                     Me.RaiseDataMemberChanged("ContactInfo")
                     Me.OnContactInfoChanged
                 End If
@@ -466,6 +490,8 @@ Namespace TestDomainServices
         
         Private _child As ComplexInheritance_Child
         
+        Private _childInitialized As Boolean
+        
         #Region "Extensibility Method Definitions"
 
         ''' <summary>
@@ -504,11 +530,13 @@ Namespace TestDomainServices
                 Return Me._child
             End Get
             Set
-                If (Object.Equals(Me._child, value) = false) Then
+                If ((Object.Equals(Me._child, value) = false)  _
+                            OrElse (Me._childInitialized = false)) Then
                     Me.OnChildChanging(value)
                     Me.RaiseDataMemberChanging("Child")
                     Me.ValidateProperty("Child", value)
                     Me._child = value
+                    Me._childInitialized = true
                     Me.RaiseDataMemberChanged("Child")
                     Me.OnChildChanged
                 End If
@@ -1363,9 +1391,15 @@ Namespace TestDomainServices
         
         Private _homeAddress As Address
         
+        Private _homeAddressInitialized As Boolean
+        
         Private _name As String
         
+        Private _nameInitialized As Boolean
+        
         Private _primaryPhone As Phone
+        
+        Private _primaryPhoneInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -1409,11 +1443,13 @@ Namespace TestDomainServices
                 Return Me._homeAddress
             End Get
             Set
-                If (Object.Equals(Me._homeAddress, value) = false) Then
+                If ((Object.Equals(Me._homeAddress, value) = false)  _
+                            OrElse (Me._homeAddressInitialized = false)) Then
                     Me.OnHomeAddressChanging(value)
                     Me.RaiseDataMemberChanging("HomeAddress")
                     Me.ValidateProperty("HomeAddress", value)
                     Me._homeAddress = value
+                    Me._homeAddressInitialized = true
                     Me.RaiseDataMemberChanged("HomeAddress")
                     Me.OnHomeAddressChanged
                 End If
@@ -1429,11 +1465,13 @@ Namespace TestDomainServices
                 Return Me._name
             End Get
             Set
-                If (String.Equals(Me._name, value) = false) Then
+                If ((String.Equals(Me._name, value) = false)  _
+                            OrElse (Me._nameInitialized = false)) Then
                     Me.OnNameChanging(value)
                     Me.RaiseDataMemberChanging("Name")
                     Me.ValidateProperty("Name", value)
                     Me._name = value
+                    Me._nameInitialized = true
                     Me.RaiseDataMemberChanged("Name")
                     Me.OnNameChanged
                 End If
@@ -1450,11 +1488,13 @@ Namespace TestDomainServices
                 Return Me._primaryPhone
             End Get
             Set
-                If (Object.Equals(Me._primaryPhone, value) = false) Then
+                If ((Object.Equals(Me._primaryPhone, value) = false)  _
+                            OrElse (Me._primaryPhoneInitialized = false)) Then
                     Me.OnPrimaryPhoneChanging(value)
                     Me.RaiseDataMemberChanging("PrimaryPhone")
                     Me.ValidateProperty("PrimaryPhone", value)
                     Me._primaryPhone = value
+                    Me._primaryPhoneInitialized = true
                     Me.RaiseDataMemberChanged("PrimaryPhone")
                     Me.OnPrimaryPhoneChanged
                 End If
@@ -1478,7 +1518,11 @@ Namespace TestDomainServices
         
         Private _areaCode As String
         
+        Private _areaCodeInitialized As Boolean
+        
         Private _number As String
+        
+        Private _numberInitialized As Boolean
         
         #Region "Extensibility Method Definitions"
 
@@ -1519,11 +1563,13 @@ Namespace TestDomainServices
                 Return Me._areaCode
             End Get
             Set
-                If (String.Equals(Me._areaCode, value) = false) Then
+                If ((String.Equals(Me._areaCode, value) = false)  _
+                            OrElse (Me._areaCodeInitialized = false)) Then
                     Me.OnAreaCodeChanging(value)
                     Me.RaiseDataMemberChanging("AreaCode")
                     Me.ValidateProperty("AreaCode", value)
                     Me._areaCode = value
+                    Me._areaCodeInitialized = true
                     Me.RaiseDataMemberChanged("AreaCode")
                     Me.OnAreaCodeChanged
                 End If
@@ -1540,11 +1586,13 @@ Namespace TestDomainServices
                 Return Me._number
             End Get
             Set
-                If (String.Equals(Me._number, value) = false) Then
+                If ((String.Equals(Me._number, value) = false)  _
+                            OrElse (Me._numberInitialized = false)) Then
                     Me.OnNumberChanging(value)
                     Me.RaiseDataMemberChanging("Number")
                     Me.ValidateProperty("Number", value)
                     Me._number = value
+                    Me._numberInitialized = true
                     Me.RaiseDataMemberChanged("Number")
                     Me.OnNumberChanged
                 End If

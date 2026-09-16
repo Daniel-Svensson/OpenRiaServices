@@ -34,6 +34,8 @@ namespace TestDomainServices
         
         private XElement _xElem;
         
+        private bool _xElemInitialized;
+        
         #region Extensibility Method Definitions
 
         /// <summary>
@@ -99,12 +101,14 @@ namespace TestDomainServices
             }
             set
             {
-                if ((this._xElem != value))
+                if (((this._xElem != value) 
+                            || (this._xElemInitialized == false)))
                 {
                     this.OnXElemChanging(value);
                     this.RaiseDataMemberChanging("XElem");
                     this.ValidateProperty("XElem", value);
                     this._xElem = value;
+                    this._xElemInitialized = true;
                     this.RaiseDataMemberChanged("XElem");
                     this.OnXElemChanged();
                 }

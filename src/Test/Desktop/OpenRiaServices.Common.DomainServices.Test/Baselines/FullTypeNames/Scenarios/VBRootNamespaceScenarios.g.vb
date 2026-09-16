@@ -785,6 +785,8 @@ Namespace VBRootNamespaceTest3
         
         Private _complexProp As Global.VBRootNamespaceTest.VBRootNamespaceTest3.ComplexType
         
+        Private _complexPropInitialized As Boolean
+        
         Private _key As Integer
         
         #Region "Extensibility Method Definitions"
@@ -825,11 +827,13 @@ Namespace VBRootNamespaceTest3
                 Return Me._complexProp
             End Get
             Set
-                If (Object.Equals(Me._complexProp, value) = false) Then
+                If ((Object.Equals(Me._complexProp, value) = false)  _
+                            OrElse (Me._complexPropInitialized = false)) Then
                     Me.OnComplexPropChanging(value)
                     Me.RaiseDataMemberChanging("ComplexProp")
                     Me.ValidateProperty("ComplexProp", value)
                     Me._complexProp = value
+                    Me._complexPropInitialized = true
                     Me.RaiseDataMemberChanged("ComplexProp")
                     Me.OnComplexPropChanged
                 End If

@@ -244,6 +244,8 @@ namespace TestDomainServices.TypeNameConflictResolution
         
         private string _name;
         
+        private bool _nameInitialized;
+        
         #region Extensibility Method Definitions
 
         /// <summary>
@@ -280,11 +282,13 @@ namespace TestDomainServices.TypeNameConflictResolution
             }
             set
             {
-                if ((this._name != value))
+                if (((this._name != value) 
+                            || (this._nameInitialized == false)))
                 {
                     this.OnNameChanging(value);
                     this.ValidateProperty("Name", value);
                     this._name = value;
+                    this._nameInitialized = true;
                     this.RaisePropertyChanged("Name");
                     this.OnNameChanged();
                 }
