@@ -401,7 +401,9 @@ this.Write(";\r\n} \r\n");
 	
 	private void GeneratePropertySetter(PropertyDescriptor propertyDescriptor)
 	{
+		Type propertyType = CodeGenUtilities.TranslateType(propertyDescriptor.PropertyType);
 		string fieldName = CodeGenUtilities.MakeCompliantFieldName(propertyDescriptor.Name);
+		bool trackPropertyInitialization = this.TrackPropertyInitialization(propertyType);
 
 this.Write("set \r\n");
 
@@ -411,7 +413,21 @@ this.Write("if(this.");
 
 this.Write(this.ToStringHelper.ToStringWithCulture(fieldName));
 
-this.Write(" != value)\r\n");
+this.Write(" != value");
+
+
+		if(trackPropertyInitialization)
+		{
+
+this.Write(" || !this.");
+
+this.Write(this.ToStringHelper.ToStringWithCulture(fieldName));
+
+this.Write("Initialized");
+
+		}
+
+this.Write(")\r\n");
 
  this.GenerateOpeningBrace(); 
 
@@ -444,6 +460,18 @@ this.Write("\", value);\r\nthis.");
 this.Write(this.ToStringHelper.ToStringWithCulture(fieldName));
 
 this.Write(" = value;\r\n");
+
+
+		if(trackPropertyInitialization)
+		{
+
+this.Write("this.");
+
+this.Write(this.ToStringHelper.ToStringWithCulture(fieldName));
+
+this.Write("Initialized = true;\r\n");
+
+		}
 
 
 		if (!propertyIsReadOnly)
@@ -497,6 +525,23 @@ this.Write(this.ToStringHelper.ToStringWithCulture(fieldName));
 this.Write(";\r\n");
 
 
+		if(this.TrackPropertyInitialization(propertyType))
+		{
+
+this.Write("private bool ");
+
+this.Write(this.ToStringHelper.ToStringWithCulture(fieldName));
+
+this.Write("Initialized;\r\n");
+
+		}
+
+
+	}
+
+	private bool TrackPropertyInitialization(Type propertyType)
+	{
+		return !propertyType.IsValueType || Nullable.GetUnderlyingType(propertyType) != null;
 	}
 	
 	private void GeneratePropertyDeclaration(PropertyDescriptor propertyDescriptor)
