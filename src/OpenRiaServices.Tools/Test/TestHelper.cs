@@ -775,32 +775,35 @@ namespace OpenRiaServices.Tools.Test
             string generatedFileName = Path.Combine(outDataDir, Path.GetFileName(referenceFileName) + ".testgen");
             File.WriteAllText(generatedFileName, generatedCode);
 
-            // TODO: (ron M3) Solve inability to get right MSBuild after checkin
-            // First see if we compile
-            List<string> referenceAssemblies = CompilerHelper.GetClientAssemblies(codeGenOptions.RelativeDeployDir);
-            List<string> files = new List<string>();
-
-            files.Add(generatedFileName);
-
-            // Unconditionally force generation of Xml doc comments to catch errors
-            string documentationFile = Path.GetTempFileName();
-
-            try
+            if (!codeGenOptions.SkipCodeCompilation)
             {
-                if (isCSharp)
+                // TODO: (ron M3) Solve inability to get right MSBuild after checkin
+                // First see if we compile
+                List<string> referenceAssemblies = CompilerHelper.GetClientAssemblies(codeGenOptions.RelativeDeployDir);
+                List<string> files = new List<string>();
+
+                files.Add(generatedFileName);
+
+                // Unconditionally force generation of Xml doc comments to catch errors
+                string documentationFile = Path.GetTempFileName();
+
+                try
                 {
-                    files.AddRange(codeGenOptions.SharedFiles.Where(sharedFile => Path.GetExtension(sharedFile).Equals(".cs")));
-                    CompilerHelper.CompileCSharpSourceFromFiles(files, referenceAssemblies, documentationFile);
+                    if (isCSharp)
+                    {
+                        files.AddRange(codeGenOptions.SharedFiles.Where(sharedFile => Path.GetExtension(sharedFile).Equals(".cs")));
+                        CompilerHelper.CompileCSharpSourceFromFiles(files, referenceAssemblies, documentationFile);
+                    }
+                    else
+                    {
+                        files.AddRange(codeGenOptions.SharedFiles.Where(sharedFile => Path.GetExtension(sharedFile).Equals(".vb")));
+                        CompilerHelper.CompileVisualBasicSourceFromFiles(files, referenceAssemblies, options.ClientRootNamespace, documentationFile);
+                    }
                 }
-                else
+                finally
                 {
-                    files.AddRange(codeGenOptions.SharedFiles.Where(sharedFile => Path.GetExtension(sharedFile).Equals(".vb")));
-                    CompilerHelper.CompileVisualBasicSourceFromFiles(files, referenceAssemblies, options.ClientRootNamespace, documentationFile);
+                    File.Delete(documentationFile);
                 }
-            }
-            finally
-            {
-                File.Delete(documentationFile);
             }
 
             // Do the diff
@@ -824,6 +827,7 @@ namespace OpenRiaServices.Tools.Test
             private readonly List<Type> _sharedTypes = new List<Type>();
             private readonly List<MethodBase> _sharedMethods = new List<MethodBase>();
             public bool FailOnDiff { get; set; }
+            public bool SkipCodeCompilation { get; set; }
             public string RelativeTestDir { get; set; }
             public string RelativeDeployDir { get; set; }
             public string BaseReferenceFileName { get; set; }

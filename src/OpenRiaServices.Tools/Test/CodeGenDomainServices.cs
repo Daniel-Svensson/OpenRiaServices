@@ -501,6 +501,7 @@ namespace OpenRiaServices.Tools.Test
             options.AddSharedType(typeof(PolyType.DerivedTypeShapeAttribute));
             options.AddSharedType(typeof(PolyType.PropertyShapeAttribute));
             options.AddSharedType(typeof(PolyType.TypeShapeAttribute));
+            options.SkipCodeCompilation = true;
             TestHelper.ValidateCodeGen(options);
         }
 #if NET
