@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Nerdbank.MessagePack;
+using PolyType;
 
 namespace Cities
 {
@@ -41,12 +43,18 @@ namespace Cities
 
     [KnownType(typeof(CityWithEditHistory))]
     [KnownType(typeof(CityWithInfo))]
+    [DerivedTypeShape(typeof(CityWithEditHistory))]
+    [DerivedTypeShape(typeof(CityWithInfo))]
+    [TypeShape(Kind = TypeShapeKind.Object)]
+    [MessagePackObject(KeyAsPropertyName = true)]
     public partial class City
     {
         public City() {
             ZipCodes = new List<Zip>();
         }
 
+        [PropertyShape(Name = "CityName")]
+        [Key("CityName")]
         public string Name { get; set; }
         public string CountyName { get; set; }
         public string StateName { get; set; }
