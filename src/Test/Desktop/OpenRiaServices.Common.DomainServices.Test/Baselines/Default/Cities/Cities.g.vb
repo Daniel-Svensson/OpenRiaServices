@@ -13,9 +13,11 @@ Option Infer On
 Option Strict On
 Option Explicit On
 
+Imports Nerdbank.MessagePack
 Imports OpenRiaServices
 Imports OpenRiaServices.Client
 Imports OpenRiaServices.Client.Authentication
+Imports PolyType
 Imports System
 Imports System.Collections.Generic
 Imports System.ComponentModel
@@ -31,8 +33,10 @@ Namespace Cities
     ''' The 'City' entity class.
     ''' </summary>
     <DataContract([Namespace]:="http://schemas.datacontract.org/2004/07/Cities"),  _
+     DerivedTypeShape(GetType(CityWithEditHistory), Name:="CityWithEditHistory", Tag:=-1),  _
      KnownType(GetType(CityWithEditHistory)),  _
-     KnownType(GetType(CityWithInfo))>  _
+     KnownType(GetType(CityWithInfo)),  _
+     TypeShape(Kind:=TypeShapeKind.[Object])>  _
     Partial Public Class City
         Inherits Entity
         
@@ -112,7 +116,8 @@ Namespace Cities
         ''' Gets or sets the 'CalculatedCounty' value.
         ''' </summary>
         <DataMember(),  _
-         Editable(false)>  _
+         Editable(false),  _
+         Key(5)>  _
         Public Property CalculatedCounty() As String
             Get
                 Return Me._calculatedCounty
@@ -131,7 +136,8 @@ Namespace Cities
         ''' <summary>
         ''' Gets or sets the associated <see cref="County"/> entity.
         ''' </summary>
-        <EntityAssociation("County_City", New String() {"CountyName", "StateName"}, New String() {"Name", "StateName"}, IsForeignKey:=true)>  _
+        <EntityAssociation("County_City", New String() {"CountyName", "StateName"}, New String() {"Name", "StateName"}, IsForeignKey:=true),  _
+         Key(3)>  _
         Public Property County() As County
             Get
                 If (Me._county Is Nothing) Then
@@ -167,8 +173,9 @@ Namespace Cities
         ''' Gets or sets the 'CountyName' value.
         ''' </summary>
         <DataMember(),  _
-         Key(),  _
-         RoundtripOriginal()>  _
+         Key(1),  _
+         RoundtripOriginal(),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property CountyName() As String
             Get
                 Return Me._countyName
@@ -190,11 +197,13 @@ Namespace Cities
         ''' </summary>
         <DataMember(),  _
          Display(Description:="CityHelpText", Name:="CityName", Prompt:="CityPrompt", ResourceType:=GetType(Cities_Resources), ShortName:="CityCaption"),  _
-         Key(),  _
+         Key(0),  _
+         PropertyShape(Name:="CityName"),  _
          RegularExpression("^[A-Z]+[a-z A-Z]*$"),  _
          Required(),  _
          RoundtripOriginal(),  _
-         StringLength(32)>  _
+         StringLength(32),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property Name() As String
             Get
                 Return Me._name
@@ -215,10 +224,11 @@ Namespace Cities
         ''' Gets or sets the 'StateName' value.
         ''' </summary>
         <DataMember(),  _
-         Key(),  _
+         Key(2),  _
          RegularExpression("^[A-Z]+[a-z A-Z]*$"),  _
          RoundtripOriginal(),  _
-         StringLength(2)>  _
+         StringLength(2),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property StateName() As String
             Get
                 Return Me._stateName
@@ -238,7 +248,8 @@ Namespace Cities
         ''' <summary>
         ''' Gets the collection of associated <see cref="Zip"/> entity instances.
         ''' </summary>
-        <EntityAssociation("City_Zip", New String() {"Name", "CountyName", "StateName"}, New String() {"CityName", "CountyName", "StateName"})>  _
+        <EntityAssociation("City_Zip", New String() {"Name", "CountyName", "StateName"}, New String() {"CityName", "CountyName", "StateName"}),  _
+         Key(7)>  _
         Public ReadOnly Property ZipCodes() As EntityCollection(Of Zip)
             Get
                 If (Me._zipCodes Is Nothing) Then
@@ -252,6 +263,7 @@ Namespace Cities
         ''' Gets or sets the 'ZoneID' value.
         ''' </summary>
         <DataMember(),  _
+         Key(6),  _
          Range(0, 9999),  _
          RoundtripOriginal()>  _
         Public Property ZoneID() As Integer
@@ -277,6 +289,7 @@ Namespace Cities
         <CustomValidation(GetType(CityPropertyValidator), "IsValidZoneName"),  _
          DataMember(),  _
          Display(AutoGenerateField:=false),  _
+         Key(4),  _
          RoundtripOriginal()>  _
         Public Property ZoneName() As String
             Get
@@ -1340,7 +1353,8 @@ Namespace Cities
         ''' <summary>
         ''' Gets or sets the 'EditHistory' value.
         ''' </summary>
-        <DataMember()>  _
+        <DataMember(),  _
+         Key(9)>  _
         Public Property EditHistory() As String
             Get
                 Return Me._editHistory
@@ -1360,7 +1374,8 @@ Namespace Cities
         ''' <summary>
         ''' Gets or sets the 'LastUpdated' value.
         ''' </summary>
-        <DataMember()>  _
+        <DataMember(),  _
+         Key(10)>  _
         Public Property LastUpdated() As DateTime
             Get
                 Return Me._lastUpdated
@@ -1453,6 +1468,7 @@ Namespace Cities
         ''' Gets or sets the 'Info' value.
         ''' </summary>
         <DataMember(),  _
+         Key(11),  _
          Required(),  _
          StringLength(32)>  _
         Public Property Info() As String
@@ -1474,7 +1490,8 @@ Namespace Cities
         ''' <summary>
         ''' Gets the collection of associated <see cref="ZipWithInfo"/> entity instances.
         ''' </summary>
-        <EntityAssociation("CityWithInfo_ZipWithInfo", New String() {"Name", "CountyName", "StateName"}, New String() {"CityName", "CountyName", "StateName"})>  _
+        <EntityAssociation("CityWithInfo_ZipWithInfo", New String() {"Name", "CountyName", "StateName"}, New String() {"CityName", "CountyName", "StateName"}),  _
+         Key(12)>  _
         Public ReadOnly Property ZipCodesWithInfo() As EntityCollection(Of ZipWithInfo)
             Get
                 If (Me._zipCodesWithInfo Is Nothing) Then
@@ -1581,11 +1598,11 @@ Namespace Cities
         ''' Gets or sets the 'Name' value.
         ''' </summary>
         <DataMember(),  _
-         Key(),  _
          RegularExpression("^[A-Z]+[a-z A-Z]*$"),  _
          Required(),  _
          RoundtripOriginal(),  _
-         StringLength(32)>  _
+         StringLength(32),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property Name() As String
             Get
                 Return Me._name
@@ -1639,9 +1656,9 @@ Namespace Cities
         ''' Gets or sets the 'StateName' value.
         ''' </summary>
         <DataMember(),  _
-         Key(),  _
          Required(),  _
-         RoundtripOriginal()>  _
+         RoundtripOriginal(),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property StateName() As String
             Get
                 Return Me._stateName
@@ -1786,10 +1803,10 @@ Namespace Cities
         ''' </summary>
         <DataMember(),  _
          Editable(false, AllowInitialValue:=true),  _
-         Key(),  _
          RegularExpression("^[A-Z]+[a-z A-Z]*$"),  _
          Required(),  _
-         RoundtripOriginal()>  _
+         RoundtripOriginal(),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property FullName() As String
             Get
                 Return Me._fullName
@@ -1811,11 +1828,11 @@ Namespace Cities
         <CustomValidation(GetType(StateNameValidator), "IsStateNameValid"),  _
          DataMember(),  _
          Editable(false, AllowInitialValue:=true),  _
-         Key(),  _
          RegularExpression("^[A-Z]*"),  _
          Required(),  _
          RoundtripOriginal(),  _
-         StringLength(2)>  _
+         StringLength(2),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property Name() As String
             Get
                 Return Me._name
@@ -2036,10 +2053,10 @@ Namespace Cities
          Description("Zip codes must be 5 digits starting with 9"),  _
          DisplayFormat(DataFormatString:="nnnnn"),  _
          Editable(false, AllowInitialValue:=true),  _
-         Key(),  _
          MustStartWith(9),  _
          Range(0, 99999),  _
-         RoundtripOriginal()>  _
+         RoundtripOriginal(),  _
+         System.ComponentModel.DataAnnotations.Key()>  _
         Public Property Code() As Integer
             Get
                 Return Me._code
@@ -2083,9 +2100,9 @@ Namespace Cities
         <DataMember(),  _
          DisplayFormat(NullDisplayText:="(optional)"),  _
          Editable(false, AllowInitialValue:=true),  _
-         Key(),  _
          Range(0, 9999),  _
          RoundtripOriginal(),  _
+         System.ComponentModel.DataAnnotations.Key(),  _
          UIHint("DataGrid", "Jolt", "stringParam", "hello", "doubleParam", CType(2R,Double))>  _
         Public Property FourDigit() As Integer
             Get

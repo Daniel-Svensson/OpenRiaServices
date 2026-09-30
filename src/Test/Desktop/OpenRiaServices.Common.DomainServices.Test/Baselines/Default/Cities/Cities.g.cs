@@ -18,17 +18,21 @@ namespace Cities
     using System.Runtime.Serialization;
     using System.Threading;
     using System.Threading.Tasks;
+    using Nerdbank.MessagePack;
     using OpenRiaServices;
     using OpenRiaServices.Client;
     using OpenRiaServices.Client.Authentication;
+    using PolyType;
     
     
     /// <summary>
     /// The 'City' entity class.
     /// </summary>
     [DataContract(Namespace="http://schemas.datacontract.org/2004/07/Cities")]
+    [DerivedTypeShape(typeof(CityWithEditHistory), Name="CityWithEditHistory", Tag=-1)]
     [KnownType(typeof(CityWithEditHistory))]
     [KnownType(typeof(CityWithInfo))]
+    [TypeShape(Kind=TypeShapeKind.Object)]
     public partial class City : Entity
     {
         
@@ -90,6 +94,7 @@ namespace Cities
         /// </summary>
         [DataMember()]
         [Editable(false)]
+        [Key(5)]
         public string CalculatedCounty
         {
             get
@@ -117,6 +122,7 @@ namespace Cities
                 "StateName"}, new string[] {
                 "Name",
                 "StateName"}, IsForeignKey=true)]
+        [Key(3)]
         public County County
         {
             get
@@ -162,8 +168,9 @@ namespace Cities
         /// Gets or sets the 'CountyName' value.
         /// </summary>
         [DataMember()]
-        [Key()]
+        [Key(1)]
         [RoundtripOriginal()]
+        [System.ComponentModel.DataAnnotations.Key()]
         public string CountyName
         {
             get
@@ -189,11 +196,13 @@ namespace Cities
         /// </summary>
         [DataMember()]
         [Display(Description="CityHelpText", Name="CityName", Prompt="CityPrompt", ResourceType=typeof(Cities_Resources), ShortName="CityCaption")]
-        [Key()]
+        [Key(0)]
+        [PropertyShape(Name="CityName")]
         [RegularExpression("^[A-Z]+[a-z A-Z]*$")]
         [Required()]
         [RoundtripOriginal()]
         [StringLength(32)]
+        [System.ComponentModel.DataAnnotations.Key()]
         public string Name
         {
             get
@@ -218,10 +227,11 @@ namespace Cities
         /// Gets or sets the 'StateName' value.
         /// </summary>
         [DataMember()]
-        [Key()]
+        [Key(2)]
         [RegularExpression("^[A-Z]+[a-z A-Z]*$")]
         [RoundtripOriginal()]
         [StringLength(2)]
+        [System.ComponentModel.DataAnnotations.Key()]
         public string StateName
         {
             get
@@ -252,6 +262,7 @@ namespace Cities
                 "CityName",
                 "CountyName",
                 "StateName"})]
+        [Key(7)]
         public EntityCollection<Zip> ZipCodes
         {
             get
@@ -268,6 +279,7 @@ namespace Cities
         /// Gets or sets the 'ZoneID' value.
         /// </summary>
         [DataMember()]
+        [Key(6)]
         [Range(0, 9999)]
         [RoundtripOriginal()]
         public int ZoneID
@@ -296,6 +308,7 @@ namespace Cities
         [CustomValidation(typeof(CityPropertyValidator), "IsValidZoneName")]
         [DataMember()]
         [Display(AutoGenerateField=false)]
+        [Key(4)]
         [RoundtripOriginal()]
         public string ZoneName
         {
@@ -1430,6 +1443,7 @@ namespace Cities
         /// Gets or sets the 'EditHistory' value.
         /// </summary>
         [DataMember()]
+        [Key(9)]
         public string EditHistory
         {
             get
@@ -1454,6 +1468,7 @@ namespace Cities
         /// Gets or sets the 'LastUpdated' value.
         /// </summary>
         [DataMember()]
+        [Key(10)]
         public DateTime LastUpdated
         {
             get
@@ -1549,6 +1564,7 @@ namespace Cities
         /// Gets or sets the 'Info' value.
         /// </summary>
         [DataMember()]
+        [Key(11)]
         [Required()]
         [StringLength(32)]
         public string Info
@@ -1581,6 +1597,7 @@ namespace Cities
                 "CityName",
                 "CountyName",
                 "StateName"})]
+        [Key(12)]
         public EntityCollection<ZipWithInfo> ZipCodesWithInfo
         {
             get
@@ -1699,11 +1716,11 @@ namespace Cities
         /// Gets or sets the 'Name' value.
         /// </summary>
         [DataMember()]
-        [Key()]
         [RegularExpression("^[A-Z]+[a-z A-Z]*$")]
         [Required()]
         [RoundtripOriginal()]
         [StringLength(32)]
+        [System.ComponentModel.DataAnnotations.Key()]
         public string Name
         {
             get
@@ -1771,9 +1788,9 @@ namespace Cities
         /// Gets or sets the 'StateName' value.
         /// </summary>
         [DataMember()]
-        [Key()]
         [Required()]
         [RoundtripOriginal()]
+        [System.ComponentModel.DataAnnotations.Key()]
         public string StateName
         {
             get
@@ -1924,10 +1941,10 @@ namespace Cities
         /// </summary>
         [DataMember()]
         [Editable(false, AllowInitialValue=true)]
-        [Key()]
         [RegularExpression("^[A-Z]+[a-z A-Z]*$")]
         [Required()]
         [RoundtripOriginal()]
+        [System.ComponentModel.DataAnnotations.Key()]
         public string FullName
         {
             get
@@ -1953,11 +1970,11 @@ namespace Cities
         [CustomValidation(typeof(StateNameValidator), "IsStateNameValid")]
         [DataMember()]
         [Editable(false, AllowInitialValue=true)]
-        [Key()]
         [RegularExpression("^[A-Z]*")]
         [Required()]
         [RoundtripOriginal()]
         [StringLength(2)]
+        [System.ComponentModel.DataAnnotations.Key()]
         public string Name
         {
             get
@@ -2198,10 +2215,10 @@ namespace Cities
         [Description("Zip codes must be 5 digits starting with 9")]
         [DisplayFormat(DataFormatString="nnnnn")]
         [Editable(false, AllowInitialValue=true)]
-        [Key()]
         [MustStartWith(9)]
         [Range(0, 99999)]
         [RoundtripOriginal()]
+        [System.ComponentModel.DataAnnotations.Key()]
         public int Code
         {
             get
@@ -2252,9 +2269,9 @@ namespace Cities
         [DataMember()]
         [DisplayFormat(NullDisplayText="(optional)")]
         [Editable(false, AllowInitialValue=true)]
-        [Key()]
         [Range(0, 9999)]
         [RoundtripOriginal()]
+        [System.ComponentModel.DataAnnotations.Key()]
         [UIHint("DataGrid", "Jolt", "stringParam", "hello", "doubleParam", ((double)(2D)))]
         public int FourDigit
         {
