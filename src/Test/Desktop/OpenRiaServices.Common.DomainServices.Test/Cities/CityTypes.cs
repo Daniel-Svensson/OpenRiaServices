@@ -46,7 +46,6 @@ namespace Cities
     [DerivedTypeShape(typeof(CityWithEditHistory))]
     [DerivedTypeShape(typeof(CityWithInfo))]
     [TypeShape(Kind = TypeShapeKind.Object)]
-    [MessagePackObject(KeyAsPropertyName = true)]
     public partial class City
     {
         public City() {
@@ -54,7 +53,7 @@ namespace Cities
         }
 
         [PropertyShape(Name = "CityName")]
-        [Key("CityName")]
+        [Key(0)]
         public string Name { get; set; }
         public string CountyName { get; set; }
         public string StateName { get; set; }
