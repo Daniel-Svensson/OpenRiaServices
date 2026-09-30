@@ -88,6 +88,7 @@ namespace Cities
             return this.GetType().Name + " Name=" + this.Name + ", State=" + this.StateName + ", County=" + this.CountyName;
         }
 
+        [PropertyShape(Ignore = true)]
         public int this[int index]
         {
             get
@@ -115,7 +116,7 @@ namespace Cities
         }
 
         // Edit history always appends, never overwrites
-        [Key(8)]
+        [Key(9)]
         public string EditHistory
         {
             get
@@ -129,7 +130,7 @@ namespace Cities
             }
         }
 
-        [Key(9)]
+        [Key(10)]
         public DateTime LastUpdated
         {
             get;
@@ -150,14 +151,14 @@ namespace Cities
             ZipCodesWithInfo = new List<ZipWithInfo>();
         }
 
-        [Key(10)]
+        [Key(11)]
         public string Info
         {
             get;
             set;
         }
 
-        [Key(11)]
+        [Key(12)]
         public List<ZipWithInfo> ZipCodesWithInfo { get; set; }
 
         public override string ToString()

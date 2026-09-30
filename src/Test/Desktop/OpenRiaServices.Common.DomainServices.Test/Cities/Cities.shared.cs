@@ -157,6 +157,7 @@ namespace Cities
 
     public partial class City : IValidatableObject
     {
+        [Nerdbank.MessagePack.Key(8)]
         public bool MakeIValidatableObjectFail { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
