@@ -55,19 +55,32 @@ namespace Cities
         [PropertyShape(Name = "CityName")]
         [Key(0)]
         public string Name { get; set; }
+
+        [Key(1)]
         public string CountyName { get; set; }
+
+        [Key(2)]
         public string StateName { get; set; }
+
+        [Key(3)]
         public County County {get;set;}
 #if NET
 #nullable enable
+        [Key(4)]
         public string? ZoneName { get; set; }
 #nullable restore
 #else
+        [Key(4)]
         public string ZoneName { get; set; }
 #endif
+
+        [Key(5)]
         public string CalculatedCounty { get { return this.CountyName; } set { } }
+
+        [Key(6)]
         public int ZoneID { get; set; }
 
+        [Key(7)]
         public List<Zip> ZipCodes { get;set; }
 
         public override string ToString()
@@ -102,6 +115,7 @@ namespace Cities
         }
 
         // Edit history always appends, never overwrites
+        [Key(8)]
         public string EditHistory
         {
             get
@@ -115,6 +129,7 @@ namespace Cities
             }
         }
 
+        [Key(9)]
         public DateTime LastUpdated
         {
             get;
@@ -135,12 +150,14 @@ namespace Cities
             ZipCodesWithInfo = new List<ZipWithInfo>();
         }
 
+        [Key(10)]
         public string Info
         {
             get;
             set;
         }
 
+        [Key(11)]
         public List<ZipWithInfo> ZipCodesWithInfo { get; set; }
 
         public override string ToString()
