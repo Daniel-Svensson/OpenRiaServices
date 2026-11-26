@@ -23,6 +23,7 @@ namespace OpenRiaServices.Client.Internal
     [DebuggerDisplay("Type = {Type.Name}")]
     public sealed class MetaType
     {
+        public static PolyType.ITypeShapeProvider? TypeShapeProvider { get; set; }
         private static readonly ConcurrentDictionary<Type, MetaType> s_metaTypes = new();
         private readonly bool _requiresValidation;
         private readonly bool _requiresObjectValidation;
@@ -47,6 +48,8 @@ namespace OpenRiaServices.Client.Internal
 
         private MetaType(Type type)
         {
+            this.Type = type;
+
             _customUpdateMethods = (from method in type.GetMethods(MemberBindingFlags)
                                     let attributes = method.GetCustomAttributes(typeof(EntityActionAttribute), false)
                                     let attribute = (EntityActionAttribute)attributes.FirstOrDefault()
@@ -106,8 +109,6 @@ namespace OpenRiaServices.Client.Internal
             {
                 this._childTypes = TypeUtility.EmptyTypes;
             }
-
-            this.Type = type;
 
             _validationAttributes = new ReadOnlyCollection<ValidationAttribute>(this.Type.GetCustomAttributes(typeof(ValidationAttribute), true).OfType<ValidationAttribute>().ToArray());
             _requiresObjectValidation = _validationAttributes.Count != 0 || typeof(IValidatableObject).IsAssignableFrom(type);

@@ -231,6 +231,29 @@ namespace System.Diagnostics.CodeAnalysis
         public DynamicallyAccessedMemberTypes MemberTypes { get; }
     }
 
+    /// <summary>Specifies a member that is accessed dynamically and should be preserved during trimming.</summary>
+    [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Field | AttributeTargets.Method | AttributeTargets.Class | AttributeTargets.Property | AttributeTargets.Struct | AttributeTargets.Event | AttributeTargets.Interface | AttributeTargets.Delegate, AllowMultiple = true, Inherited = false)]
+    internal sealed class DynamicDependencyAttribute : Attribute
+    {
+        public DynamicDependencyAttribute(string memberSignature, Type type)
+        {
+            MemberSignature = memberSignature;
+            Type = type;
+        }
+
+        public DynamicDependencyAttribute(DynamicallyAccessedMemberTypes memberTypes, Type type)
+        {
+            MemberTypes = memberTypes;
+            Type = type;
+        }
+
+        public string? MemberSignature { get; }
+
+        public DynamicallyAccessedMemberTypes MemberTypes { get; }
+
+        public Type Type { get; }
+    }
+
     /// <summary>Specifies that the method or property will ensure that the listed field and property members have not-null values when returning with the specified return value condition.</summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Property, Inherited = false, AllowMultiple = true)]
     internal sealed class MemberNotNullWhenAttribute : Attribute

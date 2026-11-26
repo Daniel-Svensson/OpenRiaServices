@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.Serialization;
+using PolyType.Abstractions;
 
 namespace OpenRiaServices.Client.Internal
 {
@@ -35,7 +36,11 @@ namespace OpenRiaServices.Client.Internal
             if (hasGetter && (property.GetSetMethod() != null))
             {
                 IsDataMember = (IsComplex || TypeUtility.IsPredefinedType(property.PropertyType))
-                        && !TypeUtility.IsAttributeDefined(property, typeof(IgnoreDataMemberAttribute), false);
+                        && !TypeUtility.IsAttributeDefined(property, typeof(IgnoreDataMemberAttribute), false)
+                        && (TypeUtility.IsAttributeDefined(property, typeof(DataMemberAttribute), false)
+                           || !TypeUtility.IsAttributeDefined(metaType.Type, typeof(DataContractAttribute), false)) ;
+                // TODO: If entity is DataContract only include datacontract !
+
             }
 
             if (hasGetter)
@@ -156,9 +161,33 @@ namespace OpenRiaServices.Client.Internal
         {
             if (_getter == null)
             {
-                _getter = CreateGetterDelegate(Member);
+                if (MetaType.TypeShapeProvider != null)
+                {
+                    InitializeGetterAndSetter();
+                }
+                if (_getter == null)
+                {
+                    _getter = CreateGetterDelegate(Member);
+                }
             }
             return _getter(instance);
+        }
+
+        private void InitializeGetterAndSetter()
+        {
+            var typeShape = MetaType.TypeShapeProvider.GetTypeShape(this.MetaType.Type);
+            PolyType.Abstractions.IObjectTypeShape objectTypeShape = typeShape as PolyType.Abstractions.IObjectTypeShape;
+            if (objectTypeShape is null && typeShape is PolyType.Abstractions.IUnionTypeShape union)
+                objectTypeShape = union.BaseType as PolyType.Abstractions.IObjectTypeShape;
+
+            if (objectTypeShape is not null)
+            {
+                var propertyShape = objectTypeShape.Properties.FirstOrDefault(p => p.Name == Member.Name);
+                if (propertyShape != null && propertyShape.HasGetter)
+                {
+                    propertyShape.Accept(PropertyVisitor.Instance, this);
+                }
+            }
         }
 
         /// <summary>
@@ -171,7 +200,14 @@ namespace OpenRiaServices.Client.Internal
         {
             if (_setter == null)
             {
-                _setter = CreateSetterDelegate(Member);
+                if (MetaType.TypeShapeProvider != null)
+                {
+                    InitializeGetterAndSetter();
+                }
+                if (_setter == null) // for navigation properties
+                {
+                    _setter = CreateSetterDelegate(Member);
+                }
             }
             _setter(instance, value);
         }
@@ -227,6 +263,38 @@ namespace OpenRiaServices.Client.Internal
         {
             var helper = s_getterDelegateHelper.MakeGenericMethod(propertyInfo.DeclaringType, propertyInfo.PropertyType);
             return (Func<object, object>)helper.Invoke(null, new[] { propertyInfo });
+        }
+
+        private class PropertyVisitor : PolyType.Abstractions.TypeShapeVisitor
+        {
+            public static PropertyVisitor Instance = new PropertyVisitor();
+            public override object VisitProperty<TDeclaringType, TPropertyType>(IPropertyShape<TDeclaringType, TPropertyType> propertyShape, object state = null)
+            {
+                MetaMember member = (MetaMember)state;
+                var getter = propertyShape.GetGetter();
+                var setter = propertyShape.GetSetter();
+
+                member._getter = (object obj) =>
+                {
+                    TDeclaringType instance = (TDeclaringType)obj;
+                    return (object)getter.Invoke(ref instance);
+                };
+
+                member._typedGetter = (Func<object, TPropertyType>)(
+                    (object obj) =>
+                    {
+                        TDeclaringType instance = (TDeclaringType)obj;
+                        return getter.Invoke(ref instance);
+                    });
+
+                member._setter = (object obj, object val) =>
+                {
+                    TDeclaringType instance = (TDeclaringType)obj;
+                    setter.Invoke(ref instance, (TPropertyType)val);
+                };
+
+                return member;
+            }
         }
 
         private static Func<object, object> CreateGetterDelegateHelper<T, Tprop>(PropertyInfo propertyInfo)
