@@ -58,26 +58,12 @@ namespace OpenRiaServices.Client.DomainClients
             return _serializerCache.GetOrAdd(service, static (_, args) =>
             {
                 MessagePackHttpDomainClientFactory This = args.Item1;
-
-                // Supress inheritance 
-                HashSet<Type> allTypes = new HashSet<Type>(args.knownTypes);
-                foreach (Type knownType in args.knownTypes)
-                    allTypes.UnionWith(Server.KnownTypeUtilities.ImportDerivedTypes(knownType, true));
-
-                var dsableTypes = allTypes
-            //        .Where(type => This.TypeShapeProvider.GetTypeShapeOrThrow(type).Kind == TypeShapeKind.Union)
-                    .Select(DerivedTypeUnion.CreateDisabled);
-
-                var objectSerialiser = args.Item1.BaseSerializerSerializer with
-                {
-                    DerivedTypeUnions = [.. dsableTypes, .. args.Item1.BaseSerializerSerializer.DerivedTypeUnions]
-                };
-
                 // Create a final serializer which use ObjectConverterFactory to do custom union converter
                 // while delegating actual serialization to objectSerialiser
-                var converterFactory = new ObjectConverterFactory(allTypes, args.Item1.TypeShapeProvider, objectSerialiser);
-                return objectSerialiser with
+                var converterFactory = new ObjectConverterFactory(args.knownTypes, args.Item1.TypeShapeProvider, args.Item1.BaseSerializerSerializer);
+                return args.Item1.BaseSerializerSerializer with
                 {
+                    DerivedTypeUnions = [.. converterFactory.GetDerivedTypeUnions(), .. args.Item1.BaseSerializerSerializer.DerivedTypeUnions],
                     ConverterFactories = [converterFactory, .. args.Item1.BaseSerializerSerializer.ConverterFactories],
                 };
             }, (this, knownTypes));

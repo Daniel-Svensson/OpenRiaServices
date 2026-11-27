@@ -89,6 +89,8 @@ static void Setup()
     {
     };
 
+    OpenRiaServices.Client.Internal.MetaType.TypeShapeProvider = RPC.GeneratedTypeShapeProvider;
+
     DomainContext.DomainClientFactory = new MessagePackHttpDomainClientFactory(new Uri("http://localhost:5247/"), httpClientFactory, msgPackSerializer,
         //Witness.GeneratedTypeShapeProvider
         RPC.GeneratedTypeShapeProvider

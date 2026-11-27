@@ -22,16 +22,25 @@ namespace OpenRiaServices.Client.DomainClients.MessagePack.Converters
     /// </summary>
     sealed class ObjectConverterFactory : IMessagePackConverterFactory
     {
-        private readonly FrozenDictionary<Type, MessagePackConverter> _converters;
+        private FrozenDictionary<Type, MessagePackConverter> _converters;
+        private readonly ITypeShapeProvider _entityShapeProvider;
 
-        public ObjectConverterFactory(HashSet<Type> allTypes, ITypeShapeProvider entityShapeProvider, MessagePackSerializer objectSerializer)
+        public ObjectConverterFactory(IEnumerable<Type> types, ITypeShapeProvider entityShapeProvider, MessagePackSerializer objectSerializer)
         {
+            // Supress inheritance 
+            HashSet<Type> allTypes = new HashSet<Type>(types);
+            foreach (Type knownType in types)
+                allTypes.UnionWith(Server.KnownTypeUtilities.ImportDerivedTypes(knownType, true));
+
             Dictionary<Type, MessagePackConverter> converters = new(capacity: allTypes.Count);
             foreach (var item in ComputeKnownTypeSet(allTypes))
             {
                 var knownTypes = item.Value;
 
                 System.Diagnostics.Debug.Assert(knownTypes.IsSubsetOf(allTypes), "Known types should always contain at least the type itself.");
+
+                if (!knownTypes.IsSubsetOf(allTypes))
+                    throw new InvalidOperationException();
                 //allTypes.UnionWith(knownTypes);
 
                 // Skip mapping with no derived types
@@ -44,11 +53,14 @@ namespace OpenRiaServices.Client.DomainClients.MessagePack.Converters
             converters.Add(typeof(object), new ObjectConverter<object>(allTypes, entityShapeProvider, objectSerializer));
 
             _converters = converters.ToFrozenDictionary();
+            _entityShapeProvider = entityShapeProvider;
         }
+
+        public IEnumerable<DerivedTypeUnion> GetDerivedTypeUnions()
+            => _converters.Keys.Select(DerivedTypeUnion.CreateDisabled);
 
         MessagePackConverter? IMessagePackConverterFactory.CreateConverter(Type type, ITypeShape? shape, in ConverterContext context)
         {
-            // Only return type shapes for specified converter, this allows nerdbank default converters to be generated for other providers
             if (_converters.TryGetValue(type, out var converter))
                 return converter;
             else
