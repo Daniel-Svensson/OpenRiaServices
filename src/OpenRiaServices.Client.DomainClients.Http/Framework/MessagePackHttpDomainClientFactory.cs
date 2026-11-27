@@ -10,7 +10,6 @@ using System.IO.Pipelines;
 using System.Linq;
 using System.Net.Http;
 using System.Reflection;
-using System.Text;
 
 #nullable enable
 
@@ -60,107 +59,29 @@ namespace OpenRiaServices.Client.DomainClients
             {
                 MessagePackHttpDomainClientFactory This = args.Item1;
 
-                MethodInfo createMapping = typeof(MessagePackHttpDomainClientFactory).GetMethod(nameof(CreateDerivedTypeMapping), BindingFlags.NonPublic | BindingFlags.Instance)!;
-
                 // Supress inheritance 
                 HashSet<Type> allTypes = new HashSet<Type>(args.knownTypes);
                 foreach (Type knownType in args.knownTypes)
                     allTypes.UnionWith(Server.KnownTypeUtilities.ImportDerivedTypes(knownType, true));
 
-                Dictionary<Type, HashSet<Type>> allTypeHierarchies = ComputeKnownTypeSet(allTypes);
+                var dsableTypes = allTypes
+            //        .Where(type => This.TypeShapeProvider.GetTypeShapeOrThrow(type).Kind == TypeShapeKind.Union)
+                    .Select(DerivedTypeUnion.CreateDisabled);
 
-                List<DerivedTypeUnion> derivedTypeUnions = new List<DerivedTypeUnion>();
-                foreach (var kvp in allTypeHierarchies)
+                var objectSerialiser = args.Item1.BaseSerializerSerializer with
                 {
-                    Type baseType = kvp.Key;
-                    HashSet<Type> derivedTypes = kvp.Value;
+                    DerivedTypeUnions = [.. dsableTypes, .. args.Item1.BaseSerializerSerializer.DerivedTypeUnions]
+                };
 
-                    // Skip base types since they have all KnownTypeAttributes
-                    if (baseType.BaseType == typeof(Entity))
-                        continue;
-
-                    if (derivedTypes.Count > 1 || (derivedTypes.Count == 1 && !derivedTypes.Contains(baseType)))
-                    {
-                        derivedTypeUnions.Add((DerivedTypeUnion)createMapping.MakeGenericMethod(baseType).Invoke(This, [derivedTypes])!);
-                    }
-                }
-
-                var objectConverter = new ObjectConverter<object>(allTypes, This.TypeShapeProvider, This.BaseSerializerSerializer);
-
-                // Create the serializer
-                return args.Item1.BaseSerializerSerializer with
+                // Create a final serializer which use ObjectConverterFactory to do custom union converter
+                // while delegating actual serialization to objectSerialiser
+                var converterFactory = new ObjectConverterFactory(allTypes, args.Item1.TypeShapeProvider, objectSerialiser);
+                return objectSerialiser with
                 {
-                    Converters = [objectConverter, .. args.Item1.BaseSerializerSerializer.Converters],
-                    DerivedTypeUnions = [.. derivedTypeUnions, .. args.Item1.BaseSerializerSerializer.DerivedTypeUnions]
+                    ConverterFactories = [converterFactory, .. args.Item1.BaseSerializerSerializer.ConverterFactories],
                 };
             }, (this, knownTypes));
         }
 
-
-        CustomDerivedShapeMapping<TBase> CreateDerivedTypeMapping<TBase>(HashSet<Type> derviedTypes)
-        {
-            var mapping = new CustomDerivedShapeMapping<TBase>();
-            foreach (var derivedType in derviedTypes)
-            {
-                if (derivedType == typeof(TBase))
-                    continue;
-
-                var typeShape = TypeShapeProvider.GetTypeShapeOrThrow(derivedType);
-                DerivedTypeIdentifier identifier = new DerivedTypeIdentifier(Encoding.UTF8.GetString(MessagePackUtility.GetDiscriminator(typeShape.Type)));
-
-                mapping.AddDerived(identifier, typeShape);
-            }
-
-            return mapping;
-        }
-
-        class CustomDerivedShapeMapping<TBase> : DerivedShapeMapping<TBase>
-        {
-            public CustomDerivedShapeMapping() : base()
-            {
-            }
-
-            public void AddDerived(DerivedTypeIdentifier alias, ITypeShape typeShape)
-            {
-                base.Add(alias, typeShape);
-            }
-        }
-
-        /// <summary>
-        /// Computes the closure of known types for all the <paramref name="types" />.
-        /// </summary>
-        /// <returns>A dictionary, keyed by type and containing all the
-        /// declared known types for it (including itself), including the transitive closure.
-        /// </returns>
-        private static Dictionary<Type, HashSet<Type>> ComputeKnownTypeSet(IEnumerable<Type> types)
-        {
-            Dictionary<Type, HashSet<Type>> closure = new Dictionary<Type, HashSet<Type>>();
-
-            // Gather all the explicit derived types from attributes.
-            foreach (Type entityType in types)
-            {
-                HashSet<Type> knownTypes = Server.KnownTypeUtilities.ImportDerivedTypes(entityType, /* inherit */ true);
-                knownTypes.Add(entityType);
-                closure[entityType] = knownTypes;
-            }
-
-            // 2nd pass -- add all the derived types' known types back to their base so we have the closure
-            foreach (Type entityType in types)
-            {
-                HashSet<Type> knownTypes = closure[entityType];
-                for (Type? baseType = entityType.BaseType;
-                     baseType != null && baseType != typeof(Entity);
-                     baseType = baseType.BaseType)
-                {
-                    if (closure.TryGetValue(baseType, out HashSet<Type>? hash))
-                    {
-                        hash.UnionWith(knownTypes);
-                    }
-                }
-
-                System.Diagnostics.Debug.Assert(knownTypes.IsSubsetOf(types), "Known types should always contain at least the type itself.");
-            }
-            return closure;
-        }
     }
 }
