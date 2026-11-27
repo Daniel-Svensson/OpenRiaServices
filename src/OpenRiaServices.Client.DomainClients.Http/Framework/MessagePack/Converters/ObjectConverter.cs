@@ -32,13 +32,13 @@ namespace OpenRiaServices.Client.DomainClients.MessagePack.Converters
         private readonly Type? _baseType;
         private readonly MessagePackConverter? _baseConverter;
 
-        public ObjectConverter(IEnumerable<Type> knownTypes, ITypeShapeProvider typeShapeProvider, MessagePackSerializer objectSerializer)
+        public ObjectConverter(IEnumerable<Type> knownTypes, CustomMessagePackSerializer converterProvider)
         {
             var comparer = new MessagePackUtility.ByteArrayComparer();
 
             // This avoids double dictionary lookups in surrogateProvider
             var concreteTypes = knownTypes.Where(t => !t.IsAbstract);
-            var converters = (new CustomMessagePackSerializer(objectSerializer)).CopyConverters(typeShapeProvider, concreteTypes);
+            var converters = converterProvider.CopyConverters(concreteTypes);
 
             _discriminators = converters
                 .ToFrozenDictionary(k => k.Key, v => (MessagePackUtility.GetDiscriminator(v.Key), v.Value));
@@ -138,29 +138,5 @@ namespace OpenRiaServices.Client.DomainClients.MessagePack.Converters
 
             converter.WriteObject(ref writer, value, context);
         }
-
-        /// <summary>
-        /// Provides a MessagePack serializer that can retrieve converters for specified types.
-        /// </summary>
-        public record class CustomMessagePackSerializer : MessagePackSerializer
-        {
-            public CustomMessagePackSerializer(MessagePackSerializer original) : base(original)
-            {
-            }
-
-            public List<KeyValuePair<Type, MessagePackConverter>> CopyConverters(ITypeShapeProvider typeShapeProvider, IEnumerable<Type> types)
-            {
-                using var scope = this.CreateSerializationContext(typeShapeProvider);
-
-                return types.Select(x =>
-                    {
-                        ITypeShape typeShape = typeShapeProvider.GetTypeShapeOrThrow(x);
-                        if (typeShape is PolyType.Abstractions.IUnionTypeShape union)
-                            typeShape = union.BaseType;
-                        return new KeyValuePair<Type, MessagePackConverter>(x, scope.Value.GetConverter(typeShape));
-                    }).ToList();
-            }
-        }
-
     }
 }

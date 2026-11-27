@@ -32,6 +32,7 @@ namespace OpenRiaServices.Client.DomainClients.MessagePack.Converters
             foreach (Type knownType in types)
                 allTypes.UnionWith(Server.KnownTypeUtilities.ImportDerivedTypes(knownType, true));
 
+            CustomMessagePackSerializer converterProvider = new(objectSerializer, entityShapeProvider);
             Dictionary<Type, MessagePackConverter> converters = new(capacity: allTypes.Count);
             foreach (var item in ComputeKnownTypeSet(allTypes))
             {
@@ -48,9 +49,9 @@ namespace OpenRiaServices.Client.DomainClients.MessagePack.Converters
                 if (knownTypes.Count <= 1)
                     continue;
 
-                converters.Add(item.Key, (MessagePackConverter)Activator.CreateInstance(typeof(ObjectConverter<>).MakeGenericType(item.Key), [knownTypes, entityShapeProvider, objectSerializer])!);
+                converters.Add(item.Key, (MessagePackConverter)Activator.CreateInstance(typeof(ObjectConverter<>).MakeGenericType(item.Key), [knownTypes, converterProvider])!);
             }
-            converters.Add(typeof(object), new ObjectConverter<object>(allTypes, entityShapeProvider, objectSerializer));
+            converters.Add(typeof(object), new ObjectConverter<object>(allTypes, converterProvider));
 
             _converters = converters.ToFrozenDictionary();
             _entityShapeProvider = entityShapeProvider;
